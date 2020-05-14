@@ -6,5 +6,3 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY . .
 # install app dependencies
 RUN yarn install
-# start app
-CMD ["yarn", "start"]
