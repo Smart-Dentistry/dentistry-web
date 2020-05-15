@@ -100,8 +100,17 @@ docker-compose exec web sh
 docker-compose exec web yarn test
 ```
 
+#### Format files using standard
+
+[Standard JS][] is used for styling code:
+
+```bash
+docker-compose exec web yarn lint:fix
+```
+
 
 [Ant Design]: https://ant.design/
 [Docker]: https://docs.docker.com/get-docker/
 [Git]: https://git-scm.com/downloads
 [React]: https://reactjs.org/
+[Standard JS]: https://standardjs.com/

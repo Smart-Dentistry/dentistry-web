@@ -15,7 +15,10 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint --fix src/**/*.js",
+    "test:all": "CI=true yarn test && yarn lint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,6 +38,18 @@
   "devDependencies": {
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
     "react-app-rewired": "^2.1.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "docker-compose exec -T web yarn lint:fix",
+      "pre-push": "docker-compose exec -T web yarn test:all"
+    }
   }
 }
