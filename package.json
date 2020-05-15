@@ -48,8 +48,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "docker-compose exec -T web yarn lint:fix",
-      "pre-push": "docker-compose exec -T web yarn test:all"
+      "pre-commit": "yarn lint:fix",
+      "pre-push": "yarn test:all"
     }
   }
 }
