@@ -6,7 +6,7 @@ import './App.css'
 
 function App () {
   const [{ data, loading, error }] = useAxios(
-    'http://localhost:8000/api/users/'
+    `${process.env.REACT_APP_API_URL}/users/`
   )
   const [users, setUsers] = useState([])
 
