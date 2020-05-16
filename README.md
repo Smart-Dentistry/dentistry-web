@@ -20,7 +20,15 @@ Clone this repo and navigate inside its root directory:
 git clone https://github.com/Smart-Dentistry/dentistry-web.git && cd dentistry-web
 ```
 
-### Start server
+### Installing dependencies
+
+To install the project's dependencies run:
+
+```bash
+yarn install
+```
+
+### Starting server
 
 ```bash
 yarn start
@@ -30,13 +38,13 @@ You are all set 🎉. Navigate to http://localhost:3000/ to see the project's ho
 
 ## Useful commands
 
-### Run tests
+### Running tests
 
 ```bash
 yarn test
 ```
 
-### Format files using standard
+### Formatting files using standard
 
 [Standard JS][] is used for styling code:
 
