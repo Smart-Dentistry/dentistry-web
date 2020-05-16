@@ -52,6 +52,21 @@ yarn test
 yarn lint:fix
 ```
 
+## Environment Variables
+
+### `.env` file
+
+Create a file `.env` in the root of this project.
+
+### Variables
+
+The following variables should be defined inside `.env`:
+
+|         Variable       |             Value           |
+| ---------------------- | --------------------------- |
+|`REACT_APP_API_URL`     | http://localhost:8000/api   |
+
+
 
 [Ant Design]: https://ant.design/
 [Git]: https://git-scm.com/downloads
