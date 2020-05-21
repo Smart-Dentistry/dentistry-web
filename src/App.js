@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { DatePicker } from 'antd'
-import useAxios from 'axios-hooks'
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import Home from './Home'
+import Admin from './admin/Admin'
 
 import './App.css'
 
 function App () {
-  const [{ data, loading, error }] = useAxios(
-    `${process.env.REACT_APP_API_URL}/users/`
-  )
-  const [users, setUsers] = useState([])
-
-  useEffect(() => { if (data) setUsers(data) }, [data])
-
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error!</p>
-
   return (
-    <>
-      <h1>Dentistry Web UI</h1>
-      <DatePicker />
-      <ul>
-        {users.map(user => <li key={user.id}>{user.username} - {user.email}</li>)}
-      </ul>
-    </>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/admin' component={Admin} />
+      <Route render={() => <h2>404 Page Not Found</h2>}/>
+    </Switch>
   )
 }
 
