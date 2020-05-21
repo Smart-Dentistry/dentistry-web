@@ -14,6 +14,13 @@ import {
 const { Sider } = Layout
 
 const Sidebar = ({ onCollapse, collapsed }) => {
+  const items = [
+    { key: '1', icon: faChartLine, label: 'Dashboard' },
+    { key: '2', icon: faCalendar, label: 'Calendar' },
+    { key: '3', icon: faUsers, label: 'Patients' },
+    { key: '4', icon: faFileInvoiceDollar, label: 'Billing' },
+    { key: '5', icon: faUserMd, label: 'Users' }
+  ]
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
       {collapsed ? (
@@ -27,21 +34,11 @@ const Sidebar = ({ onCollapse, collapsed }) => {
         </h3>
       )}
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <Menu.Item key="1" icon={<FontAwesomeIcon icon={faChartLine} style={{ minWidth: '18px' }} />}>
-          {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Dashboard</span>}
-        </Menu.Item>
-        <Menu.Item key="2" icon={<FontAwesomeIcon icon={faCalendar} style={{ minWidth: '18px' }} />}>
-          {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Calendar</span>}
-        </Menu.Item>
-        <Menu.Item key="3" icon={<FontAwesomeIcon icon={faUsers} style={{ minWidth: '18px' }} />}>
-          {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Patients</span>}
-        </Menu.Item>
-        <Menu.Item key="4" icon={<FontAwesomeIcon icon={faFileInvoiceDollar} style={{ minWidth: '18px' }} />}>
-          {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Billing</span>}
-        </Menu.Item>
-        <Menu.Item key="5" icon={<FontAwesomeIcon icon={faUserMd} style={{ minWidth: '18px' }} />}>
-          {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Users</span>}
-        </Menu.Item>
+        { items.map((item) => (
+          <Menu.Item key={item.key} icon={<FontAwesomeIcon icon={item.icon} style={{ minWidth: '18px' }} />}>
+            {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>{item.label}</span>}
+          </Menu.Item>
+        )) }
       </Menu>
     </Sider>
   )
