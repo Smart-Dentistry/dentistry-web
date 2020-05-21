@@ -20,7 +20,7 @@ const Admin = () => {
             <Breadcrumb.Item>Patients</Breadcrumb.Item>
           </Breadcrumb>
           <Switch>
-            <Route exact path='/admin' render={() => (<Redirect to='/admin/patients' />)} />
+            <Route exact path='/admin' render={() => (<Redirect to='/admin/dashboard' />)} />
             <Route path='/admin/patients' component={Patients} />
             <Route render={() => <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>Under construction...</div>}/>
           </Switch>

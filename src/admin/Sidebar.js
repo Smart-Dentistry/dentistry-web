@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Layout, Menu } from 'antd'
 import PropTypes from 'prop-types'
@@ -14,17 +15,23 @@ import {
 const { Sider } = Layout
 
 const Sidebar = () => {
+  const history = useHistory()
   const [collapsed, setCollapsed] = useState(false)
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
   }
   const items = [
-    { key: '1', icon: faChartLine, label: 'Dashboard' },
-    { key: '2', icon: faCalendar, label: 'Calendar' },
-    { key: '3', icon: faUsers, label: 'Patients' },
-    { key: '4', icon: faFileInvoiceDollar, label: 'Billing' },
-    { key: '5', icon: faUserMd, label: 'Users' }
+    { key: '1', icon: faChartLine, label: 'Dashboard', path: '/admin/dashboard' },
+    { key: '2', icon: faCalendar, label: 'Calendar', path: '/admin/calendar' },
+    { key: '3', icon: faUsers, label: 'Patients', path: '/admin/patients' },
+    { key: '4', icon: faFileInvoiceDollar, label: 'Billing', path: '/admin/billing' },
+    { key: '5', icon: faUserMd, label: 'Users', path: '/admin/users' }
   ]
+  const onClickMenu = (item) => {
+    const clicked = items.find(_item => _item.key === item.key)
+    history.push(clicked.path)
+  }
+
   return (
     <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
       {collapsed ? (
@@ -37,7 +44,7 @@ const Sidebar = () => {
           <span style={{ fontWeight: 'bold' }}>Smart Dentistry</span>
         </h3>
       )}
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={onClickMenu}>
         { items.map((item) => (
           <Menu.Item key={item.key} icon={<FontAwesomeIcon icon={item.icon} style={{ minWidth: '18px' }} />}>
             {collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>{item.label}</span>}
