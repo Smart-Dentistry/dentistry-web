@@ -9,7 +9,7 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 
-import './Admin.css'
+import './Admin.sass'
 
 const { Header, Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
