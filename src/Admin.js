@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,6 +10,7 @@ import {
   faFileInvoiceDollar,
   faUserMd
 } from '@fortawesome/free-solid-svg-icons'
+import Patients from './Patients'
 
 import './Admin.sass'
 
@@ -56,14 +58,15 @@ const Admin = () => {
         <Header className="site-layout-background" style={{ padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            <Breadcrumb.Item>Patients</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            Bill is a cat.
-          </div>
+          <Switch>
+            <Route exact path='/admin' render={() => (<Redirect to='/admin/patients' />)} />
+            <Route path='/admin/patients' component={Patients} />
+            <Route render={() => <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>Under construction...</div>}/>
+          </Switch>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>Smart Dentistry ©2020 powered by Mathsistor</Footer>
       </Layout>
     </Layout>
   )
