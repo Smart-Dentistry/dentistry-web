@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTooth } from '@fortawesome/free-solid-svg-icons'
 
 import {
   DesktopOutlined,
@@ -24,7 +26,16 @@ const Admin = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className="logo" />
+        { collapsed ? (
+          <h3 style={{ fontSize: '2rem', paddingTop: '0.5rem', textAlign: 'center' }}>
+            <FontAwesomeIcon icon={faTooth} style={{ color: 'white' }} />
+          </h3>
+        ) : (
+          <h3 style={{ color: 'white', padding: '0.5rem', fontSize: '1.25rem' }}>
+            <FontAwesomeIcon icon={faTooth} style={{ color: 'white', marginRight: '0.5rem' }} />
+            <span style={{ fontWeight: 'bold' }}>Smart Dentistry</span>
+          </h3>
+        )}
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" icon={<PieChartOutlined />}>
             Option 1
