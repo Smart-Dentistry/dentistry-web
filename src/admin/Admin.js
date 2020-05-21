@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Layout, Breadcrumb } from 'antd'
 
@@ -10,15 +10,9 @@ import './Admin.sass'
 const { Header, Content, Footer } = Layout
 
 const Admin = () => {
-  const [collapsed, setCollapsed] = useState(false)
-
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed)
-  }
-
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sidebar onCollapse={ onCollapse } collapsed={collapsed} />
+      <Sidebar/>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>

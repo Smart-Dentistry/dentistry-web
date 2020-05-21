@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Layout, Menu } from 'antd'
 import PropTypes from 'prop-types'
@@ -13,7 +13,11 @@ import {
 
 const { Sider } = Layout
 
-const Sidebar = ({ onCollapse, collapsed }) => {
+const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false)
+  const onCollapse = collapsed => {
+    setCollapsed(collapsed)
+  }
   const items = [
     { key: '1', icon: faChartLine, label: 'Dashboard' },
     { key: '2', icon: faCalendar, label: 'Calendar' },
