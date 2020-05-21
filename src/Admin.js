@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTooth } from '@fortawesome/free-solid-svg-icons'
-
 import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined
-} from '@ant-design/icons'
+  faTooth,
+  faChartLine,
+  faCalendar,
+  faUsers,
+  faFileInvoiceDollar,
+  faUserMd
+} from '@fortawesome/free-solid-svg-icons'
 
 import './Admin.sass'
 
 const { Header, Content, Footer, Sider } = Layout
-const { SubMenu } = Menu
 
 const Admin = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -37,22 +35,21 @@ const Admin = () => {
           </h3>
         )}
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            Option 1
+          <Menu.Item key="1" icon={<FontAwesomeIcon icon={faChartLine} style={{ minWidth: '18px' }}/>}>
+            { collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Dashboard</span> }
           </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            Option 2
+          <Menu.Item key="2" icon={<FontAwesomeIcon icon={faCalendar} style={{ minWidth: '18px' }}/>}>
+            { collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Calendar</span> }
           </Menu.Item>
-          <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-          </SubMenu>
-          <Menu.Item key="9" icon={<FileOutlined />} />
+          <Menu.Item key="3" icon={<FontAwesomeIcon icon={faUsers} style={{ minWidth: '18px' }}/>}>
+            { collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Patients</span> }
+          </Menu.Item>
+          <Menu.Item key="4" icon={<FontAwesomeIcon icon={faFileInvoiceDollar} style={{ minWidth: '18px' }}/>}>
+            { collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Billing</span> }
+          </Menu.Item>
+          <Menu.Item key="5" icon={<FontAwesomeIcon icon={faUserMd} style={{ minWidth: '18px' }}/>}>
+            { collapsed ? null : <span style={{ marginLeft: '0.75rem' }}>Users</span> }
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
