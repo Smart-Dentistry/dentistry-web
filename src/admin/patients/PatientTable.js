@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Button, Space } from 'antd'
+import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const PatientTable = () => {
+  const history = useHistory()
   const [{ data, loading, error }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/patients/`
   })
@@ -49,7 +51,7 @@ const PatientTable = () => {
 
   return (
     <Space direction='vertical' style={{ width: '100%' }}>
-      <Button type="primary">
+      <Button type="primary" onClick={() => history.push('/admin/patients/create') }>
         <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
         New Patient
       </Button>
