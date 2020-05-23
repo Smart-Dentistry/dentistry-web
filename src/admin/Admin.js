@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Layout, Breadcrumb } from 'antd'
 
-import Patients from './Patients'
+import Patients from './patients/Patients'
 import Sidebar from './Sidebar'
 
 import './Admin.sass'
