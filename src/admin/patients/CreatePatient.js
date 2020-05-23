@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import { Steps, Form, Input, InputNumber, Button, Upload, message } from 'antd'
+import { Steps, Form, Input, InputNumber, Button, Upload, message, Row, Col } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 const { Step } = Steps
+
+const inputLayout = {
+  wrapperCol: { span: 8 }
+}
 
 const validateMessages = {
   // eslint-disable-next-line
@@ -84,12 +88,18 @@ const CreatePatient = () => {
             {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
           </Upload>
         </Form.Item>
-        <Form.Item name='name' label="Name" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name='email' label="Email" rules={[{ type: 'email' }]}>
-          <Input />
-        </Form.Item>
+        <Row>
+          <Col span={12}>
+            <Form.Item {...inputLayout} name='firstName' label="First Name" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item {...inputLayout} name='middleName' label="Middle Name">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item name='age' label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
           <InputNumber />
         </Form.Item>
