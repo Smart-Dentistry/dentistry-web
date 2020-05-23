@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Steps, Form, Input, InputNumber, Button, Upload, message, Row, Col } from 'antd'
+import { Steps, Form, Input, Button, Upload, message, Row, Col } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 const { Step } = Steps
@@ -100,15 +100,18 @@ const CreatePatient = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item name='age' label="Age" rules={[{ type: 'number', min: 0, max: 99 }]}>
-          <InputNumber />
-        </Form.Item>
-        <Form.Item name='website' label="Website">
-          <Input />
-        </Form.Item>
-        <Form.Item name='introduction' label="Introduction">
-          <Input.TextArea />
-        </Form.Item>
+        <Row>
+          <Col offset={6} span={6}>
+            <Form.Item {...inputLayout} name='lastName' label="Last Name" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item {...inputLayout} name='secondLastName' label="Second Last Name">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
