@@ -40,8 +40,8 @@ const Patients = () => {
     },
     {
       title: 'Age',
-      dataIndex: 'birthdate',
-      key: 'birthdate'
+      dataIndex: 'age',
+      key: 'age'
     }
   ]
 
