@@ -1,8 +1,23 @@
 import React, { useState } from 'react'
-import { Steps, Form, Input, Button, Upload, message, Row, Col } from 'antd'
+import {
+  Steps,
+  Form,
+  Input,
+  Button,
+  Upload,
+  message,
+  Row,
+  Col,
+  Select,
+  DatePicker,
+  Checkbox
+} from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
+import './CreatePatient.sass'
+
 const { Step } = Steps
+const { Option } = Select
 
 const inputLayout = {
   wrapperCol: { span: 24 }
@@ -79,7 +94,7 @@ const CreatePatient = () => {
       <Form layout="vertical" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
         <Row justify="center">
           <Col>
-            <Form.Item name='profilePicture' label="Photo" rules={[{ required: true }]}>
+            <Form.Item name='profilePicture' label="Photo">
               <Upload
                 name="profilePicture"
                 listType="picture-card"
@@ -116,11 +131,135 @@ const CreatePatient = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='idDocumentNumber' label="ID" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='sex' label="Sex" rules={[{ required: true }]}>
+              <Select>
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='jobTitle' label="Job Title">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='maritalStatus' label="Marital Status" rules={[{ required: true }]}>
+              <Select>
+                <Option value="SI">Single</Option>
+                <Option value="MA">Married</Option>
+                <Option value="DI">Divorced</Option>
+                <Option value="WI">Widowed</Option>
+                <Option value="DP">Domestic Partnership</Option>
+                <Option value="NS">Not Specified</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='birthdate' label="Birthdate" rules={[{ required: true }]}>
+              <DatePicker />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='countryOfResidence' label="Country of Residence" rules={[{ required: true }]}>
+              <Select defaultValue="E">
+                <Option value="E">Ecuador</Option>
+                <Option value="A">Abroad</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={12}>
+            <Form.Item {...inputLayout} name='address' label="Address">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='province' label="Province" rules={[{ required: true }]}>
+              <Select defaultValue="0">
+                <Option value="0">Azuay</Option>
+                <Option value="1">Cañar</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='city' label="City" rules={[{ required: true }]}>
+              <Select defaultValue="0">
+                <Option value="0">Cuenca</Option>
+                <Option value="1">Sigsig</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='phone' label="Phone" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='whatsapp' label='WhatsApp'>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>WhatsApp</span></Checkbox>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='healthInsuranceCompany' label="Health Insurance Company">
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='email' label="Email" rules={[{ type: 'email' }]}>
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='receivePromos' label="Receive Promos" rules={[{ required: true }]}>
+              <Select defaultValue="0">
+                <Option value="0">Yes</Option>
+                <Option value="1">No</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={5}>
+            <Form.Item {...inputLayout} name='referralSource' label="Referral Source" rules={[{ required: true }]}>
+              <Select>
+                <Option value="P">Personal Reference</Option>
+                <Option value="S">Social Media</Option>
+                <Option value="O">Other</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} />
+          <Col span={6}>
+            <Row justify="end">
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Row>
+          </Col>
+        </Row>
       </Form>
     </>
   )
