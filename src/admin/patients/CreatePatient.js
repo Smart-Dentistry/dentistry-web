@@ -5,7 +5,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 const { Step } = Steps
 
 const inputLayout = {
-  wrapperCol: { span: 8 }
+  wrapperCol: { span: 20 }
 }
 
 const validateMessages = {
@@ -89,12 +89,12 @@ const CreatePatient = () => {
           </Upload>
         </Form.Item>
         <Row>
-          <Col span={12}>
+          <Col offset={6} span={6}>
             <Form.Item {...inputLayout} name='firstName' label="First Name" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={6}>
             <Form.Item {...inputLayout} name='middleName' label="Middle Name">
               <Input />
             </Form.Item>
