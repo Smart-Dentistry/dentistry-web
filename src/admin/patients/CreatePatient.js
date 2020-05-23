@@ -1,8 +1,14 @@
 import React from 'react'
+import { Steps } from 'antd'
+
+const { Step } = Steps
 
 const CreatePatient = () => {
   return (
-    <h1>Create Patient</h1>
+    <Steps current={0}>
+      <Step title="Title to decide" description="This is a description." />
+      <Step title="Another title to decide" description="This is a description." />
+    </Steps>
   )
 }
 
