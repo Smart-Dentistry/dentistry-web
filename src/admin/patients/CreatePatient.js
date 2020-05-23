@@ -5,7 +5,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 const { Step } = Steps
 
 const inputLayout = {
-  wrapperCol: { span: 20 }
+  wrapperCol: { span: 24 }
 }
 
 const validateMessages = {
@@ -77,36 +77,40 @@ const CreatePatient = () => {
         <Step title="Another title to decide" description="This is a description." />
       </Steps>
       <Form layout="vertical" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-        <Form.Item name='profilePicture' label="Photo" rules={[{ required: true }]}>
-          <Upload
-            name="profilePicture"
-            listType="picture-card"
-            showUploadList={false}
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
-        </Form.Item>
+        <Row justify="center">
+          <Col>
+            <Form.Item name='profilePicture' label="Photo" rules={[{ required: true }]}>
+              <Upload
+                name="profilePicture"
+                listType="picture-card"
+                showUploadList={false}
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+              </Upload>
+            </Form.Item>
+          </Col>
+        </Row>
         <Row>
-          <Col offset={6} span={6}>
+          <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='firstName' label="First Name" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='middleName' label="Middle Name">
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row>
-          <Col offset={6} span={6}>
+          <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='lastName' label="Last Name" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='secondLastName' label="Second Last Name">
               <Input />
             </Form.Item>
