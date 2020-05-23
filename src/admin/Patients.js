@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Table } from 'antd'
+import { Table, Button, Space } from 'antd'
 import useAxios from 'axios-hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({
@@ -46,11 +48,17 @@ const Patients = () => {
   ]
 
   return (
-    <Table
-      columns={columns}
-      dataSource={patients}
-      pagination={{ defaultCurrent: 1, defaultPageSize: 10, hideOnSinglePage: true }}
-    />
+    <Space direction='vertical' style={{ width: '100%' }}>
+      <Button type="primary">
+        <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
+        New Patient
+      </Button>
+      <Table
+        columns={columns}
+        dataSource={patients}
+        pagination={{ defaultCurrent: 1, defaultPageSize: 10, hideOnSinglePage: true }}
+      />
+    </Space>
   )
 }
 
