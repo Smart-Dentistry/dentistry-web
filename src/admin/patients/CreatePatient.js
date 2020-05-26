@@ -13,6 +13,7 @@ import {
   Checkbox
 } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+// import useAxios from 'axios-hooks'
 
 import './CreatePatient.sass'
 
@@ -59,9 +60,47 @@ const beforeUpload = file => {
 const CreatePatient = () => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState()
+  // const [, createPatient] = useAxios(
+  //   {
+  //     url: `${process.env.REACT_APP_API_URL}/patients/`,
+  //     method: 'post'
+  //   },
+  //   { manual: true }
+  // )
 
   const onFinish = values => {
     console.log(values)
+    const birthdate = values.birthdate.format('YYYY-MM-DD')
+    const patient = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      idDocumentNumber: values.idDocumentNumber,
+      sex: values.sex,
+      jobTitle: values.jobTitle,
+      maritalStatus: values.maritalStatus,
+      birthdate,
+      phone: values.phone,
+      whatsapp: values.whatsapp,
+      healthInsuranceCompany: values.healthInsuranceCompany,
+      email: values.email,
+      receivePromos: values.receivePromos,
+      referralSource: values.referralSource
+    }
+    console.log(patient)
+    // try {
+    //   const { data } = await createPatient({ data: patient })
+    //   createdPatient = data
+    // } catch (error) {
+    //   message.error('There was an error, please try again.')
+    //   console.log(error)
+    //   return
+    // }
+    // message.success({ content: `Patient ${createPatient.firstName} ${createPatient.lastName} was created sucessfully`, duration: 3 })
+    // history.push('/admin/patients')
+  }
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo)
   }
 
   const handleChange = info => {
@@ -81,179 +120,126 @@ const CreatePatient = () => {
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div className="ant-upload-text">Upload</div>
+      <div className='ant-upload-text'>Upload</div>
     </div>
   )
 
   return (
     <>
       <Steps current={0}>
-        <Step title="Title to decide" description="This is a description." />
-        <Step title="Another title to decide" description="This is a description." />
+        <Step title='Personal Information' />
+        <Step title='Contact Information' />
+        <Step title='Background Information' />
       </Steps>
-      <Form layout="vertical" name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-        <Row justify="center">
+      <Form
+        layout='vertical'
+        name='nest-messages'
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        validateMessages={validateMessages}
+      >
+        <Row justify='center'>
           <Col>
-            <Form.Item name='profilePicture' label="Photo">
+            <Form.Item name='profilePicture' label='Photo'>
               <Upload
-                name="profilePicture"
-                listType="picture-card"
+                name='profilePicture'
+                listType='picture-card'
                 showUploadList={false}
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
               >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton}
               </Upload>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='firstName' label="First Name" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='firstName' label='First Name' rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='middleName' label="Middle Name">
+            <Form.Item {...inputLayout} name='middleName' label='Middle Name'>
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='lastName' label="Last Name" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='lastName' label='Last Name' rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='secondLastName' label="Second Last Name">
+            <Form.Item {...inputLayout} name='secondLastName' label='Second Last Name'>
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='idDocumentNumber' label="ID" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='idDocumentNumber' label='ID' rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='sex' label="Sex" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='sex' label='Sex' rules={[{ required: true }]}>
               <Select>
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
+                <Option value='male'>Male</Option>
+                <Option value='female'>Female</Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='jobTitle' label="Job Title">
+            <Form.Item {...inputLayout} name='jobTitle' label='Job Title'>
               <Input />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='maritalStatus' label="Marital Status" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='maritalStatus' label='Marital Status' rules={[{ required: true }]}>
               <Select>
-                <Option value="SI">Single</Option>
-                <Option value="MA">Married</Option>
-                <Option value="DI">Divorced</Option>
-                <Option value="WI">Widowed</Option>
-                <Option value="DP">Domestic Partnership</Option>
-                <Option value="NS">Not Specified</Option>
+                <Option value='SI'>Single</Option>
+                <Option value='MA'>Married</Option>
+                <Option value='DI'>Divorced</Option>
+                <Option value='WI'>Widowed</Option>
+                <Option value='DP'>Domestic Partnership</Option>
+                <Option value='NS'>Not Specified</Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='birthdate' label="Birthdate" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='birthdate' label='Birthdate' rules={[{ required: true }]}>
               <DatePicker />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='countryOfResidence' label="Country of Residence" rules={[{ required: true }]}>
-              <Select defaultValue="E">
-                <Option value="E">Ecuador</Option>
-                <Option value="A">Abroad</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            <Form.Item {...inputLayout} name='address' label="Address">
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='province' label="Province" rules={[{ required: true }]}>
-              <Select defaultValue="0">
-                <Option value="0">Azuay</Option>
-                <Option value="1">Cañar</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='city' label="City" rules={[{ required: true }]}>
-              <Select defaultValue="0">
-                <Option value="0">Cuenca</Option>
-                <Option value="1">Sigsig</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='phone' label="Phone" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='whatsapp' label='WhatsApp'>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>WhatsApp</span></Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='healthInsuranceCompany' label="Health Insurance Company">
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='email' label="Email" rules={[{ type: 'email' }]}>
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='receivePromos' label="Receive Promos" rules={[{ required: true }]}>
-              <Select defaultValue="0">
-                <Option value="0">Yes</Option>
-                <Option value="1">No</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='referralSource' label="Referral Source" rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='referralSource' label='Referral Source' rules={[{ required: true }]}>
               <Select>
-                <Option value="P">Personal Reference</Option>
-                <Option value="S">Social Media</Option>
-                <Option value="O">Other</Option>
+                <Option value='P'>Personal Reference</Option>
+                <Option value='S'>Social Media</Option>
+                <Option value='O'>Other</Option>
               </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='whatsapp' label='Receive Promos'>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col span={12} />
           <Col span={6}>
-            <Row justify="end">
+            <Row justify='end'>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type='primary' htmlType='submit'>
                   Submit
                 </Button>
               </Form.Item>
