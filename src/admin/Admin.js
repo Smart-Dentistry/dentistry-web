@@ -19,10 +19,12 @@ const Admin = () => {
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Patients</Breadcrumb.Item>
           </Breadcrumb>
-          <Switch>
-            <Route exact path='/admin' render={() => (<Redirect to='/admin/dashboard' />)} />
-            <Route path='/admin/:page' component={AdminContent} />
-          </Switch>
+          <div className='site-layout-background' style={{ padding: 24, minHeight: 360 }}>
+            <Switch>
+              <Route exact path='/admin' render={() => (<Redirect to='/admin/dashboard' />)} />
+              <Route path='/admin/:page' component={AdminContent} />
+            </Switch>
+          </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Smart Dentistry ©2020 powered by Mathsistor</Footer>
       </Layout>

@@ -7,7 +7,7 @@ const AdminContent = () => {
   return (
     <Switch>
       <Route path='/admin/patients' component={Patients} />
-      <Route render={() => <div className='site-layout-background' style={{ padding: 24, minHeight: 360 }}>Under construction...</div>} />
+      <Route render={() => <div>Under construction...</div>} />
     </Switch>
   )
 }
