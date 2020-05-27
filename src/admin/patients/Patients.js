@@ -1,13 +1,14 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import PatientTable from './PatientTable'
 import CreatePatient from './CreatePatient'
 
 const Patients = () => {
   return (
     <Switch>
-      <Route path='/admin/patients/create' component={CreatePatient} />
-      <Route path='/admin/patients' component={PatientTable} />
+      <Route exact path='/admin/patients/create' component={CreatePatient} />
+      <Route exact path='/admin/patients' component={PatientTable} />
+      <Route render={() => <Redirect to='/404' />} />
     </Switch>
   )
 }
