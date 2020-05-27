@@ -25,11 +25,14 @@ const Sidebar = () => {
   const location = useLocation()
   const history = useHistory()
   const [collapsed, setCollapsed] = useState(false)
-  const selectedItem = () => items.find(item => location.pathname.startsWith(item.path))
-  const [selectedKey, setSelectedKey] = useState(selectedItem().key)
+  const computeSelected = () => {
+    const selected = items.find(_item => location.pathname.startsWith(_item.path))
+    return selected ? selected.key : null
+  }
+  const [selectedKey, setSelectedKey] = useState(computeSelected())
 
   useEffect(() => {
-    setSelectedKey(selectedItem().key)
+    setSelectedKey(computeSelected())
   }, [location])
 
   const onCollapse = collapsed => {
