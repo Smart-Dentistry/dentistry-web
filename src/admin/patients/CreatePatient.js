@@ -17,7 +17,7 @@ const CreatePatient = () => {
 
   return (
     <>
-      <Steps current={0}>
+      <Steps current={0} style={{ marginBottom: '2rem' }}>
         <Step title='Personal Information' />
         <Step title='Contact Information' />
         <Step title='Background Information' />
