@@ -11,6 +11,7 @@ import {
   Checkbox,
   message
 } from 'antd'
+import axios from 'axios'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
 const { Option } = Select
@@ -56,6 +57,29 @@ const PersonalInformationForm = () => {
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
+  }
+
+  const uploadImage = async options => {
+    const { onSuccess, onError, file } = options
+
+    const fmData = new FormData()
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' }
+    }
+    fmData.append('image', file)
+    try {
+      const res = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        fmData,
+        config
+      )
+
+      onSuccess('Ok')
+      console.log('server res: ', res)
+    } catch (err) {
+      console.log('Eroor: ', err)
+      onError({ err })
+    }
   }
 
   const handleChange = info => {
@@ -106,7 +130,7 @@ const PersonalInformationForm = () => {
             name='profilePicture'
             listType='picture-card'
             showUploadList={false}
-            action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+            customRequest={uploadImage}
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
