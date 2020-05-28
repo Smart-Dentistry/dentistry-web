@@ -52,7 +52,7 @@ const beforeUpload = file => {
 }
 
 const PersonalInformationForm = () => {
-  const [loading, setLoading] = useState(false)
+  const [loadingImage, setLoadingImage] = useState(false)
   const [imageUrl, setImageUrl] = useState()
 
   const onFinishFailed = errorInfo => {
@@ -61,44 +61,58 @@ const PersonalInformationForm = () => {
 
   const uploadImage = async options => {
     const { onSuccess, onError, file } = options
-
-    const fmData = new FormData()
+    const contentType = file.type
     const config = {
-      headers: { 'content-type': 'multipart/form-data' }
+      params: {
+        Key: file.name,
+        ContentType: contentType
+      },
+      headers: {
+        'Content-Type': contentType
+      }
     }
-    fmData.append('image', file)
+    let response
     try {
-      const res = await axios.post(
-        'https://jsonplaceholder.typicode.com/posts',
-        fmData,
+      response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/get-presigned-url/`,
         config
       )
-
       onSuccess('Ok')
-      console.log('server res: ', res)
     } catch (err) {
-      console.log('Eroor: ', err)
       onError({ err })
+      return
     }
+    const { data } = response
+    const form = new FormData()
+    for (const [key, value] of Object.entries(data.fields)) {
+      form.append(key, value)
+    }
+    form.append('file', file)
+    try {
+      await axios.post(data.url, form)
+    } catch (err) {
+      console.log(err.response)
+    }
+    message.success('Profile image was uploaded successfully!')
   }
 
   const handleChange = info => {
     if (info.file.status === 'uploading') {
-      setLoading(true)
+      setLoadingImage(true)
       return
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
         setImageUrl(imageUrl)
-        setLoading(false)
+        setLoadingImage(false)
       })
     }
   }
 
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      {loadingImage ? <LoadingOutlined /> : <PlusOutlined />}
       <div className='ant-upload-text'>Upload Photo</div>
     </div>
   )
