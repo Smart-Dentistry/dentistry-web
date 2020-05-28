@@ -77,8 +77,9 @@ const PersonalInformationForm = () => {
         `${process.env.REACT_APP_API_URL}/get-presigned-url/`,
         config
       )
-      onSuccess('Ok')
     } catch (err) {
+      message.error('Profile image was not uploaded. Please try again.')
+      setLoadingImage(false)
       onError({ err })
       return
     }
@@ -91,9 +92,11 @@ const PersonalInformationForm = () => {
     try {
       await axios.post(data.url, form)
     } catch (err) {
-      console.log(err.response)
+      message.error('Profile image was not uploaded. Please try again.')
+      setLoadingImage(false)
+      onError({ err })
     }
-    message.success('Profile image was uploaded successfully!')
+    onSuccess('Ok')
   }
 
   const handleChange = info => {
