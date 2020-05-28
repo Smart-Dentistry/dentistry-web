@@ -2,6 +2,7 @@ import React from 'react'
 import { Steps } from 'antd'
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
+import BackgroundForm from './BackgroundForm'
 
 import './CreatePatient.sass'
 
@@ -25,6 +26,7 @@ const CreatePatient = () => {
       </Steps>
       <PersonalInformationForm />
       <ContactInformationForm />
+      <BackgroundForm />
     </>
   )
 }
