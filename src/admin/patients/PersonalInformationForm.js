@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {
   Form,
   Input,
-  Button,
   Upload,
   Row,
   Col,
@@ -242,18 +241,6 @@ const PersonalInformationForm = () => {
             <Form.Item {...inputLayout} name='whatsapp' label='Receive Promos'>
               <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} />
-          <Col span={6}>
-            <Row justify='end'>
-              <Form.Item>
-                <Button type='primary' htmlType='submit'>
-                    Submit
-                </Button>
-              </Form.Item>
-            </Row>
           </Col>
         </Row>
       </Form>
