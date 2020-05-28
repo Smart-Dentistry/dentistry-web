@@ -60,6 +60,7 @@ const PersonalInformationForm = () => {
   }
 
   const uploadImage = async options => {
+    setImageUrl(null)
     const { onSuccess, onError, file } = options
     const contentType = file.type
     const config = {
