@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Table, Button, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
+import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const PatientTable = () => {
+  const { t } = useTranslation()
   const history = useHistory()
   const [{ data, loading, error }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/patients/`
@@ -18,7 +20,7 @@ const PatientTable = () => {
 
   const columns = [
     {
-      title: 'Name',
+      title: t('Name'),
       dataIndex: 'firstName',
       key: 'firstName'
     },
