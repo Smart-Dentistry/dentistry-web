@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Layout, Breadcrumb } from 'antd'
 
@@ -10,10 +10,11 @@ import './Admin.sass'
 const { Header, Content, Footer } = Layout
 
 const Admin = () => {
+  const [layoutWidth, setLayoutWidth] = useState('200px')
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sidebar />
-      <Layout className='site-layout'>
+      <Sidebar setLayoutWidth={setLayoutWidth} />
+      <Layout className='site-layout' style={{ paddingLeft: layoutWidth }}>
         <Header className='site-layout-background' style={{ padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>

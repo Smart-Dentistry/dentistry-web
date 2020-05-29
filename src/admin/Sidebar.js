@@ -21,7 +21,7 @@ const items = [
   { key: '5', icon: faUserMd, label: 'Users', path: '/admin/users' }
 ]
 
-const Sidebar = () => {
+const Sidebar = ({ setLayoutWidth }) => {
   const location = useLocation()
   const history = useHistory()
   const [collapsed, setCollapsed] = useState(false)
@@ -37,6 +37,7 @@ const Sidebar = () => {
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
+    setLayoutWidth(collapsed ? '80px' : '200px')
   }
   const onClickMenu = (item) => {
     const clicked = items.find(_item => _item.key === item.key)
@@ -44,7 +45,18 @@ const Sidebar = () => {
   }
 
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+      style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        zIndex: 1
+      }}
+    >
       {collapsed ? (
         <h3 style={{ fontSize: '2rem', paddingTop: '0.5rem', textAlign: 'center' }}>
           <FontAwesomeIcon icon={faTooth} style={{ color: 'white' }} />
@@ -67,8 +79,7 @@ const Sidebar = () => {
 }
 
 Sidebar.propTypes = {
-  collapsed: PropTypes.bool,
-  onCollapse: PropTypes.func
+  setLayoutWidth: PropTypes.func
 }
 
 export default Sidebar
