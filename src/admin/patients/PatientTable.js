@@ -55,7 +55,7 @@ const PatientTable = () => {
     <Space direction='vertical' style={{ width: '100%' }}>
       <Button type='primary' onClick={() => history.push('/admin/patients/create')}>
         <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
-        New Patient
+        {t('New Patient')}
       </Button>
       <Table
         columns={columns}

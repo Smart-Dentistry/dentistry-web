@@ -3,5 +3,6 @@
   "Last Name": "Apellido",
   "ID": "Cédula",
   "Phone": "Teléfono",
-  "Age": "Edad"
+  "Age": "Edad",
+  "New Patient": "Nuevo Paciente"
 }

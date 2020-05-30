@@ -1,3 +1,8 @@
 {
-    "Name": "Name"
+  "Name": "Name",
+  "Last Name": "Last Name",
+  "ID": "ID",
+  "Phone": "Phone",
+  "Age": "Age",
+  "New Patient": "New Patient"
 }
