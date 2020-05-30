@@ -12,6 +12,7 @@ import {
 } from 'antd'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
+import axios from 'axios'
 
 const { Option } = Select
 const { Title } = Typography
@@ -32,6 +33,7 @@ const validateMessages = {
 
 const ContactInformationForm = ({ prev, next }) => {
   const [provinces, setProvinces] = useState([])
+  const [cantons, setCantons] = useState([])
   const [{ data }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
   })
@@ -43,6 +45,17 @@ const ContactInformationForm = ({ prev, next }) => {
   const onFinish = values => {
     console.log('Finished')
     next()
+  }
+
+  const provinceOnChange = async value => {
+    let response
+    try {
+      response = await axios.get(`${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${value}/cantons/`)
+    } catch (error) {
+      console.log(error)
+      return
+    }
+    setCantons(response.data)
   }
 
   return (
@@ -68,7 +81,7 @@ const ContactInformationForm = ({ prev, next }) => {
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
-              <Select>
+              <Select onChange={provinceOnChange}>
                 {provinces.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
               </Select>
             </Form.Item>
@@ -76,8 +89,7 @@ const ContactInformationForm = ({ prev, next }) => {
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='canton' label='Canton' rules={[{ required: true }]}>
               <Select>
-                <Option value='A'>Cuenca</Option>
-                <Option value='C'>Canton 2</Option>
+                {cantons.map(canton => <Option key={canton.key} value={canton.key}>{canton.name}</Option>)}
               </Select>
             </Form.Item>
           </Col>
