@@ -26,10 +26,6 @@ const validateMessages = {
     email: '${label} is not validate email!',
     // eslint-disable-next-line
     number: '${label} is not a validate number!'
-  },
-  number: {
-    // eslint-disable-next-line
-    range: '${label} must be between ${min} and ${max}'
   }
 }
 
@@ -102,7 +98,7 @@ const ContactInformationForm = ({ prev, next }) => {
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='email' label='Email'>
+            <Form.Item {...inputLayout} name='email' label='Email' rules={[{ type: 'email' }]}>
               <Input />
             </Form.Item>
           </Col>
