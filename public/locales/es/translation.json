@@ -1,3 +1,7 @@
 {
-  "Name": "Nombre"
+  "Name": "Nombre",
+  "Last Name": "Apellido",
+  "ID": "Cédula",
+  "Phone": "Teléfono",
+  "Age": "Edad"
 }

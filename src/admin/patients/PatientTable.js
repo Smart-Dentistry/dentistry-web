@@ -25,12 +25,12 @@ const PatientTable = () => {
       key: 'firstName'
     },
     {
-      title: 'Last Name',
+      title: t('Last Name'),
       dataIndex: 'lastName',
       key: 'lastName'
     },
     {
-      title: 'ID',
+      title: t('ID'),
       dataIndex: 'idDocumentNumber',
       key: 'idDocumentNumber'
     },
@@ -40,12 +40,12 @@ const PatientTable = () => {
       key: 'email'
     },
     {
-      title: 'Phone',
+      title: t('Phone'),
       dataIndex: 'phone',
       key: 'phone'
     },
     {
-      title: 'Age',
+      title: t('Age'),
       dataIndex: 'age',
       key: 'age'
     }
