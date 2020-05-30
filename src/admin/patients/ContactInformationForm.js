@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Form,
+  Button,
   Row,
   Col,
   Select,
@@ -9,6 +10,7 @@ import {
   Typography,
   Switch
 } from 'antd'
+import PropTypes from 'prop-types'
 
 const { Option } = Select
 const { Title } = Typography
@@ -31,13 +33,14 @@ const validateMessages = {
   }
 }
 
-const ContactInformationForm = () => {
+const ContactInformationForm = ({ prev, next }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
 
   const onFinish = values => {
     console.log('Finished')
+    next()
   }
 
   return (
@@ -48,6 +51,7 @@ const ContactInformationForm = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
+        scrollToFirstError
       >
         <Row>
           <Col offset={6} span={5}>
@@ -151,9 +155,31 @@ const ContactInformationForm = () => {
             </Form.Item>
           </Col>
         </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Form.Item {...inputLayout} name='whatsapp' label='Receive Promos'>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={6}>
+            <Button type='primary' onClick={prev}>Previous</Button>
+          </Col>
+          <Col span={6}>
+            <Row justify='end'>
+              <Button type='primary' htmlType='submit'>Next</Button>
+            </Row>
+          </Col>
+        </Row>
       </Form>
     </>
   )
+}
+
+ContactInformationForm.propTypes = {
+  prev: PropTypes.func,
+  next: PropTypes.func
 }
 
 export default ContactInformationForm

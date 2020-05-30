@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Steps, Button, Row, Col } from 'antd'
+import { Steps } from 'antd'
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
 import BackgroundForm from './BackgroundForm'
@@ -33,31 +33,15 @@ const CreatePatient = () => {
       {(() => {
         switch (currentStep) {
           case 0:
-            return <PersonalInformationForm />
+            return <PersonalInformationForm next={next} />
           case 1:
-            return <ContactInformationForm />
+            return <ContactInformationForm prev={prev} next={next} />
           case 2:
-            return <BackgroundForm />
+            return <BackgroundForm prev={prev} />
           default:
             return 'Error!'
         }
       })()}
-      <Row>
-        <Col offset={6} span={6}>
-          {currentStep === 0 ? null : (
-            <Button type='primary' onClick={prev}>Previous</Button>
-          )}
-        </Col>
-        <Col span={6}>
-          <Row justify='end'>
-            {currentStep >= 0 && currentStep < 2 ? (
-              <Button type='primary' onClick={next}>Next</Button>
-            ) : (
-              <Button type='primary'>Create</Button>
-            )}
-          </Row>
-        </Col>
-      </Row>
     </>
   )
 }

@@ -9,6 +9,7 @@ import {
   Typography,
   Button
 } from 'antd'
+import PropTypes from 'prop-types'
 
 const { Option } = Select
 const { Title } = Typography
@@ -32,7 +33,7 @@ const validateMessages = {
   }
 }
 
-const BackgroundForm = () => {
+const BackgroundForm = ({ prev }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -131,9 +132,9 @@ const BackgroundForm = () => {
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='personalHistory' label=''>
               <Select
-                mode="multiple"
+                mode='multiple'
                 style={{ width: '100%' }}
-                placeholder="Please select"
+                placeholder='Please select'
                 onChange={handleChange}
               >
                 <Option value='E'>Diabetes</Option>
@@ -176,9 +177,23 @@ const BackgroundForm = () => {
             <Button type='primary' style={{ marginBottom: 25 }}>Add</Button>
           </Col>
         </Row>
+        <Row>
+          <Col offset={6} span={6}>
+            <Button type='primary' onClick={prev}>Previous</Button>
+          </Col>
+          <Col span={6}>
+            <Row justify='end'>
+              <Button type='primary' htmlType='submit'>Create</Button>
+            </Row>
+          </Col>
+        </Row>
       </Form>
     </>
   )
+}
+
+BackgroundForm.propTypes = {
+  prev: PropTypes.func
 }
 
 export default BackgroundForm

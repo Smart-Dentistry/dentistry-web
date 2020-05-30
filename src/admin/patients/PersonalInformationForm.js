@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   Form,
+  Button,
   Input,
   Upload,
   Row,
@@ -10,6 +11,7 @@ import {
   Checkbox,
   message
 } from 'antd'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 
@@ -50,7 +52,7 @@ const beforeUpload = file => {
   return isJpgOrPng && isLt2M
 }
 
-const PersonalInformationForm = () => {
+const PersonalInformationForm = ({ next }) => {
   const [loadingImage, setLoadingImage] = useState(false)
   const [imageUrl, setImageUrl] = useState()
 
@@ -138,6 +140,8 @@ const PersonalInformationForm = () => {
       referralSource: values.referralSource
     }
     console.log(patient)
+    next()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (
     <>
@@ -243,9 +247,21 @@ const PersonalInformationForm = () => {
             </Form.Item>
           </Col>
         </Row>
+        <Row>
+          <Col span={12} />
+          <Col span={6}>
+            <Row justify='end'>
+              <Button type='primary' htmlType='submit'>Next</Button>
+            </Row>
+          </Col>
+        </Row>
       </Form>
     </>
   )
+}
+
+PersonalInformationForm.propTypes = {
+  next: PropTypes.func
 }
 
 export default PersonalInformationForm
