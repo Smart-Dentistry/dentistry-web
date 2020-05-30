@@ -156,13 +156,6 @@ const ContactInformationForm = ({ prev, next }) => {
           </Col>
         </Row>
         <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='whatsapp' label='Receive Promos'>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
           <Col offset={6} span={6}>
             <Button type='primary' onClick={prev}>Previous</Button>
           </Col>
