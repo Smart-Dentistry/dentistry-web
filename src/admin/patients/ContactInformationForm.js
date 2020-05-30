@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Form,
   Button,
@@ -11,6 +11,7 @@ import {
   Switch
 } from 'antd'
 import PropTypes from 'prop-types'
+import useAxios from 'axios-hooks'
 
 const { Option } = Select
 const { Title } = Typography
@@ -30,6 +31,11 @@ const validateMessages = {
 }
 
 const ContactInformationForm = ({ prev, next }) => {
+  const [provinces, setProvinces] = useState([])
+  const [{ data }] = useAxios({
+    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
+  })
+  useEffect(() => { if (data) setProvinces(data) }, [data])
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -63,8 +69,7 @@ const ContactInformationForm = ({ prev, next }) => {
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
               <Select>
-                <Option value='A'>Azuay</Option>
-                <Option value='C'>Cañar</Option>
+                {provinces.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
               </Select>
             </Form.Item>
           </Col>
