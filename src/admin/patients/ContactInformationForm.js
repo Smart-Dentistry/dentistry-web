@@ -38,10 +38,14 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
-  const [{ data }] = useAxios({
+  const [{ data: provincesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
   })
-  useEffect(() => { if (data) setProvinces(data) }, [data])
+  const [{ data: cantonsData }] = useAxios({
+    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${contactInformation.province === 'Azuay' ? 1 : contactInformation.province}/cantons/`
+  })
+  useEffect(() => { if (provincesData) setProvinces(provincesData) }, [provincesData])
+  useEffect(() => { if (cantonsData) setCantons(cantonsData) }, [cantonsData])
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
