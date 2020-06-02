@@ -35,6 +35,7 @@ const validateMessages = {
 }
 
 const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative }) => {
+  const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
   const [{ data }] = useAxios({
@@ -44,7 +45,6 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
-
   const onFinish = values => {
     console.log('Finished')
     next()
@@ -59,6 +59,9 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
       return
     }
     setCantons(response.data)
+    form.setFieldsValue({
+      canton: response.data[0].key
+    })
   }
   const countryOfResidenceChange = value => {
     setContactInformation({ ...contactInformation, countryResidence: value })
@@ -70,6 +73,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
   return (
     <>
       <Form
+        form={form}
         layout='vertical'
         name='contactInformation'
         onFinish={onFinish}
