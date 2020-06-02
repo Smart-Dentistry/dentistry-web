@@ -18,7 +18,9 @@ const CreatePatient = () => {
   const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
   const [contactInformation, setContactInformation] = useState({
-    countryResidence: 'E'
+    countryResidence: 'E',
+    province: 'Azuay',
+    canton: 'Cuenca'
   })
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })

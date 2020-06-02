@@ -46,28 +46,34 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    console.log('Finished')
+    setContactInformation(values)
     next()
   }
-
-  const provinceOnChange = async value => {
+  const onValuesChange = async changedValue => {
     let response
-    try {
-      response = await axios.get(`${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${value}/cantons/`)
-    } catch (error) {
-      console.log(error)
-      return
+    const key = Object.keys(changedValue)[0]
+    const value = changedValue[key]
+    switch (key) {
+      case 'province':
+        try {
+          response = await axios.get(`${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${value}/cantons/`)
+        } catch (error) {
+          console.log(error)
+          return
+        }
+        setCantons(response.data)
+        form.setFieldsValue({
+          canton: response.data[0].key
+        })
+        break
+      case 'countryResidence':
+        setContactInformation({ ...contactInformation, countryResidence: value })
+        break
+      case 'representative':
+        setShowRepresentative(value)
+        break
+      default: break
     }
-    setCantons(response.data)
-    form.setFieldsValue({
-      canton: response.data[0].key
-    })
-  }
-  const countryOfResidenceChange = value => {
-    setContactInformation({ ...contactInformation, countryResidence: value })
-  }
-  const representativeOnChange = value => {
-    setShowRepresentative(value)
   }
 
   return (
@@ -81,11 +87,12 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         validateMessages={validateMessages}
         scrollToFirstError
         initialValues={contactInformation}
+        onValuesChange={onValuesChange}
       >
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
-              <Select onChange={countryOfResidenceChange}>
+              <Select>
                 <Option value='E'>Ecuador</Option>
                 <Option value='A'>Abroad</Option>
               </Select>
@@ -97,7 +104,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
             <Row>
               <Col offset={6} span={5}>
                 <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
-                  <Select onChange={provinceOnChange}>
+                  <Select>
                     {provinces.map(province => <Option key={province.key} value={province.key}>{province.name}</Option>)}
                   </Select>
                 </Form.Item>
@@ -163,7 +170,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='representative' label='Representative'>
-              <Switch checked={showRepresentative} onChange={representativeOnChange} />
+              <Switch checked={showRepresentative} />
             </Form.Item>
           </Col>
         </Row>
