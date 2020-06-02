@@ -34,7 +34,7 @@ const validateMessages = {
   }
 }
 
-const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative }) => {
+const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative }) => {
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
   const [{ data }] = useAxios({
@@ -62,6 +62,9 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
   }
   const countryOfResidenceChange = value => {
     setContactInformation({ ...contactInformation, countryResidence: value })
+  }
+  const representativeOnChange = value => {
+    setShowRepresentative(value)
   }
 
   return (
@@ -156,7 +159,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='representative' label='Representative'>
-              <Switch checked={showRepresentative} />
+              <Switch checked={showRepresentative} onChange={representativeOnChange} />
             </Form.Item>
           </Col>
         </Row>
@@ -203,7 +206,8 @@ ContactInformationForm.propTypes = {
   next: PropTypes.func,
   contactInformation: PropTypes.object,
   setContactInformation: PropTypes.func,
-  showRepresentative: PropTypes.bool
+  showRepresentative: PropTypes.bool,
+  setShowRepresentative: PropTypes.func
 }
 
 export default ContactInformationForm

@@ -55,6 +55,7 @@ const CreatePatient = () => {
                 contactInformation={contactInformation}
                 setContactInformation={setContactInformation}
                 showRepresentative={showRepresentative}
+                setShowRepresentative={setShowRepresentative}
               />
             )
           case 2:
