@@ -13,6 +13,9 @@ import {
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
+import PhoneInput from 'react-phone-number-input'
+
+import 'react-phone-number-input/style.css'
 
 const { Option } = Select
 const { Title } = Typography
@@ -112,7 +115,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true }]}>
-              <Input />
+              <PhoneInput className='telephone-input' />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -146,7 +149,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
-              <Input />
+              <PhoneInput className='telephone-input' />
             </Form.Item>
           </Col>
         </Row>
@@ -165,7 +168,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
-              <Input />
+              <PhoneInput className='telephone-input' />
             </Form.Item>
           </Col>
         </Row>
