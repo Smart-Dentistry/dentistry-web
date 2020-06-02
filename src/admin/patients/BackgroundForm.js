@@ -50,7 +50,7 @@ const BackgroundForm = ({ prev }) => {
     <>
       <Form
         layout='vertical'
-        name='nest-messages'
+        name='backgroundInformation'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}

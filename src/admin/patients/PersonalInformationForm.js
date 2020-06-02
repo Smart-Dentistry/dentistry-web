@@ -42,7 +42,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
       </Row>
       <Form
         layout='vertical'
-        name='nest-messages'
+        name='personalInformation'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}

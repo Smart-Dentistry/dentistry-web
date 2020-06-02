@@ -57,12 +57,15 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     }
     setCantons(response.data)
   }
+  const countryOfResidenceChange = value => {
+    setContactInformation({ ...contactInformation, countryResidence: value })
+  }
 
   return (
     <>
       <Form
         layout='vertical'
-        name='nest-messages'
+        name='contactInformation'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
@@ -72,36 +75,40 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
-              <Select>
+              <Select onChange={countryOfResidenceChange}>
                 <Option value='E'>Ecuador</Option>
                 <Option value='A'>Abroad</Option>
               </Select>
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
-              <Select onChange={provinceOnChange}>
-                {provinces.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='canton' label='Canton' rules={[{ required: true }]}>
-              <Select>
-                {cantons.map(canton => <Option key={canton.key} value={canton.key}>{canton.name}</Option>)}
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            <Form.Item {...inputLayout} name='addressLine' label='Address'>
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
+        {contactInformation.countryResidence === 'E' ? (
+          <>
+            <Row>
+              <Col offset={6} span={5}>
+                <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
+                  <Select onChange={provinceOnChange}>
+                    {provinces.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col offset={2} span={5}>
+                <Form.Item {...inputLayout} name='canton' label='Canton' rules={[{ required: true }]}>
+                  <Select>
+                    {cantons.map(canton => <Option key={canton.key} value={canton.key}>{canton.name}</Option>)}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col offset={6} span={12}>
+                <Form.Item {...inputLayout} name='addressLine' label='Address'>
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
+          </>
+        ) : null}
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true }]}>
