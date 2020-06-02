@@ -2,6 +2,7 @@
   "Name": "Name",
   "Last Name": "Last Name",
   "ID": "ID",
+  "Email": "Email",
   "Phone": "Phone",
   "Age": "Age",
   "New Patient": "New Patient"

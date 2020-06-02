@@ -35,7 +35,7 @@ const PatientTable = () => {
       key: 'idDocumentNumber'
     },
     {
-      title: 'Email',
+      title: t('Email'),
       dataIndex: 'email',
       key: 'email'
     },

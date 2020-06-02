@@ -2,6 +2,7 @@
   "Name": "Nombre",
   "Last Name": "Apellido",
   "ID": "Cédula",
+  "Email": "Email",
   "Phone": "Teléfono",
   "Age": "Edad",
   "New Patient": "Nuevo Paciente"
