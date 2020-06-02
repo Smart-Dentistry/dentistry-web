@@ -94,7 +94,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
               <Col offset={6} span={5}>
                 <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
                   <Select onChange={provinceOnChange}>
-                    {provinces.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
+                    {provinces.map(province => <Option key={province.key} value={province.key}>{province.name}</Option>)}
                   </Select>
                 </Form.Item>
               </Col>
