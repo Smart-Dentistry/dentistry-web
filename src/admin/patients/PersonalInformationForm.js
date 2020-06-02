@@ -9,6 +9,7 @@ import {
   DatePicker,
   Checkbox
 } from 'antd'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import PatientPicture from './PatientPicture'
 
@@ -21,17 +22,20 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation }) => {
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative }) => {
   const [imageUrl, setImageUrl] = useState()
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
-
   const onFinish = values => {
     setPersonalInformation(values)
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const datePickerOnChange = value => {
+    const years = moment().diff(value, 'years')
+    setShowRepresentative(years < 18)
   }
   return (
     <>
@@ -109,7 +113,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='birthdate' label='Birthdate' rules={[{ required: true }]}>
-              <DatePicker />
+              <DatePicker onChange={datePickerOnChange} />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -145,7 +149,9 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
   personalInformation: PropTypes.object,
-  setPersonalInformation: PropTypes.func
+  setPersonalInformation: PropTypes.func,
+  showRepresentative: PropTypes.bool,
+  setShowRepresentative: PropTypes.func
 }
 
 export default PersonalInformationForm

@@ -34,7 +34,7 @@ const validateMessages = {
   }
 }
 
-const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation }) => {
+const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative }) => {
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
   const [{ data }] = useAxios({
@@ -156,39 +156,43 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='representative' label='Representative'>
-              <Switch />
+              <Switch checked={showRepresentative} />
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='emergencyContactName' label='Full Name'>
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
-              <PhoneInput className='telephone-input' />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='representativeRelationship' label='Relationship'>
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={6}>
-            <Button type='primary' onClick={prev}>Previous</Button>
-          </Col>
-          <Col span={6}>
-            <Row justify='end'>
-              <Button type='primary' htmlType='submit'>Next</Button>
+        {showRepresentative ? (
+          <>
+            <Row>
+              <Col offset={6} span={5}>
+                <Form.Item {...inputLayout} name='emergencyContactName' label='Full Name'>
+                  <Input />
+                </Form.Item>
+              </Col>
+              <Col offset={2} span={5}>
+                <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
+                  <PhoneInput className='telephone-input' />
+                </Form.Item>
+              </Col>
             </Row>
-          </Col>
-        </Row>
+            <Row>
+              <Col offset={6} span={5}>
+                <Form.Item {...inputLayout} name='representativeRelationship' label='Relationship'>
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col offset={6} span={6}>
+                <Button type='primary' onClick={prev}>Previous</Button>
+              </Col>
+              <Col span={6}>
+                <Row justify='end'>
+                  <Button type='primary' htmlType='submit'>Next</Button>
+                </Row>
+              </Col>
+            </Row>
+          </>
+        ) : null}
       </Form>
     </>
   )
@@ -198,7 +202,8 @@ ContactInformationForm.propTypes = {
   prev: PropTypes.func,
   next: PropTypes.func,
   contactInformation: PropTypes.object,
-  setContactInformation: PropTypes.func
+  setContactInformation: PropTypes.func,
+  showRepresentative: PropTypes.bool
 }
 
 export default ContactInformationForm

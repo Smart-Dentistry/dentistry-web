@@ -15,6 +15,7 @@ const steps = [
 
 const CreatePatient = () => {
   const [currentStep, setCurrentStep] = useState(0)
+  const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
   const [contactInformation, setContactInformation] = useState({
     countryResidence: 'E'
@@ -37,9 +38,25 @@ const CreatePatient = () => {
       {(() => {
         switch (currentStep) {
           case 0:
-            return <PersonalInformationForm next={next} personalInformation={personalInformation} setPersonalInformation={setPersonalInformation} />
+            return (
+              <PersonalInformationForm
+                next={next}
+                personalInformation={personalInformation}
+                setPersonalInformation={setPersonalInformation}
+                showRepresentative={showRepresentative}
+                setShowRepresentative={setShowRepresentative}
+              />
+            )
           case 1:
-            return <ContactInformationForm prev={prev} next={next} contactInformation={contactInformation} setContactInformation={setContactInformation} />
+            return (
+              <ContactInformationForm
+                prev={prev}
+                next={next}
+                contactInformation={contactInformation}
+                setContactInformation={setContactInformation}
+                showRepresentative={showRepresentative}
+              />
+            )
           case 2:
             return <BackgroundForm prev={prev} />
           default:
