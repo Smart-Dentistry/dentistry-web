@@ -16,6 +16,9 @@ const steps = [
 const CreatePatient = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [personalInformation, setPersonalInformation] = useState({})
+  const [contactInformation, setContactInformation] = useState({
+    countryResidence: 'E'
+  })
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep + 1)
@@ -36,7 +39,7 @@ const CreatePatient = () => {
           case 0:
             return <PersonalInformationForm next={next} personalInformation={personalInformation} setPersonalInformation={setPersonalInformation} />
           case 1:
-            return <ContactInformationForm prev={prev} next={next} />
+            return <ContactInformationForm prev={prev} next={next} contactInformation={contactInformation} setContactInformation={setContactInformation} />
           case 2:
             return <BackgroundForm prev={prev} />
           default:

@@ -31,7 +31,7 @@ const validateMessages = {
   }
 }
 
-const ContactInformationForm = ({ prev, next }) => {
+const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation }) => {
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
   const [{ data }] = useAxios({
@@ -67,6 +67,7 @@ const ContactInformationForm = ({ prev, next }) => {
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
+        initialValues={contactInformation}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -185,7 +186,9 @@ const ContactInformationForm = ({ prev, next }) => {
 
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
-  next: PropTypes.func
+  next: PropTypes.func,
+  contactInformation: PropTypes.object,
+  setContactInformation: PropTypes.func
 }
 
 export default ContactInformationForm
