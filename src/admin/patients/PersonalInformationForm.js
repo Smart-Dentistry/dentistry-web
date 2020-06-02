@@ -21,7 +21,7 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const PersonalInformationForm = ({ next }) => {
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation }) => {
   const [imageUrl, setImageUrl] = useState()
 
   const onFinishFailed = errorInfo => {
@@ -29,23 +29,7 @@ const PersonalInformationForm = ({ next }) => {
   }
 
   const onFinish = values => {
-    const birthdate = values.birthdate.format('YYYY-MM-DD')
-    const patient = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      idDocumentNumber: values.idDocumentNumber,
-      sex: values.sex,
-      jobTitle: values.jobTitle,
-      maritalStatus: values.maritalStatus,
-      birthdate,
-      phone: values.phone,
-      whatsapp: values.whatsapp,
-      healthInsuranceCompany: values.healthInsuranceCompany,
-      email: values.email,
-      receivePromos: values.receivePromos,
-      referralSource: values.referralSource
-    }
-    console.log(patient)
+    setPersonalInformation(values)
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -62,6 +46,7 @@ const PersonalInformationForm = ({ next }) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
+        initialValues={personalInformation}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -158,7 +143,9 @@ const PersonalInformationForm = ({ next }) => {
 }
 
 PersonalInformationForm.propTypes = {
-  next: PropTypes.func
+  next: PropTypes.func,
+  personalInformation: PropTypes.object,
+  setPersonalInformation: PropTypes.func
 }
 
 export default PersonalInformationForm
