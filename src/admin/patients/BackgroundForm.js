@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Form,
   Row,
@@ -10,6 +10,7 @@ import {
   Button
 } from 'antd'
 import PropTypes from 'prop-types'
+import useAxios from 'axios-hooks'
 
 const { Option } = Select
 const { Title } = Typography
@@ -34,6 +35,16 @@ const validateMessages = {
 }
 
 const BackgroundForm = ({ prev }) => {
+  const [diseases, setDiseases] = useState([])
+  const [{ data: diseasesData }] = useAxios({
+    url: `${process.env.REACT_APP_API_URL}/diseases/`
+  })
+  useEffect(() => {
+    if (diseasesData) {
+      setDiseases(diseasesData.sort((a, b) => a.name.localeCompare(b.name)))
+    }
+  }, [diseasesData])
+
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -136,9 +147,9 @@ const BackgroundForm = ({ prev }) => {
                 style={{ width: '100%' }}
                 placeholder='Please select'
                 onChange={handleChange}
+                filterOption={(inputValue, option) => option.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0}
               >
-                <Option value='E'>Diabetes</Option>
-                <Option value='A'>Disease 2</Option>
+                {diseases.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
               </Select>
             </Form.Item>
           </Col>
