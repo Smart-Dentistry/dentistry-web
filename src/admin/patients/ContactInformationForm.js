@@ -213,18 +213,18 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
                 </Form.Item>
               </Col>
             </Row>
-            <Row>
-              <Col offset={6} span={6}>
-                <Button type='primary' onClick={prev}>Previous</Button>
-              </Col>
-              <Col span={6}>
-                <Row justify='end'>
-                  <Button type='primary' htmlType='submit'>Next</Button>
-                </Row>
-              </Col>
-            </Row>
           </>
         ) : null}
+        <Row>
+          <Col offset={6} span={6}>
+            <Button type='primary' onClick={prev}>Previous</Button>
+          </Col>
+          <Col span={6}>
+            <Row justify='end'>
+              <Button type='primary' htmlType='submit'>Next</Button>
+            </Row>
+          </Col>
+        </Row>
       </Form>
     </>
   )

@@ -21,21 +21,6 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const validateMessages = {
-  // eslint-disable-next-line
-  required: '${label} is required!',
-  types: {
-    // eslint-disable-next-line
-    email: '${label} is not validate email!',
-    // eslint-disable-next-line
-    number: '${label} is not a validate number!'
-  },
-  number: {
-    // eslint-disable-next-line
-    range: '${label} must be between ${min} and ${max}'
-  }
-}
-
 const BackgroundForm = ({ prev }) => {
   const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
@@ -79,7 +64,6 @@ const BackgroundForm = ({ prev }) => {
         name='backgroundInformation'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        validateMessages={validateMessages}
         onValuesChange={onValuesChange}
       >
         <Row>
