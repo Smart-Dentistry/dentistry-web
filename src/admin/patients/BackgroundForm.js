@@ -7,8 +7,10 @@ import {
   Input,
   Checkbox,
   Typography,
-  Button
+  Button,
+  Tag
 } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 
@@ -45,6 +47,8 @@ const BackgroundForm = ({ prev }) => {
     }
   }, [diseasesData])
 
+  const [familyBackground] = useState(['Diabetes (M-MGM-MGF)', 'Others (S)'])
+
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -55,6 +59,10 @@ const BackgroundForm = ({ prev }) => {
 
   function handleChange (value) {
     console.log(`selected ${value}`)
+  }
+
+  function log (e) {
+    console.log(e)
   }
 
   return (
@@ -75,8 +83,7 @@ const BackgroundForm = ({ prev }) => {
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='familyHistoryDisease' label=''>
               <Select>
-                <Option value='E'>Diabetes</Option>
-                <Option value='A'>Disease 2</Option>
+                {diseases.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
               </Select>
             </Form.Item>
           </Col>
@@ -124,7 +131,7 @@ const BackgroundForm = ({ prev }) => {
         </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Button type='primary' style={{ marginBottom: 15 }}>Add</Button>
+            <Button type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
           </Col>
         </Row>
         <Row>
@@ -185,7 +192,7 @@ const BackgroundForm = ({ prev }) => {
         </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Button type='primary' style={{ marginBottom: 25 }}>Add</Button>
+            <Button type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
           </Col>
         </Row>
         <Row>
