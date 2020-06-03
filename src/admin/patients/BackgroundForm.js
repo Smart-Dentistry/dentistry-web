@@ -166,18 +166,18 @@ const BackgroundForm = ({ prev }) => {
             <Title level={4}>General practitioners</Title>
           </Col>
         </Row>
-        <Row>
-          <Col offset={6} span={3}>
+        <Row gutter={16}>
+          <Col offset={6} span={4}>
             <Form.Item {...inputLayout} name='practitionerName' label='Name'>
               <Input />
             </Form.Item>
           </Col>
-          <Col offset={1} span={3}>
+          <Col span={4}>
             <Form.Item {...inputLayout} name='practitionerPhone' label='Phone'>
               <Input />
             </Form.Item>
           </Col>
-          <Col offset={1} span={3}>
+          <Col span={4}>
             <Form.Item {...inputLayout} name='practitionerDisease' label='Disease'>
               <Input />
             </Form.Item>
