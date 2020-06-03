@@ -37,7 +37,9 @@ const validateMessages = {
 }
 
 const BackgroundForm = ({ prev }) => {
+  const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
+  const [disableFamilyHistory] = useState(true)
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
   })
@@ -65,14 +67,20 @@ const BackgroundForm = ({ prev }) => {
     console.log(e)
   }
 
+  const onValuesChange = changedValues => {
+    console.log(changedValues)
+  }
+
   return (
     <>
       <Form
+        form={form}
         layout='vertical'
         name='backgroundInformation'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
+        onValuesChange={onValuesChange}
       >
         <Row>
           <Col offset={6} span={12}>
@@ -131,8 +139,11 @@ const BackgroundForm = ({ prev }) => {
         </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Button type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
+            <Button disabled={disableFamilyHistory} type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
           </Col>
+        </Row>
+        <Row>
+          {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
         </Row>
         <Row>
           <Col offset={6} span={12}>
