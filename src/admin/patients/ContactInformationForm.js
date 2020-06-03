@@ -56,7 +56,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     if (cantonsData) {
       setCantons(cantonsData)
       form.setFieldsValue({
-        canton: contactInformation.province === 'Cuenca' ? 3 : contactInformation.canton
+        canton: contactInformation.canton === 'Cuenca' ? 3 : contactInformation.canton
       })
     }
   }, [cantonsData])
