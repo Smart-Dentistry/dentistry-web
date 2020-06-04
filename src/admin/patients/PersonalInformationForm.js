@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Form,
   Button,
@@ -22,9 +22,7 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative }) => {
-  const [imageUrl, setImageUrl] = useState()
-
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -151,7 +149,9 @@ PersonalInformationForm.propTypes = {
   personalInformation: PropTypes.object,
   setPersonalInformation: PropTypes.func,
   showRepresentative: PropTypes.bool,
-  setShowRepresentative: PropTypes.func
+  setShowRepresentative: PropTypes.func,
+  imageUrl: PropTypes.string,
+  setImageUrl: PropTypes.func
 }
 
 export default PersonalInformationForm

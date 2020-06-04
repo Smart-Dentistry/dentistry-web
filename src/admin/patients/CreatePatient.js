@@ -14,6 +14,7 @@ const steps = [
 ]
 
 const CreatePatient = () => {
+  const [imageUrl, setImageUrl] = useState()
   const [currentStep, setCurrentStep] = useState(0)
   const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
@@ -43,6 +44,8 @@ const CreatePatient = () => {
             return (
               <PersonalInformationForm
                 next={next}
+                imageUrl={imageUrl}
+                setImageUrl={setImageUrl}
                 personalInformation={personalInformation}
                 setPersonalInformation={setPersonalInformation}
                 showRepresentative={showRepresentative}
