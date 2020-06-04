@@ -152,7 +152,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='whatsapp' label='Whatsapp'>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
+              <Checkbox checked={false}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
