@@ -25,9 +25,8 @@ const BackgroundForm = ({ prev }) => {
   const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
   const [disableFamilyHistory] = useState(true)
-  const [familyBackground] = useState(['Diabetes (M-MGM-MGF)', 'Others (S)'])
-  const [generalPractitioners, setGeneralPractitioners] = useState([{ name: 'Greg House', phone: '0987654321', disease: 'Lupus' },
-    { name: 'Martina Grace', phone: '0999999999', disease: 'Asthma' }])
+  const [familyBackground] = useState(['Diabetes 👩🏼🧒🏽', 'Others 🧒🏽'])
+  const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
   })
@@ -92,41 +91,41 @@ const BackgroundForm = ({ prev }) => {
         <Row>
           <Col offset={6} span={3}>
             <Form.Item {...inputLayout} name='mother' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother (M)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother 👩🏼</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={0} span={4}>
             <Form.Item {...inputLayout} name='motherGrandma' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma (MGM)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏻</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={0} span={4}>
             <Form.Item {...inputLayout} name='motherGrandpa' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa (MGP)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏻</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={3}>
             <Form.Item {...inputLayout} name='father' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father (F)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father 👨🏿</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={0} span={4}>
             <Form.Item {...inputLayout} name='fatherGrandma' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma (FGM)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏿</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={0} span={4}>
             <Form.Item {...inputLayout} name='fatherGrandpa' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa (FGP)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏿</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={3}>
             <Form.Item {...inputLayout} name='siblings' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings (S)</span></Checkbox>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings 🧒🏽</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -201,7 +200,7 @@ const BackgroundForm = ({ prev }) => {
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
-          <Col span={6} offset={6}>
+          <Col span={12} offset={6}>
             {generalPractitioners.map((item) =>
               <>
                 <Card size="small" title={item.name} key={item} extra={<a href="#"><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }}/></a>}>
