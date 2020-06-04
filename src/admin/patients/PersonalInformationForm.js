@@ -128,7 +128,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='whatsapp' label='Receive Promos'>
+            <Form.Item {...inputLayout} name='receivePromos'>
               <Checkbox checked><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
