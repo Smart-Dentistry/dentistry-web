@@ -16,6 +16,7 @@ const steps = [
 const CreatePatient = () => {
   const [imageUrl, setImageUrl] = useState()
   const [receivePromos, setReceivePromos] = useState(true)
+  const [whatsapp, setWhatsapp] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
@@ -60,6 +61,8 @@ const CreatePatient = () => {
               <ContactInformationForm
                 prev={prev}
                 next={next}
+                whatsapp={whatsapp}
+                setWhatsapp={setWhatsapp}
                 contactInformation={contactInformation}
                 setContactInformation={setContactInformation}
                 showRepresentative={showRepresentative}

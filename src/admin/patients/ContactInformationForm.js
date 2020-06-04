@@ -34,7 +34,7 @@ const validateMessages = {
   }
 }
 
-const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative }) => {
+const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative, whatsapp, setWhatsapp }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -93,6 +93,9 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
       default: break
     }
   }
+  const whatsappOnChange = e => {
+    setWhatsapp(e.target.checked)
+  }
 
   return (
     <>
@@ -148,7 +151,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='whatsapp' label='Whatsapp'>
-              <Checkbox checked={false}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
+              <Checkbox checked={whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -232,7 +235,9 @@ ContactInformationForm.propTypes = {
   contactInformation: PropTypes.object,
   setContactInformation: PropTypes.func,
   showRepresentative: PropTypes.bool,
-  setShowRepresentative: PropTypes.func
+  setShowRepresentative: PropTypes.func,
+  whatsapp: PropTypes.bool,
+  setWhatsapp: PropTypes.func
 }
 
 export default ContactInformationForm
