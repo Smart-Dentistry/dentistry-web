@@ -81,7 +81,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         }
         setCantons(response.data)
         form.setFieldsValue({
-          canton: response.data[0].key
+          canton: response.data[0].value
         })
         break
       case 'countryResidence':
@@ -122,16 +122,12 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
             <Row>
               <Col offset={6} span={5}>
                 <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
-                  <Select>
-                    {provinces.map(province => <Option key={province.key} value={province.key}>{province.name}</Option>)}
-                  </Select>
+                  <Select options={provinces} />
                 </Form.Item>
               </Col>
               <Col offset={2} span={5}>
                 <Form.Item {...inputLayout} name='canton' label='Canton' rules={[{ required: true }]}>
-                  <Select>
-                    {cantons.map(canton => <Option key={canton.key} value={canton.key}>{canton.name}</Option>)}
-                  </Select>
+                  <Select options={cantons} />
                 </Form.Item>
               </Col>
             </Row>
