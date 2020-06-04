@@ -58,8 +58,13 @@ const BackgroundForm = ({ prev }) => {
   }
 
   const addGeneralPractitioner = () => {
-    console.log(event)
-    setGeneralPractitioners(generalPractitioners.concat([{ name: 'Winona', phone: '0987654321', disease: 'Too cute' }]))
+    console.log(form.getFieldsValue())
+    setGeneralPractitioners(generalPractitioners.concat([{
+      name: form.getFieldsValue().practitionerName,
+      phone: form.getFieldsValue().practitionerPhone,
+      disease: form.getFieldsValue().practitionerDisease
+    }]))
+    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
   }
 
   return (
