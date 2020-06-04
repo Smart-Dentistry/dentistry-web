@@ -14,7 +14,6 @@ import { PlusOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 
-const { Option } = Select
 const { Title } = Typography
 const { TextArea } = Input
 const inputLayout = {
@@ -30,7 +29,7 @@ const BackgroundForm = ({ prev }) => {
   })
   useEffect(() => {
     if (diseasesData) {
-      setDiseases(diseasesData.sort((a, b) => a.name.localeCompare(b.name)))
+      setDiseases(diseasesData.sort((a, b) => a.label.localeCompare(b.label)))
     }
   }, [diseasesData])
 
@@ -74,9 +73,7 @@ const BackgroundForm = ({ prev }) => {
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='familyHistoryDisease' label=''>
-              <Select>
-                {diseases.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
-              </Select>
+              <Select options={diseases} />
             </Form.Item>
           </Col>
         </Row>
@@ -149,10 +146,9 @@ const BackgroundForm = ({ prev }) => {
                 style={{ width: '100%' }}
                 placeholder='Please select'
                 onChange={handleChange}
+                options={diseases}
                 filterOption={(inputValue, option) => option.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0}
-              >
-                {diseases.map(disease => <Option key={disease.key} value={disease.key}>{disease.name}</Option>)}
-              </Select>
+              />
             </Form.Item>
           </Col>
         </Row>
