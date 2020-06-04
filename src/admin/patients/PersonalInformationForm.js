@@ -22,7 +22,7 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl }) => {
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -34,6 +34,9 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
   const datePickerOnChange = value => {
     const years = moment().diff(value, 'years')
     setShowRepresentative(years < 18)
+  }
+  const receivePromosOnChange = e => {
+    setReceivePromos(e.target.checked)
   }
   return (
     <>
@@ -127,7 +130,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='receivePromos'>
-              <Checkbox checked><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+              <Checkbox checked={receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -151,7 +154,9 @@ PersonalInformationForm.propTypes = {
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
   imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func
+  setImageUrl: PropTypes.func,
+  receivePromos: PropTypes.bool,
+  setReceivePromos: PropTypes.func
 }
 
 export default PersonalInformationForm

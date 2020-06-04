@@ -15,6 +15,7 @@ const steps = [
 
 const CreatePatient = () => {
   const [imageUrl, setImageUrl] = useState()
+  const [receivePromos, setReceivePromos] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
   const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
@@ -46,6 +47,8 @@ const CreatePatient = () => {
                 next={next}
                 imageUrl={imageUrl}
                 setImageUrl={setImageUrl}
+                receivePromos={receivePromos}
+                setReceivePromos={setReceivePromos}
                 personalInformation={personalInformation}
                 setPersonalInformation={setPersonalInformation}
                 showRepresentative={showRepresentative}
