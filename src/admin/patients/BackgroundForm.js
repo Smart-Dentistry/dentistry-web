@@ -8,9 +8,10 @@ import {
   Checkbox,
   Typography,
   Button,
-  Tag
+  Tag,
+  Card
 } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 
@@ -24,6 +25,9 @@ const BackgroundForm = ({ prev }) => {
   const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
   const [disableFamilyHistory] = useState(true)
+  const [familyBackground] = useState(['Diabetes (M-MGM-MGF)', 'Others (S)'])
+  const [generalPractitioners, setGeneralPractitioners] = useState([{ name: 'Greg House', phone: '0987654321', disease: 'Lupus' },
+    { name: 'Martina Grace', phone: '0999999999', disease: 'Asthma' }])
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
   })
@@ -32,8 +36,6 @@ const BackgroundForm = ({ prev }) => {
       setDiseases(diseasesData.sort((a, b) => a.label.localeCompare(b.label)))
     }
   }, [diseasesData])
-
-  const [familyBackground] = useState(['Diabetes (M-MGM-MGF)', 'Others (S)'])
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
@@ -53,6 +55,11 @@ const BackgroundForm = ({ prev }) => {
 
   const onValuesChange = changedValues => {
     console.log(changedValues)
+  }
+
+  const addGeneralPractitioner = () => {
+    console.log(event)
+    setGeneralPractitioners(generalPractitioners.concat([{ name: 'Winona', phone: '0987654321', disease: 'Too cute' }]))
   }
 
   return (
@@ -124,7 +131,9 @@ const BackgroundForm = ({ prev }) => {
           </Col>
         </Row>
         <Row>
-          {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
+          <Col offset={6} span={12}>
+            {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
+          </Col>
         </Row>
         <Row>
           <Col offset={6} span={12}>
@@ -183,7 +192,19 @@ const BackgroundForm = ({ prev }) => {
         </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Button type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
+            <Button type='primary' style={{ marginBottom: 25 }} onClick={() => addGeneralPractitioner()}><PlusOutlined />Add</Button>
+          </Col>
+        </Row>
+        <Row gutter={[16, 16]}>
+          <Col span={6} offset={6}>
+            {generalPractitioners.map((item) =>
+              <>
+                <Card size="small" title={item.name} key={item} extra={<a href="#"><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }}/></a>}>
+                  <p>Phone: {item.phone}</p>
+                  <p>Disease: {item.disease}</p>
+                </Card>
+              </>
+            )}
           </Col>
         </Row>
         <Row>
