@@ -29,7 +29,7 @@ const RELATIVES = {
 }
 
 const FamilyHistory = ({ diseases }) => {
-  const [disease, setDisease] = useState()
+  const [disease, setDisease] = useState(null)
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground, setFamilyBackground] = useState([])
   const [selectedRelatives, setSelectedRelatives] = useState([])
@@ -40,12 +40,14 @@ const FamilyHistory = ({ diseases }) => {
   }
   const diseaseOnChange = value => {
     setDisease(value)
+    setDisableFamilyHistory(selectedRelatives.length === 0)
   }
   const addFamilyDisease = () => {
     const newDisease = `${diseases.find(e => e.value === disease).label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
     setDisease(null)
     setSelectedRelatives([])
+    setDisableFamilyHistory(true)
   }
 
   return (
@@ -57,12 +59,10 @@ const FamilyHistory = ({ diseases }) => {
       </Row>
       <Row>
         <Col offset={6} span={5}>
-          <Form.Item {...inputLayout} name='familyHistoryDisease' label='Disease'>
-            <Select options={diseases} style={{ width: '100%' }} onChange={diseaseOnChange} />
-          </Form.Item>
+          <Select value={disease} options={diseases} style={{ width: '100%' }} onChange={diseaseOnChange} />
         </Col>
       </Row>
-      <Checkbox.Group style={{ width: '100%' }} onChange={relativesOnChange}>
+      <Checkbox.Group value={selectedRelatives} style={{ width: '100%' }} onChange={relativesOnChange}>
         <Row gutter={[0, 16]}>
           <Col offset={6} span={4}>
             <Checkbox value='M'><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
