@@ -82,7 +82,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
         </Row>
         <Space direction='vertical' size='middle' style={{ width: '100%' }}>
           <Row>
-            <Col offset={6} span={3}>
+            <Col offset={6} span={4}>
               <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother 👩🏼</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
@@ -93,7 +93,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
             </Col>
           </Row>
           <Row>
-            <Col offset={6} span={3}>
+            <Col offset={6} span={4}>
               <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father 👨🏿</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
@@ -104,7 +104,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
             </Col>
           </Row>
           <Row>
-            <Col offset={6} span={3}>
+            <Col offset={6} span={4}>
               <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings 🧒🏽</span></Checkbox>
             </Col>
           </Row>
