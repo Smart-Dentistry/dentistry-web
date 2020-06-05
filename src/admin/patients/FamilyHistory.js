@@ -24,7 +24,7 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases }) => {
+const FamilyHistory = ({ diseases, familyHistory, setFamilyHistory }) => {
   const [disease, setDisease] = useState(null)
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground, setFamilyBackground] = useState([])
@@ -41,14 +41,20 @@ const FamilyHistory = ({ diseases }) => {
   const addFamilyDisease = () => {
     const newDisease = `${diseases.find(e => e.value === disease).label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
+    setFamilyHistory([...familyHistory, {
+      id: disease,
+      relatives: selectedRelatives
+    }])
     setDisease(null)
     setSelectedRelatives([])
     setDisableFamilyHistory(true)
-    console.log(familyBackground)
   }
-  const removeFamilyDisease = diseaseToRemove => {
+  const removeFamilyDisease = (diseaseToRemove, key) => {
     const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
+    const newFamilyHistory = [...familyHistory]
+    newFamilyHistory.splice(key, 1)
     setFamilyBackground(newDiseases)
+    setFamilyHistory(newFamilyHistory)
   }
 
   return (
@@ -99,7 +105,7 @@ const FamilyHistory = ({ diseases }) => {
         </Col>
         {familyBackground.length > 0 ? (
           <Col offset={6} span={12}>
-            {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item)} key={item}>{item}</Tag>)}
+            {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item, key)} key={item}>{item}</Tag>)}
           </Col>
         ) : null}
       </Row>
@@ -118,7 +124,9 @@ const FamilyHistory = ({ diseases }) => {
 }
 
 FamilyHistory.propTypes = {
-  diseases: PropTypes.array
+  diseases: PropTypes.array,
+  familyHistory: PropTypes.array,
+  setFamilyHistory: PropTypes.func
 }
 
 export default FamilyHistory

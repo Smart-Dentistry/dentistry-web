@@ -13,6 +13,7 @@ import GeneralPractioners from './GeneralPractioners'
 
 const BackgroundForm = ({ prev, background, setBackground }) => {
   const [diseases, setDiseases] = useState([])
+  const [familyHistory, setFamilyHistory] = useState([])
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
@@ -25,7 +26,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
 
   return (
     <>
-      <FamilyHistory diseases={diseases} />
+      <FamilyHistory diseases={diseases} familyHistory={familyHistory} setFamilyHistory={setFamilyHistory} />
       <PersonalHistory diseases={diseases} />
       <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
       <Row>
