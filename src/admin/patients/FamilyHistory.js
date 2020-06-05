@@ -56,6 +56,11 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory 
   const removeFamilyDisease = (diseaseToRemove, key) => {
     const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
     const newFamilyHistory = [...familyHistory]
+    const diseaseToRemoveValue = newFamilyHistory[key].id
+    const tempDiseases = [...diseases]
+    const tempDisease = tempDiseases.find(e => e.value === diseaseToRemoveValue)
+    tempDisease.disabled = false
+    setDiseases(tempDiseases)
     newFamilyHistory.splice(key, 1)
     setFamilyBackground(newDiseases)
     setFamilyHistory(newFamilyHistory)
