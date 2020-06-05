@@ -24,7 +24,7 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory }) => {
+const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory, familyHistoryObservations, setFamilyHistoryObservations }) => {
   const [disease, setDisease] = useState(null)
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground, setFamilyBackground] = useState([])
@@ -37,6 +37,10 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory 
   const diseaseOnChange = value => {
     setDisease(value)
     setDisableFamilyHistory(selectedRelatives.length === 0)
+  }
+  const observationsOnchange = e => {
+    setFamilyHistoryObservations(e.target.value)
+    // setFamilyHistoryObservations(value)
   }
   const addFamilyDisease = () => {
     const tempDiseases = [...diseases]
@@ -125,7 +129,7 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory 
           </div>
         </Col>
         <Col offset={6} span={12}>
-          <TextArea rows={2} style={{ marginBottom: '24px' }} />
+          <TextArea value={familyHistoryObservations} onChange={observationsOnchange} rows={2} style={{ marginBottom: '24px' }} />
         </Col>
       </Row>
     </>
@@ -136,7 +140,9 @@ FamilyHistory.propTypes = {
   diseases: PropTypes.array,
   setDiseases: PropTypes.func,
   familyHistory: PropTypes.array,
-  setFamilyHistory: PropTypes.func
+  setFamilyHistory: PropTypes.func,
+  familyHistoryObservations: PropTypes.string,
+  setFamilyHistoryObservations: PropTypes.func
 }
 
 export default FamilyHistory
