@@ -161,11 +161,13 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
               <Input />
             </Form.Item>
           </Col>
-          <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
-              <Input />
-            </Form.Item>
-          </Col>
+          {contactInformation.countryResidence === 'E' ? (
+            <Col offset={2} span={5}>
+              <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
+                <Input />
+              </Form.Item>
+            </Col>
+          ) : null}
         </Row>
         <Row>
           <Col offset={6} span={12}>
