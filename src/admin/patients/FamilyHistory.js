@@ -62,7 +62,12 @@ const FamilyHistory = ({ diseases }) => {
           <Title level={4}>Family history</Title>
         </Col>
       </Row>
-      <Row>
+      <Row style={{ marginBottom: '16px' }}>
+        <Col offset={6} span={12}>
+          <div className='ant-form-item-label'>
+            <label>Disease</label>
+          </div>
+        </Col>
         <Col offset={6} span={5}>
           <Select value={disease} options={diseases} style={{ width: '100%' }} onChange={diseaseOnChange} />
         </Col>
