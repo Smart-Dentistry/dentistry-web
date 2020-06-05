@@ -9,7 +9,8 @@ import {
   Typography,
   Button,
   Tag,
-  Card
+  Card,
+  Space
 } from 'antd'
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
@@ -68,6 +69,52 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
 
   return (
     <>
+      <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+        <Row>
+          <Col offset={6} span={12}>
+            <Title level={4}>Family history</Title>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={5}>
+            <Select options={diseases} style={{ width: '100%' }} />
+          </Col>
+        </Row>
+        <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+          <Row>
+            <Col offset={6} span={3}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother 👩🏼</span></Checkbox>
+            </Col>
+            <Col offset={0} span={4}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏻</span></Checkbox>
+            </Col>
+            <Col offset={0} span={4}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏻</span></Checkbox>
+            </Col>
+          </Row>
+          <Row>
+            <Col offset={6} span={3}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father 👨🏿</span></Checkbox>
+            </Col>
+            <Col offset={0} span={4}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏿</span></Checkbox>
+            </Col>
+            <Col offset={0} span={4}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏿</span></Checkbox>
+            </Col>
+          </Row>
+          <Row>
+            <Col offset={6} span={3}>
+              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings 🧒🏽</span></Checkbox>
+            </Col>
+          </Row>
+        </Space>
+        <Row>
+          <Col offset={6} span={3}>
+            <Button disabled={disableFamilyHistory} type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
+          </Col>
+        </Row>
+      </Space>
       <Form
         form={form}
         layout='vertical'
@@ -76,64 +123,6 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
         onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
       >
-        <Row>
-          <Col offset={6} span={12}>
-            <Title level={4}>Family history</Title>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='familyHistoryDisease' label=''>
-              <Select options={diseases} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Form.Item {...inputLayout} name='mother' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother 👩🏼</span></Checkbox>
-            </Form.Item>
-          </Col>
-          <Col offset={0} span={4}>
-            <Form.Item {...inputLayout} name='motherGrandma' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏻</span></Checkbox>
-            </Form.Item>
-          </Col>
-          <Col offset={0} span={4}>
-            <Form.Item {...inputLayout} name='motherGrandpa' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏻</span></Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Form.Item {...inputLayout} name='father' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father 👨🏿</span></Checkbox>
-            </Form.Item>
-          </Col>
-          <Col offset={0} span={4}>
-            <Form.Item {...inputLayout} name='fatherGrandma' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏿</span></Checkbox>
-            </Form.Item>
-          </Col>
-          <Col offset={0} span={4}>
-            <Form.Item {...inputLayout} name='fatherGrandpa' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏿</span></Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Form.Item {...inputLayout} name='siblings' label=''>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings 🧒🏽</span></Checkbox>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Button disabled={disableFamilyHistory} type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
-          </Col>
-        </Row>
         <Row>
           <Col offset={6} span={12}>
             {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
