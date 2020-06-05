@@ -83,29 +83,29 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
         <Space direction='vertical' size='middle' style={{ width: '100%' }}>
           <Row>
             <Col offset={6} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Mother 👩🏼</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏻</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏻</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
             </Col>
           </Row>
           <Row>
             <Col offset={6} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Father 👨🏿</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandma 👵🏿</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
             </Col>
             <Col offset={0} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Grandpa 👴🏿</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
             </Col>
           </Row>
           <Row>
             <Col offset={6} span={4}>
-              <Checkbox><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Siblings 🧒🏽</span></Checkbox>
+              <Checkbox><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
             </Col>
           </Row>
         </Space>
