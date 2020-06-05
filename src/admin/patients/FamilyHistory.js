@@ -20,8 +20,17 @@ const inputLayout = {
 }
 
 const FamilyHistory = ({ diseases }) => {
-  const [disableFamilyHistory] = useState(true)
+  const [disease, setDisease] = useState()
+  const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground] = useState(['Diabetes 👩🏼🧒🏽', 'Others 🧒🏽'])
+
+  const relativesOnChange = checkedValues => {
+    setDisableFamilyHistory(!disease || checkedValues.length === 0)
+  }
+  const diseaseOnChange = value => {
+    setDisease(value)
+  }
+
   return (
     <>
       <Row>
@@ -32,33 +41,35 @@ const FamilyHistory = ({ diseases }) => {
       <Row>
         <Col offset={6} span={5}>
           <Form.Item {...inputLayout} name='familyHistoryDisease' label='Disease'>
-            <Select options={diseases} style={{ width: '100%' }} />
+            <Select options={diseases} style={{ width: '100%' }} onChange={diseaseOnChange} />
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={[0, 16]}>
-        <Col offset={6} span={4}>
-          <Checkbox><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
-        </Col>
-        <Col offset={0} span={4}>
-          <Checkbox><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
-        </Col>
-        <Col offset={0} span={4}>
-          <Checkbox><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
-        </Col>
-        <Col offset={6} span={4}>
-          <Checkbox><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
-        </Col>
-        <Col offset={0} span={4}>
-          <Checkbox><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
-        </Col>
-        <Col offset={0} span={4}>
-          <Checkbox><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
-        </Col>
-        <Col offset={6} span={4}>
-          <Checkbox><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
-        </Col>
-      </Row>
+      <Checkbox.Group style={{ width: '100%' }} onChange={relativesOnChange}>
+        <Row gutter={[0, 16]}>
+          <Col offset={6} span={4}>
+            <Checkbox value='M'><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox value='MGM'><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox value='MGF'><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
+          </Col>
+          <Col offset={6} span={4}>
+            <Checkbox value='F'><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox value='FGM'><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox value='FGF'><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
+          </Col>
+          <Col offset={6} span={4}>
+            <Checkbox value='S'><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
+          </Col>
+        </Row>
+      </Checkbox.Group>
       <Row gutter={[0, 16]}>
         <Col offset={6} span={3}>
           <Button disabled={disableFamilyHistory} type='primary'><PlusOutlined />Add</Button>
