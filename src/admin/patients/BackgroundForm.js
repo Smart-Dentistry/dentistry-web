@@ -5,16 +5,15 @@ import {
   Col,
   Select,
   Input,
-  Checkbox,
   Typography,
   Button,
-  Tag,
-  Card,
-  Space
+  Card
 } from 'antd'
+import useAxios from 'axios-hooks'
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
-import useAxios from 'axios-hooks'
+
+import FamilyHistory from './FamilyHistory'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -23,10 +22,8 @@ const inputLayout = {
 }
 
 const BackgroundForm = ({ prev, background, setBackground }) => {
-  const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
-  const [disableFamilyHistory] = useState(true)
-  const [familyBackground] = useState(['Diabetes 👩🏼🧒🏽', 'Others 🧒🏽'])
+  const [form] = Form.useForm()
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
@@ -49,10 +46,6 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
     console.log(`selected ${value}`)
   }
 
-  function log (e) {
-    console.log(e)
-  }
-
   const onValuesChange = changedValues => {
     console.log(changedValues)
   }
@@ -69,64 +62,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
 
   return (
     <>
-      <Row>
-        <Col offset={6} span={12}>
-          <Title level={4}>Family history</Title>
-        </Col>
-      </Row>
-      <Row>
-        <Col offset={6} span={5}>
-          <Form.Item {...inputLayout} name='familyHistoryDisease' label='Disease'>
-            <Select options={diseases} style={{ width: '100%' }} />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Space direction='vertical' size='middle' style={{ width: '100%' }}>
-        <Row>
-          <Col offset={6} span={4}>
-            <Checkbox><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
-          </Col>
-          <Col offset={0} span={4}>
-            <Checkbox><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
-          </Col>
-          <Col offset={0} span={4}>
-            <Checkbox><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={4}>
-            <Checkbox><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
-          </Col>
-          <Col offset={0} span={4}>
-            <Checkbox><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
-          </Col>
-          <Col offset={0} span={4}>
-            <Checkbox><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={4}>
-            <Checkbox><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Button disabled={disableFamilyHistory} type='primary'><PlusOutlined />Add</Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            <Form.Item {...inputLayout} name='familyHistoryObservations' label='Observations'>
-              <TextArea rows={2} />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Space>
+      <FamilyHistory diseases={diseases} />
       <Form
         form={form}
         layout='vertical'
