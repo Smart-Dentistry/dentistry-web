@@ -149,7 +149,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
                 placeholder='Please select'
                 onChange={handleChange}
                 options={diseases}
-                filterOption={(inputValue, option) => option.children.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0}
+                optionFilterProp="label"
               />
             </Form.Item>
           </Col>
