@@ -12,6 +12,7 @@ import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
 const BackgroundForm = ({ prev, background, setBackground }) => {
+  const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [familyHistory, setFamilyHistory] = useState([])
   const [generalPractitioners, setGeneralPractitioners] = useState([])
@@ -20,13 +21,15 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
   })
   useEffect(() => {
     if (diseasesData) {
-      setDiseases(diseasesData.sort((a, b) => a.label.localeCompare(b.label)))
+      const sortedDiseases = diseasesData.sort((a, b) => a.label.localeCompare(b.label))
+      setDiseases(sortedDiseases)
+      setDiseasesForFamily(sortedDiseases.map(d => { return { ...d, disabled: false } }))
     }
   }, [diseasesData])
 
   return (
     <>
-      <FamilyHistory diseases={diseases} familyHistory={familyHistory} setFamilyHistory={setFamilyHistory} />
+      <FamilyHistory diseases={diseasesForFamily} setDiseases={setDiseasesForFamily} familyHistory={familyHistory} setFamilyHistory={setFamilyHistory} />
       <PersonalHistory diseases={diseases} />
       <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
       <Row>

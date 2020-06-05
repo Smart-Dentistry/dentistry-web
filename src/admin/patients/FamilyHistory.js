@@ -24,7 +24,7 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases, familyHistory, setFamilyHistory }) => {
+const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory }) => {
   const [disease, setDisease] = useState(null)
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground, setFamilyBackground] = useState([])
@@ -39,7 +39,11 @@ const FamilyHistory = ({ diseases, familyHistory, setFamilyHistory }) => {
     setDisableFamilyHistory(selectedRelatives.length === 0)
   }
   const addFamilyDisease = () => {
-    const newDisease = `${diseases.find(e => e.value === disease).label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
+    const tempDiseases = [...diseases]
+    const tempDisease = tempDiseases.find(e => e.value === disease)
+    tempDisease.disabled = true
+    setDiseases(tempDiseases)
+    const newDisease = `${tempDisease.label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
     setFamilyHistory([...familyHistory, {
       id: disease,
@@ -125,6 +129,7 @@ const FamilyHistory = ({ diseases, familyHistory, setFamilyHistory }) => {
 
 FamilyHistory.propTypes = {
   diseases: PropTypes.array,
+  setDiseases: PropTypes.func,
   familyHistory: PropTypes.array,
   setFamilyHistory: PropTypes.func
 }
