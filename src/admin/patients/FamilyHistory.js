@@ -18,17 +18,34 @@ const { TextArea } = Input
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
+const RELATIVES = {
+  M: '👩🏼',
+  MGM: '👵🏻',
+  MGF: '👴🏻',
+  F: '👨🏿',
+  FGM: '👵🏿',
+  FGF: '👴🏿',
+  S: '🧒🏽'
+}
 
 const FamilyHistory = ({ diseases }) => {
   const [disease, setDisease] = useState()
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
-  const [familyBackground] = useState(['Diabetes 👩🏼🧒🏽', 'Others 🧒🏽'])
+  const [familyBackground, setFamilyBackground] = useState([])
+  const [selectedRelatives, setSelectedRelatives] = useState([])
 
   const relativesOnChange = checkedValues => {
     setDisableFamilyHistory(!disease || checkedValues.length === 0)
+    setSelectedRelatives(checkedValues)
   }
   const diseaseOnChange = value => {
     setDisease(value)
+  }
+  const addFamilyDisease = () => {
+    const newDisease = `${diseases.find(e => e.value === disease).label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
+    setFamilyBackground([...familyBackground, newDisease])
+    setDisease(null)
+    setSelectedRelatives([])
   }
 
   return (
@@ -72,7 +89,7 @@ const FamilyHistory = ({ diseases }) => {
       </Checkbox.Group>
       <Row gutter={[0, 16]}>
         <Col offset={6} span={3}>
-          <Button disabled={disableFamilyHistory} type='primary'><PlusOutlined />Add</Button>
+          <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
         </Col>
         <Col offset={6} span={12}>
           {familyBackground.map((item, key) => <Tag closable key={item}>{item}</Tag>)}
