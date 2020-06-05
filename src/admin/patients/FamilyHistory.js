@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  Form,
   Row,
   Col,
   Select,
@@ -15,9 +14,6 @@ import { PlusOutlined } from '@ant-design/icons'
 
 const { Title } = Typography
 const { TextArea } = Input
-const inputLayout = {
-  wrapperCol: { span: 24 }
-}
 const RELATIVES = {
   M: '👩🏼',
   MGM: '👵🏻',
@@ -101,15 +97,20 @@ const FamilyHistory = ({ diseases }) => {
         <Col offset={6} span={3}>
           <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
         </Col>
-        <Col offset={6} span={12}>
-          {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item)} key={item}>{item}</Tag>)}
-        </Col>
+        {familyBackground.length > 0 ? (
+          <Col offset={6} span={12}>
+            {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item)} key={item}>{item}</Tag>)}
+          </Col>
+        ) : null}
       </Row>
       <Row>
         <Col offset={6} span={12}>
-          <Form.Item {...inputLayout} name='familyHistoryObservations' label='Observations'>
-            <TextArea rows={2} />
-          </Form.Item>
+          <div className='ant-form-item-label'>
+            <label>Observations</label>
+          </div>
+        </Col>
+        <Col offset={6} span={12}>
+          <TextArea rows={2} style={{ marginBottom: '24px' }} />
         </Col>
       </Row>
     </>
