@@ -69,49 +69,61 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
 
   return (
     <>
+      <Row>
+        <Col offset={6} span={12}>
+          <Title level={4}>Family history</Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col offset={6} span={5}>
+          <Form.Item {...inputLayout} name='familyHistoryDisease' label='Disease'>
+            <Select options={diseases} style={{ width: '100%' }} />
+          </Form.Item>
+        </Col>
+      </Row>
       <Space direction='vertical' size='middle' style={{ width: '100%' }}>
         <Row>
-          <Col offset={6} span={12}>
-            <Title level={4}>Family history</Title>
+          <Col offset={6} span={4}>
+            <Checkbox><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
           </Col>
         </Row>
         <Row>
-          <Col offset={6} span={5}>
-            <Select options={diseases} style={{ width: '100%' }} />
+          <Col offset={6} span={4}>
+            <Checkbox><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
+          </Col>
+          <Col offset={0} span={4}>
+            <Checkbox><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
           </Col>
         </Row>
-        <Space direction='vertical' size='middle' style={{ width: '100%' }}>
-          <Row>
-            <Col offset={6} span={4}>
-              <Checkbox><span className='checkbox-text'>Mother 👩🏼</span></Checkbox>
-            </Col>
-            <Col offset={0} span={4}>
-              <Checkbox><span className='checkbox-text'>Grandma 👵🏻</span></Checkbox>
-            </Col>
-            <Col offset={0} span={4}>
-              <Checkbox><span className='checkbox-text'>Grandpa 👴🏻</span></Checkbox>
-            </Col>
-          </Row>
-          <Row>
-            <Col offset={6} span={4}>
-              <Checkbox><span className='checkbox-text'>Father 👨🏿</span></Checkbox>
-            </Col>
-            <Col offset={0} span={4}>
-              <Checkbox><span className='checkbox-text'>Grandma 👵🏿</span></Checkbox>
-            </Col>
-            <Col offset={0} span={4}>
-              <Checkbox><span className='checkbox-text'>Grandpa 👴🏿</span></Checkbox>
-            </Col>
-          </Row>
-          <Row>
-            <Col offset={6} span={4}>
-              <Checkbox><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
-            </Col>
-          </Row>
-        </Space>
+        <Row>
+          <Col offset={6} span={4}>
+            <Checkbox><span className='checkbox-text'>Siblings 🧒🏽</span></Checkbox>
+          </Col>
+        </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Button disabled={disableFamilyHistory} type='primary' style={{ marginBottom: 15 }}><PlusOutlined />Add</Button>
+            <Button disabled={disableFamilyHistory} type='primary'><PlusOutlined />Add</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={12}>
+            {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
+          </Col>
+        </Row>
+        <Row>
+          <Col offset={6} span={12}>
+            <Form.Item {...inputLayout} name='familyHistoryObservations' label='Observations'>
+              <TextArea rows={2} />
+            </Form.Item>
           </Col>
         </Row>
       </Space>
@@ -125,31 +137,19 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
       >
         <Row>
           <Col offset={6} span={12}>
-            {familyBackground.map((item, key) => <Tag closable onClose={log} key={item}>{item}</Tag>)}
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            <Form.Item {...inputLayout} name='familyHistoryObservations' label='Observations'>
-              <TextArea rows={2} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={12}>
             <Title level={4}>Personal history</Title>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='personalHistory' label=''>
+            <Form.Item {...inputLayout} name='personalHistory' label='Diseases'>
               <Select
                 mode='multiple'
                 style={{ width: '100%' }}
                 placeholder='Please select'
                 onChange={handleChange}
                 options={diseases}
-                optionFilterProp="label"
+                optionFilterProp='label'
               />
             </Form.Item>
           </Col>
