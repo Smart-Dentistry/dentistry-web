@@ -6,14 +6,13 @@ import {
   Select,
   Input,
   Typography,
-  Button,
-  Card
+  Button
 } from 'antd'
 import useAxios from 'axios-hooks'
-import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 
 import FamilyHistory from './FamilyHistory'
+import GeneralPractioners from './GeneralPractioners'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -48,16 +47,6 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
 
   const onValuesChange = changedValues => {
     console.log(changedValues)
-  }
-
-  const addGeneralPractitioner = () => {
-    console.log(form.getFieldsValue())
-    setGeneralPractitioners(generalPractitioners.concat([{
-      name: form.getFieldsValue().practitionerName,
-      phone: form.getFieldsValue().practitionerPhone,
-      disease: form.getFieldsValue().practitionerDisease
-    }]))
-    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
   }
 
   return (
@@ -97,56 +86,18 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
             </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col offset={6} span={12}>
-            <Title level={4}>General practitioners</Title>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col offset={6} span={4}>
-            <Form.Item {...inputLayout} name='practitionerName' label='Name'>
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={4}>
-            <Form.Item {...inputLayout} name='practitionerPhone' label='Phone'>
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={4}>
-            <Form.Item {...inputLayout} name='practitionerDisease' label='Disease'>
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={3}>
-            <Button type='primary' style={{ marginBottom: 25 }} onClick={() => addGeneralPractitioner()}><PlusOutlined />Add</Button>
-          </Col>
-        </Row>
-        <Row gutter={[16, 16]}>
-          <Col span={12} offset={6}>
-            {generalPractitioners.map((item) =>
-              <>
-                <Card size='small' title={item.name} key={item} extra={<a href='#'><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }} /></a>}>
-                  <p>Phone: {item.phone}</p>
-                  <p>Disease: {item.disease}</p>
-                </Card>
-              </>
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={6} span={6}>
-            <Button type='primary' onClick={prev}>Previous</Button>
-          </Col>
-          <Col span={6}>
-            <Row justify='end'>
-              <Button type='primary' htmlType='submit'>Create</Button>
-            </Row>
-          </Col>
-        </Row>
       </Form>
+      <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
+      <Row>
+        <Col offset={6} span={6}>
+          <Button type='primary' onClick={prev}>Previous</Button>
+        </Col>
+        <Col span={6}>
+          <Row justify='end'>
+            <Button type='primary'>Create</Button>
+          </Row>
+        </Col>
+      </Row>
     </>
   )
 }
