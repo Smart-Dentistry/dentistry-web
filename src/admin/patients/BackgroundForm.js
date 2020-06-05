@@ -21,7 +21,7 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const BackgroundForm = ({ prev }) => {
+const BackgroundForm = ({ prev, background, setBackground }) => {
   const [form] = Form.useForm()
   const [diseases, setDiseases] = useState([])
   const [disableFamilyHistory] = useState(true)
@@ -203,7 +203,7 @@ const BackgroundForm = ({ prev }) => {
           <Col span={12} offset={6}>
             {generalPractitioners.map((item) =>
               <>
-                <Card size="small" title={item.name} key={item} extra={<a href="#"><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }}/></a>}>
+                <Card size='small' title={item.name} key={item} extra={<a href='#'><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }} /></a>}>
                   <p>Phone: {item.phone}</p>
                   <p>Disease: {item.disease}</p>
                 </Card>
@@ -227,7 +227,9 @@ const BackgroundForm = ({ prev }) => {
 }
 
 BackgroundForm.propTypes = {
-  prev: PropTypes.func
+  prev: PropTypes.func,
+  background: PropTypes.object,
+  setBackground: PropTypes.func
 }
 
 export default BackgroundForm

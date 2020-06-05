@@ -25,6 +25,7 @@ const CreatePatient = () => {
     province: 'Azuay',
     canton: 'Cuenca'
   })
+  const [background, setBackground] = useState({})
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep + 1)
@@ -70,7 +71,7 @@ const CreatePatient = () => {
               />
             )
           case 2:
-            return <BackgroundForm prev={prev} />
+            return <BackgroundForm prev={prev} background={background} setBackground={setBackground} />
           default:
             return 'Error!'
         }
