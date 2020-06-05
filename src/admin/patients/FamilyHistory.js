@@ -48,6 +48,11 @@ const FamilyHistory = ({ diseases }) => {
     setDisease(null)
     setSelectedRelatives([])
     setDisableFamilyHistory(true)
+    console.log(familyBackground)
+  }
+  const removeFamilyDisease = diseaseToRemove => {
+    const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
+    setFamilyBackground(newDiseases)
   }
 
   return (
@@ -92,7 +97,7 @@ const FamilyHistory = ({ diseases }) => {
           <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
         </Col>
         <Col offset={6} span={12}>
-          {familyBackground.map((item, key) => <Tag closable key={item}>{item}</Tag>)}
+          {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item)} key={item}>{item}</Tag>)}
         </Col>
       </Row>
       <Row>
