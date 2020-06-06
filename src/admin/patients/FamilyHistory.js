@@ -28,21 +28,20 @@ const RELATIVES = {
 const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory, familyHistoryObservations, setFamilyHistoryObservations }) => {
   console.log(familyHistory)
   const [disease, setDisease] = useState(null)
-  const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
+  const [enableAddFamilyDisease, setEnableAddFamilyDisease] = useState(false)
   const [familyBackground, setFamilyBackground] = useState([])
   const [selectedRelatives, setSelectedRelatives] = useState([])
 
   const relativesOnChange = checkedValues => {
-    setDisableFamilyHistory(!disease || checkedValues.length === 0)
+    setEnableAddFamilyDisease(disease && checkedValues.length > 0)
     setSelectedRelatives(checkedValues)
   }
   const diseaseOnChange = value => {
     setDisease(value)
-    setDisableFamilyHistory(selectedRelatives.length === 0)
+    setEnableAddFamilyDisease(selectedRelatives.length > 0)
   }
   const observationsOnchange = e => {
     setFamilyHistoryObservations(e.target.value)
-    // setFamilyHistoryObservations(value)
   }
   const addFamilyDisease = () => {
     const tempDiseases = [...diseases]
@@ -57,7 +56,7 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
     }])
     setDisease(null)
     setSelectedRelatives([])
-    setDisableFamilyHistory(true)
+    setEnableAddFamilyDisease(false)
   }
   const removeFamilyDisease = (diseaseToRemove, key) => {
     const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
@@ -116,8 +115,8 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
       </Checkbox.Group>
       <Row gutter={[0, 16]}>
         <Col offset={6} span={3}>
-          <Tooltip title="Select disease and relative(s)">
-            <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
+          <Tooltip title='Select disease and relative(s)'>
+            <Button disabled={!enableAddFamilyDisease} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
           </Tooltip>
         </Col>
         {familyBackground.length > 0 ? (
