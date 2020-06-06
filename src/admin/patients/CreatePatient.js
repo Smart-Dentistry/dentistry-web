@@ -26,6 +26,7 @@ const CreatePatient = () => {
     canton: 'Cuenca'
   })
   const [familyHistory, setFamilyHistory] = useState([])
+  const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
   const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
 
   const next = () => {
@@ -78,6 +79,8 @@ const CreatePatient = () => {
                 prev={prev}
                 familyHistory={familyHistory}
                 setFamilyHistory={setFamilyHistory}
+                familyHistoryObservations={familyHistoryObservations}
+                setFamilyHistoryObservations={setFamilyHistoryObservations}
                 personalHistory={personalHistory}
                 setPersonalHistory={setPersonalHistory}
               />
