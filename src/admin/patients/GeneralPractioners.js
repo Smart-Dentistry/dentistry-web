@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Form,
   Row,
@@ -20,6 +20,7 @@ const inputLayout = {
 }
 
 const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners }) => {
+  const [enableAddPractitioner, setEnableAddPractitioner] = useState(false)
   const [form] = Form.useForm()
   const onFinish = values => {
     console.log(values)
@@ -29,11 +30,15 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
       disease: values.practitionerDisease
     }])
     form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
+    setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
     const newGeneralPractitioners = [...generalPractitioners]
     newGeneralPractitioners.splice(index, 1)
     setGeneralPractitioners(newGeneralPractitioners)
+  }
+  const onValuesChange = (changedValues, allValues) => {
+    setEnableAddPractitioner(allValues.practitionerName && allValues.practitionerDisease)
   }
   return (
     <>
@@ -42,7 +47,7 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
           <Title level={4}>General practitioners</Title>
         </Col>
       </Row>
-      <Form onFinish={onFinish} form={form} layout='vertical'>
+      <Form onFinish={onFinish} form={form} layout='vertical' onValuesChange={onValuesChange}>
         <Row gutter={16}>
           <Col offset={6} span={4}>
             <Form.Item {...inputLayout} name='practitionerName' label='Name'>
@@ -63,7 +68,7 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
         <Row>
           <Col offset={6} span={3}>
             <Tooltip title="Add name and disease">
-              <Button htmlType="submit" type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
+              <Button disabled={!enableAddPractitioner} htmlType="submit" type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
             </Tooltip>
           </Col>
         </Row>
