@@ -30,6 +30,9 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
     }])
     form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
   }
+  const removePractitioner = item => {
+    console.log(item)
+  }
   return (
     <>
       <Row>
@@ -67,7 +70,14 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
         <Space direction='vertical' style={{ width: '100%' }}>
           {generalPractitioners.map((item) =>
             <Col span={12} offset={6} key={item}>
-              <Card size='small' title={item.name} key={item} extra={<a href='#'><DeleteFilled style={{ color: 'rgba(229, 59, 50, 1)' }} /></a>}>
+              <Card
+                size='small'
+                title={item.name}
+                key={item}
+                extra={
+                  <Button type='button' className='linkButton' onClick={() => removePractitioner(item)}>
+                    <DeleteFilled style={{ color: '#E53B32' }}/>
+                  </Button>}>
                 <p>Phone: {item.phone}</p>
                 <p>Disease: {item.disease}</p>
               </Card>
