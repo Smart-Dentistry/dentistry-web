@@ -28,6 +28,7 @@ const CreatePatient = () => {
   const [familyHistory, setFamilyHistory] = useState([])
   const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
   const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
+  const [generalPractitioners, setGeneralPractitioners] = useState([])
 
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -83,6 +84,8 @@ const CreatePatient = () => {
                 setFamilyHistoryObservations={setFamilyHistoryObservations}
                 personalHistory={personalHistory}
                 setPersonalHistory={setPersonalHistory}
+                generalPractitioners={generalPractitioners}
+                setGeneralPractitioners={setGeneralPractitioners}
               />
             )
           default:

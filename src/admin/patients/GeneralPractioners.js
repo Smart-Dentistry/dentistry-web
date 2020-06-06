@@ -23,7 +23,6 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
   const [enableAddPractitioner, setEnableAddPractitioner] = useState(false)
   const [form] = Form.useForm()
   const onFinish = values => {
-    console.log(values)
     setGeneralPractitioners([...generalPractitioners, {
       name: values.practitionerName,
       phone: values.practitionerPhone,
