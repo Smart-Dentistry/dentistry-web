@@ -11,12 +11,11 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, familyHistory, setFamilyHistory }) => {
+const BackgroundForm = ({ prev, familyHistory, setFamilyHistory, personalHistory, setPersonalHistory }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
-  const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
   })
@@ -27,10 +26,6 @@ const BackgroundForm = ({ prev, familyHistory, setFamilyHistory }) => {
       setDiseasesForFamily(sortedDiseases.map(d => { return { ...d, disabled: false } }))
     }
   }, [diseasesData])
-
-  // useEffect(() => {
-  //   setBackground({ ...background, familyHistory: { diseases: familyHistory, observations: familyHistoryObservations }, personalHistory })
-  // }, [familyHistory, familyHistoryObservations, personalHistory])
 
   return (
     <>
@@ -61,7 +56,9 @@ const BackgroundForm = ({ prev, familyHistory, setFamilyHistory }) => {
 BackgroundForm.propTypes = {
   prev: PropTypes.func,
   familyHistory: PropTypes.array,
-  setFamilyHistory: PropTypes.func
+  setFamilyHistory: PropTypes.func,
+  personalHistory: PropTypes.object,
+  setPersonalHistory: PropTypes.func
 }
 
 export default BackgroundForm

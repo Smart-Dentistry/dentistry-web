@@ -26,6 +26,8 @@ const CreatePatient = () => {
     canton: 'Cuenca'
   })
   const [familyHistory, setFamilyHistory] = useState([])
+  const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
+
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep + 1)
@@ -71,7 +73,15 @@ const CreatePatient = () => {
               />
             )
           case 2:
-            return <BackgroundForm prev={prev} familyHistory={familyHistory} setFamilyHistory={setFamilyHistory} />
+            return (
+              <BackgroundForm
+                prev={prev}
+                familyHistory={familyHistory}
+                setFamilyHistory={setFamilyHistory}
+                personalHistory={personalHistory}
+                setPersonalHistory={setPersonalHistory}
+              />
+            )
           default:
             return 'Error!'
         }
