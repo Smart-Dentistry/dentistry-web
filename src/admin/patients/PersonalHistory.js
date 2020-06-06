@@ -15,32 +15,24 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const PersonalHistory = ({ diseases }) => {
+const PersonalHistory = ({ diseases, personalHistory, setPersonalHistory }) => {
   const [form] = Form.useForm()
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
 
-  const onFinish = values => {
-    console.log('Finished')
-  }
-
-  function handleChange (value) {
-    console.log(`selected ${value}`)
-  }
-
   const onValuesChange = changedValues => {
-    console.log(changedValues)
+    setPersonalHistory({ ...personalHistory, ...changedValues })
   }
   return (
     <>
       <Form
         form={form}
         layout='vertical'
-        name='backgroundInformation'
-        onFinish={onFinish}
+        name='personalHistory'
         onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
+        initialValues={personalHistory}
       >
         <Row>
           <Col offset={6} span={12}>
@@ -49,12 +41,11 @@ const PersonalHistory = ({ diseases }) => {
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='personalHistory' label='Diseases'>
+            <Form.Item {...inputLayout} name='personalHistoryDiseases' label='Diseases'>
               <Select
                 mode='multiple'
                 style={{ width: '100%' }}
                 placeholder='Please select'
-                onChange={handleChange}
                 options={diseases}
                 optionFilterProp='label'
               />
@@ -74,7 +65,9 @@ const PersonalHistory = ({ diseases }) => {
 }
 
 PersonalHistory.propTypes = {
-  diseases: PropTypes.array
+  diseases: PropTypes.array,
+  personalHistory: PropTypes.object,
+  setPersonalHistory: PropTypes.func
 }
 
 export default PersonalHistory

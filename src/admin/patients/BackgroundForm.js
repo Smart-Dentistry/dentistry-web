@@ -17,6 +17,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
   const [familyHistory, setFamilyHistory] = useState([])
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
+  const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
   const [{ data: diseasesData }] = useAxios({
     url: `${process.env.REACT_APP_API_URL}/diseases/`
   })
@@ -38,7 +39,7 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
         familyHistoryObservations={familyHistoryObservations}
         setFamilyHistoryObservations={setFamilyHistoryObservations}
       />
-      <PersonalHistory diseases={diseases} />
+      <PersonalHistory diseases={diseases} personalHistory={personalHistory} setPersonalHistory={setPersonalHistory}/>
       <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
       <Row>
         <Col offset={6} span={6}>

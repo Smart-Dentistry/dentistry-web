@@ -25,7 +25,7 @@ const CreatePatient = () => {
     province: 'Azuay',
     canton: 'Cuenca'
   })
-  const [background, setBackground] = useState({})
+  const [background, setBackground] = useState({ familyHistory: [], personalHistory: [], generalPractitioners: [] })
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep + 1)
