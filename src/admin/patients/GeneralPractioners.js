@@ -30,8 +30,10 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
     }])
     form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
   }
-  const removePractitioner = item => {
-    console.log(item)
+  const removePractitioner = index => {
+    const newGeneralPractitioners = [...generalPractitioners]
+    newGeneralPractitioners.splice(index, 1)
+    setGeneralPractitioners(newGeneralPractitioners)
   }
   return (
     <>
@@ -68,14 +70,14 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
       </Form>
       <Row gutter={[16, 16]}>
         <Space direction='vertical' style={{ width: '100%' }}>
-          {generalPractitioners.map((item) =>
+          {generalPractitioners.map((item, index) =>
             <Col span={12} offset={6} key={item}>
               <Card
                 size='small'
                 title={item.name}
                 key={item}
                 extra={
-                  <Button type='button' className='linkButton' onClick={() => removePractitioner(item)}>
+                  <Button type='button' className='linkButton' onClick={() => removePractitioner(index)}>
                     <DeleteFilled style={{ color: '#E53B32' }}/>
                   </Button>}>
                 <p>Phone: {item.phone}</p>
