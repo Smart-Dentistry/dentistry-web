@@ -26,10 +26,10 @@ const RELATIVES = {
 }
 
 const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory, familyHistoryObservations, setFamilyHistoryObservations }) => {
-  console.log(familyHistory)
+  // console.log(familyHistory)
   const [disease, setDisease] = useState(null)
   const [enableAddFamilyDisease, setEnableAddFamilyDisease] = useState(false)
-  const [familyBackground, setFamilyBackground] = useState([])
+  const [familyBackground, setFamilyBackground] = useState(familyHistory.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
   const [selectedRelatives, setSelectedRelatives] = useState([])
 
   const relativesOnChange = checkedValues => {
@@ -52,6 +52,7 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
     setFamilyBackground([...familyBackground, newDisease])
     setFamilyHistory([...familyHistory, {
       id: disease,
+      label: tempDisease.label,
       relatives: selectedRelatives
     }])
     setDisease(null)
