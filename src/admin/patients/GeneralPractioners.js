@@ -11,6 +11,7 @@ import {
 } from 'antd'
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
+import PhoneInput from 'react-phone-number-input'
 
 const { Title } = Typography
 const inputLayout = {
@@ -42,7 +43,7 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
         </Col>
         <Col span={4}>
           <Form.Item {...inputLayout} name='practitionerPhone' label='Phone'>
-            <Input />
+            <PhoneInput className='telephone-input' />
           </Form.Item>
         </Col>
         <Col span={4}>
