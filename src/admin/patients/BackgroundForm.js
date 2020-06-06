@@ -29,6 +29,10 @@ const BackgroundForm = ({ prev, background, setBackground }) => {
     }
   }, [diseasesData])
 
+  useEffect(() => {
+    setBackground({ ...background, familyHistory: { diseases: familyHistory, observations: familyHistoryObservations }, personalHistory })
+  }, [familyHistory, familyHistoryObservations, personalHistory])
+
   return (
     <>
       <FamilyHistory

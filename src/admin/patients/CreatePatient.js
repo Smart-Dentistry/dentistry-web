@@ -43,7 +43,7 @@ const CreatePatient = () => {
       </Steps>
       {(() => {
         switch (currentStep) {
-          case 2:
+          case 0:
             return (
               <PersonalInformationForm
                 next={next}
@@ -70,7 +70,7 @@ const CreatePatient = () => {
                 setShowRepresentative={setShowRepresentative}
               />
             )
-          case 0:
+          case 2:
             return <BackgroundForm prev={prev} background={background} setBackground={setBackground} />
           default:
             return 'Error!'

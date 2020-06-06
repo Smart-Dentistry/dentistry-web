@@ -26,6 +26,7 @@ const RELATIVES = {
 }
 
 const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory, familyHistoryObservations, setFamilyHistoryObservations }) => {
+  console.log(familyHistory)
   const [disease, setDisease] = useState(null)
   const [disableFamilyHistory, setDisableFamilyHistory] = useState(true)
   const [familyBackground, setFamilyBackground] = useState([])
