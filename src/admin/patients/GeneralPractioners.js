@@ -6,7 +6,8 @@ import {
   Input,
   Button,
   Card,
-  Typography
+  Typography,
+  Tooltip
 } from 'antd'
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
@@ -52,7 +53,9 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
       </Row>
       <Row>
         <Col offset={6} span={3}>
-          <Button type='primary' style={{ marginBottom: 25 }} onClick={() => addGeneralPractitioner()}><PlusOutlined />Add</Button>
+          <Tooltip title="Add name and disease">
+            <Button type='primary' style={{ marginBottom: 25 }} onClick={() => addGeneralPractitioner()}><PlusOutlined />Add</Button>
+          </Tooltip>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>

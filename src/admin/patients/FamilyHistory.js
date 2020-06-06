@@ -7,7 +7,8 @@ import {
   Button,
   Tag,
   Typography,
-  Input
+  Input,
+  Tooltip
 } from 'antd'
 import PropTypes from 'prop-types'
 import { PlusOutlined } from '@ant-design/icons'
@@ -114,7 +115,9 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
       </Checkbox.Group>
       <Row gutter={[0, 16]}>
         <Col offset={6} span={3}>
-          <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
+          <Tooltip title="Select disease and relative(s)">
+            <Button disabled={disableFamilyHistory} type='primary' onClick={addFamilyDisease}><PlusOutlined />Add</Button>
+          </Tooltip>
         </Col>
         {familyBackground.length > 0 ? (
           <Col offset={6} span={12}>
