@@ -25,6 +25,14 @@ const sexOptions = [
   { value: 'M', label: 'Male' },
   { value: 'F', label: 'Female' }
 ]
+const maritalStatusOptions = [
+  { value: 'SI', label: 'Single' },
+  { value: 'MA', label: 'Married' },
+  { value: 'DI', label: 'Divorced' },
+  { value: 'WI', label: 'Widowed' },
+  { value: 'DP', label: 'Domestic Partnership' },
+  { value: 'NS', label: 'Not Specified' }
+]
 
 const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
   const onFinishFailed = errorInfo => {
@@ -101,14 +109,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='maritalStatus' label='Marital Status' rules={[{ required: true }]}>
-              <Select>
-                <Option value='SI'>Single</Option>
-                <Option value='MA'>Married</Option>
-                <Option value='DI'>Divorced</Option>
-                <Option value='WI'>Widowed</Option>
-                <Option value='DP'>Domestic Partnership</Option>
-                <Option value='NS'>Not Specified</Option>
-              </Select>
+              <Select options={maritalStatusOptions} />
             </Form.Item>
           </Col>
         </Row>
