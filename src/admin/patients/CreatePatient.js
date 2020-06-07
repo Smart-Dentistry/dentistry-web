@@ -87,6 +87,7 @@ const CreatePatient = ({ addPatient }) => {
     } catch (error) {
       message.error('There was an error, please try again.')
       console.log(error)
+      console.log(error.reponse)
       return
     }
     addPatient(patient)
