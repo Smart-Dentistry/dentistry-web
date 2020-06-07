@@ -1,4 +1,4 @@
-import patientReducer from '../../patients/patientReducer'
+import patientReducer from './patientReducer'
 
 const patients = [{ key: 1, firstName: 'John' }, { key: 2, firstName: 'Jeff' }]
 
