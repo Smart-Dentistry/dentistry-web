@@ -13,7 +13,6 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import PatientPicture from './PatientPicture'
 
-const { Option } = Select
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -32,6 +31,11 @@ const maritalStatusOptions = [
   { value: 'WI', label: 'Widowed' },
   { value: 'DP', label: 'Domestic Partnership' },
   { value: 'NS', label: 'Not Specified' }
+]
+const referralSourceOptions = [
+  { value: 'P', label: 'Personal Reference' },
+  { value: 'S', label: 'Social Media' },
+  { value: 'O', label: 'Other' }
 ]
 
 const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
@@ -121,11 +125,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='referralSource' label='Referral Source' rules={[{ required: true }]}>
-              <Select>
-                <Option value='P'>Personal Reference</Option>
-                <Option value='S'>Social Media</Option>
-                <Option value='O'>Other</Option>
-              </Select>
+              <Select options={referralSourceOptions} />
             </Form.Item>
           </Col>
         </Row>
