@@ -22,7 +22,7 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos }) => {
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -42,7 +42,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture imageUrl={imageUrl} setImageUrl={setImageUrl} />
+          <PatientPicture imageUrl={imageUrl} setImageUrl={setImageUrl} setS3ImageUrl={setS3ImageUrl} />
         </Col>
       </Row>
       <Form
@@ -156,7 +156,8 @@ PersonalInformationForm.propTypes = {
   imageUrl: PropTypes.string,
   setImageUrl: PropTypes.func,
   receivePromos: PropTypes.bool,
-  setReceivePromos: PropTypes.func
+  setReceivePromos: PropTypes.func,
+  setS3ImageUrl: PropTypes.func
 }
 
 export default PersonalInformationForm

@@ -21,6 +21,7 @@ const CreatePatient = ({ addPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const history = useHistory()
   const [imageUrl, setImageUrl] = useState()
+  const [s3ImageUrl, setS3ImageUrl] = useState()
   const [receivePromos, setReceivePromos] = useState(true)
   const [whatsapp, setWhatsapp] = useState(false)
   const [showRepresentative, setShowRepresentative] = useState(false)
@@ -54,7 +55,7 @@ const CreatePatient = ({ addPatient }) => {
 
   const createPatient = async () => {
     const data = {
-      profilePictureUrl: imageUrl,
+      profilePictureUrl: s3ImageUrl,
       ...personalInformation,
       birthdate: personalInformation.birthdate.format('YYYY-MM-DD'),
       receivePromos,
@@ -108,6 +109,7 @@ const CreatePatient = ({ addPatient }) => {
                 next={next}
                 imageUrl={imageUrl}
                 setImageUrl={setImageUrl}
+                setS3ImageUrl={setS3ImageUrl}
                 receivePromos={receivePromos}
                 setReceivePromos={setReceivePromos}
                 personalInformation={personalInformation}

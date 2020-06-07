@@ -22,7 +22,7 @@ function getBase64 (img, callback) {
   reader.readAsDataURL(img)
 }
 
-const PatientPicture = ({ imageUrl, setImageUrl }) => {
+const PatientPicture = ({ imageUrl, setImageUrl, setS3ImageUrl }) => {
   const [loadingImage, setLoadingImage] = useState(false)
   const uploadImage = async options => {
     setImageUrl(null)
@@ -50,6 +50,7 @@ const PatientPicture = ({ imageUrl, setImageUrl }) => {
       return
     }
     const { data } = response
+    setS3ImageUrl(`${data.url}${data.fields.key}`)
     const form = new FormData()
     for (const [key, value] of Object.entries(data.fields)) {
       form.append(key, value)
@@ -102,7 +103,8 @@ const PatientPicture = ({ imageUrl, setImageUrl }) => {
 
 PatientPicture.propTypes = {
   imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func
+  setImageUrl: PropTypes.func,
+  setS3ImageUrl: PropTypes.func
 }
 
 export default PatientPicture
