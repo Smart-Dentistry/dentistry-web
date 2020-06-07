@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Steps, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
+import PropTypes from 'prop-types'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
@@ -16,7 +17,7 @@ const steps = [
   'Background Information'
 ]
 
-const CreatePatient = () => {
+const CreatePatient = ({ addPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const history = useHistory()
   const [imageUrl, setImageUrl] = useState()
@@ -79,17 +80,16 @@ const CreatePatient = () => {
       personalHistory,
       generalPractitioners
     }
-    // let patient
+    let patient
     try {
-      // const { data: newPatient } = await createNewPatient({ data })
-      await createNewPatient({ data })
-      // patient = newPatient
+      const response = await createNewPatient({ data })
+      patient = response.data
     } catch (error) {
       message.error('There was an error, please try again.')
       console.log(error)
       return
     }
-    // addProject(project)
+    addPatient(patient)
     message.success({ content: 'Patient was created sucessfully', duration: 3 })
     history.push('/admin/patients')
   }
@@ -149,6 +149,10 @@ const CreatePatient = () => {
       })()}
     </>
   )
+}
+
+CreatePatient.propTypes = {
+  addPatient: PropTypes.func
 }
 
 export default CreatePatient

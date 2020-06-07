@@ -28,7 +28,11 @@ const Patients = () => {
 
   return (
     <Switch>
-      <Route exact path='/admin/patients/create' component={CreatePatient} />
+      <Route
+        exact
+        path='/admin/patients/create'
+        render={props => <CreatePatient {...props} addPatient={patient => dispatch({ type: 'ADD', patient })} />}
+      />
       <Route
         exact
         path='/admin/patients'
