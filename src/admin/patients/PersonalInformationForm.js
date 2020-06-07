@@ -21,6 +21,10 @@ const validateMessages = {
   // eslint-disable-next-line
   required: '${label} is required!'
 }
+const sexOptions = [
+  { value: 'M', label: 'Male' },
+  { value: 'F', label: 'Female' }
+]
 
 const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
   const onFinishFailed = errorInfo => {
@@ -85,10 +89,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='sex' label='Sex' rules={[{ required: true }]}>
-              <Select>
-                <Option value='M'>Male</Option>
-                <Option value='F'>Female</Option>
-              </Select>
+              <Select options={sexOptions} />
             </Form.Item>
           </Col>
         </Row>
