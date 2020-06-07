@@ -197,12 +197,12 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           <>
             <Row>
               <Col offset={6} span={5}>
-                <Form.Item {...inputLayout} name='emergencyContactName' label='Full Name'>
+                <Form.Item {...inputLayout} name='representativeName' label='Full Name'>
                   <Input />
                 </Form.Item>
               </Col>
               <Col offset={2} span={5}>
-                <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
+                <Form.Item {...inputLayout} name='representativePhone' label='Phone'>
                   <PhoneInput className='telephone-input' />
                 </Form.Item>
               </Col>

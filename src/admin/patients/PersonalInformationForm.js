@@ -86,8 +86,8 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='sex' label='Sex' rules={[{ required: true }]}>
               <Select>
-                <Option value='male'>Male</Option>
-                <Option value='female'>Female</Option>
+                <Option value='M'>Male</Option>
+                <Option value='F'>Female</Option>
               </Select>
             </Form.Item>
           </Col>

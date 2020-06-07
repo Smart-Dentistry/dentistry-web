@@ -41,7 +41,7 @@ const PersonalHistory = ({ diseases, personalHistory, setPersonalHistory }) => {
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='personalHistoryDiseases' label='Diseases'>
+            <Form.Item {...inputLayout} name='diseases' label='Diseases'>
               <Select
                 mode='multiple'
                 style={{ width: '100%' }}
@@ -54,7 +54,7 @@ const PersonalHistory = ({ diseases, personalHistory, setPersonalHistory }) => {
         </Row>
         <Row>
           <Col offset={6} span={12}>
-            <Form.Item {...inputLayout} name='personalHistoryObservations' label='Observations'>
+            <Form.Item {...inputLayout} name='observations' label='Observations'>
               <TextArea rows={2} />
             </Form.Item>
           </Col>

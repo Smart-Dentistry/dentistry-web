@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { Steps } from 'antd'
+import { Steps, message } from 'antd'
+import { useHistory } from 'react-router-dom'
+import useAxios from 'axios-hooks'
+
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
 import BackgroundForm from './BackgroundForm'
@@ -14,10 +17,11 @@ const steps = [
 ]
 
 const CreatePatient = () => {
+  const [currentStep, setCurrentStep] = useState(0)
+  const history = useHistory()
   const [imageUrl, setImageUrl] = useState()
   const [receivePromos, setReceivePromos] = useState(true)
   const [whatsapp, setWhatsapp] = useState(false)
-  const [currentStep, setCurrentStep] = useState(0)
   const [showRepresentative, setShowRepresentative] = useState(false)
   const [personalInformation, setPersonalInformation] = useState({})
   const [contactInformation, setContactInformation] = useState({
@@ -27,8 +31,15 @@ const CreatePatient = () => {
   })
   const [familyHistory, setFamilyHistory] = useState([])
   const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
-  const [personalHistory, setPersonalHistory] = useState({ personalHistoryDiseases: [], personalHistoryObservations: '' })
+  const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
   const [generalPractitioners, setGeneralPractitioners] = useState([])
+  const [, createNewPatient] = useAxios(
+    {
+      url: `${process.env.REACT_APP_API_URL}/patients/`,
+      method: 'post'
+    },
+    { manual: true }
+  )
 
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -38,6 +49,49 @@ const CreatePatient = () => {
   const prev = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep - 1)
+  }
+
+  const createPatient = async () => {
+    const data = {
+      profilePictureUrl: imageUrl,
+      ...personalInformation,
+      birthdate: personalInformation.birthdate.format('YYYY-MM-DD'),
+      receivePromos,
+      whatsapp,
+      healthInsuranceCompany: contactInformation.healthInsuranceCompany,
+      email: contactInformation.email,
+      countryOfResidence: contactInformation.countryResidence,
+      address: contactInformation.addressLine,
+      phone: contactInformation.phone,
+      emergencyContact: {
+        fullName: contactInformation.emergencyContactName,
+        phone: contactInformation.emergencyContactPhone
+      },
+      representative: {
+        fullName: contactInformation.representativeName,
+        phone: contactInformation.representativePhone,
+        relationship: contactInformation.representativeRelationship
+      },
+      familyHistory: {
+        diseases: familyHistory,
+        observations: familyHistoryObservations
+      },
+      personalHistory,
+      generalPractitioners
+    }
+    // let patient
+    try {
+      // const { data: newPatient } = await createNewPatient({ data })
+      await createNewPatient({ data })
+      // patient = newPatient
+    } catch (error) {
+      message.error('There was an error, please try again.')
+      console.log(error)
+      return
+    }
+    // addProject(project)
+    message.success({ content: 'Patient was created sucessfully', duration: 3 })
+    history.push('/admin/patients')
   }
 
   return (
@@ -86,6 +140,7 @@ const CreatePatient = () => {
                 setPersonalHistory={setPersonalHistory}
                 generalPractitioners={generalPractitioners}
                 setGeneralPractitioners={setGeneralPractitioners}
+                createPatient={createPatient}
               />
             )
           default:
