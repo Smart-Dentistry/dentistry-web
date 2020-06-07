@@ -20,9 +20,10 @@ describe('patientReducer', () => {
     expect(newState).toHaveLength(3)
     expect(newState).toContain(patient)
   })
+
   it('raises exception', () => {
     expect(() => {
-      newState = projectReducer(newState, { type: 'UNKNOWN' })
+      newState = patientReducer(newState, { type: 'UNKNOWN' })
     }).toThrow(Error)
   })
 })
