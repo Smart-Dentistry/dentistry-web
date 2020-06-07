@@ -17,7 +17,6 @@ import PhoneInput from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
 
-const { Option } = Select
 const { Title } = Typography
 const inputLayout = {
   wrapperCol: { span: 24 }
@@ -33,6 +32,10 @@ const validateMessages = {
     number: '${label} is not a validate number!'
   }
 }
+const countryOfResidenceOptions = [
+  { value: 'E', label: 'Ecuador' },
+  { value: 'A', label: 'Abroad' }
+]
 
 const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative, whatsapp, setWhatsapp }) => {
   const [form] = Form.useForm()
@@ -113,10 +116,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
-              <Select>
-                <Option value='E'>Ecuador</Option>
-                <Option value='A'>Abroad</Option>
-              </Select>
+              <Select options={countryOfResidenceOptions} />
             </Form.Item>
           </Col>
         </Row>
