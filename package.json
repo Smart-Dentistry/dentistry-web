@@ -12,9 +12,13 @@
     "antd": "^4.2.2",
     "axios": "^0.19.2",
     "axios-hooks": "^1.10.0",
+    "i18next": "^19.4.5",
+    "i18next-browser-languagedetector": "^4.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-i18next": "^11.5.0",
+    "react-phone-number-input": "^3.0.23",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
@@ -51,6 +55,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
+    "i18next-parser": "^2.0.0",
     "react-app-rewired": "^2.1.6"
   },
   "husky": {

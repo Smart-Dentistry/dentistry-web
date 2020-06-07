@@ -10,7 +10,7 @@ function App () {
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/admin' component={Admin} />
-      <Route render={() => <h2>404 Page Not Found</h2>}/>
+      <Route render={() => <h2>404 Page Not Found</h2>} />
     </Switch>
   )
 }

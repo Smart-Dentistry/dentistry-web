@@ -52,6 +52,15 @@ yarn test
 yarn lint:fix
 ```
 
+### Generating Translations
+
+[i18next-parser][] is used to generate files for translations.
+In order to generate them, run the following command:
+
+```bash
+i18next 'src/**/*.js'
+```
+
 ## Environment Variables
 
 ### `.env` file
@@ -67,9 +76,9 @@ The following variables should be defined inside `.env`:
 |`REACT_APP_API_URL`     | http://localhost:8000/api   |
 
 
-
 [Ant Design]: https://ant.design/
 [Git]: https://git-scm.com/downloads
+[i18next-parser]: https://github.com/i18next/i18next-parser
 [Node.js]: https://nodejs.org/en/
 [React]: https://reactjs.org/
 [Standard JS]: https://standardjs.com/

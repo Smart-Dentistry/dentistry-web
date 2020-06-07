@@ -1,6 +1,7 @@
-const { useBabelRc, override, useEslintRc } = require('customize-cra')
+const { useBabelRc, override, useEslintRc, removeModuleScopePlugin } = require('customize-cra')
 
 module.exports = override(
   useBabelRc(),
-  useEslintRc()
+  useEslintRc(),
+  removeModuleScopePlugin()
 )
