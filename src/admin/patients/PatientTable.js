@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Table, Button, Space } from 'antd'
 import { useHistory } from 'react-router-dom'
-import useAxios from 'axios-hooks'
+import PropTypes from 'prop-types'
+
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
-const PatientTable = () => {
+const PatientTable = ({ patients }) => {
   const { t } = useTranslation()
   const history = useHistory()
-  const [{ data, loading, error }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/patients/`
-  })
-  const [patients, setPatients] = useState([])
-  useEffect(() => { if (data) setPatients(data) }, [data])
-
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error!</p>
 
   const columns = [
     {
@@ -64,6 +57,10 @@ const PatientTable = () => {
       />
     </Space>
   )
+}
+
+PatientTable.propTypes = {
+  patients: PropTypes.array
 }
 
 export default PatientTable
