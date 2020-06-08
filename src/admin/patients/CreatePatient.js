@@ -18,9 +18,9 @@ const steps = [
 ]
 
 const CreatePatient = ({ addPatient }) => {
-  const [currentStep, setCurrentStep] = useState(0)
   const history = useHistory()
-  const [imageUrl, setImageUrl] = useState()
+  const [currentStep, setCurrentStep] = useState(0)
+  const [image, setImage] = useState()
   const [s3ImageUrl, setS3ImageUrl] = useState()
   const [receivePromos, setReceivePromos] = useState(true)
   const [whatsapp, setWhatsapp] = useState(false)
@@ -107,8 +107,8 @@ const CreatePatient = ({ addPatient }) => {
             return (
               <PersonalInformationForm
                 next={next}
-                imageUrl={imageUrl}
-                setImageUrl={setImageUrl}
+                image={image}
+                setImage={setImage}
                 setS3ImageUrl={setS3ImageUrl}
                 receivePromos={receivePromos}
                 setReceivePromos={setReceivePromos}

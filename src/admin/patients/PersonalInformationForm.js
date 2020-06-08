@@ -38,7 +38,7 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
+const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, image, setImage, receivePromos, setReceivePromos, setS3ImageUrl }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -58,7 +58,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture imageUrl={imageUrl} setImageUrl={setImageUrl} setS3ImageUrl={setS3ImageUrl} />
+          <PatientPicture image={image} setImage={setImage} setS3ImageUrl={setS3ImageUrl} />
         </Col>
       </Row>
       <Form
@@ -155,8 +155,8 @@ PersonalInformationForm.propTypes = {
   setPersonalInformation: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
-  imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func,
+  image: PropTypes.string,
+  setImage: PropTypes.func,
   receivePromos: PropTypes.bool,
   setReceivePromos: PropTypes.func,
   setS3ImageUrl: PropTypes.func

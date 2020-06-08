@@ -22,10 +22,10 @@ function getBase64 (img, callback) {
   reader.readAsDataURL(img)
 }
 
-const PatientPicture = ({ imageUrl, setImageUrl, setS3ImageUrl }) => {
+const PatientPicture = ({ image, setImage, setS3ImageUrl }) => {
   const [loadingImage, setLoadingImage] = useState(false)
   const uploadImage = async options => {
-    setImageUrl(null)
+    setImage(null)
     const { onSuccess, onError, file } = options
     const contentType = file.type
     const config = {
@@ -74,7 +74,7 @@ const PatientPicture = ({ imageUrl, setImageUrl, setS3ImageUrl }) => {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
-        setImageUrl(imageUrl)
+        setImage(imageUrl)
         setLoadingImage(false)
       })
     }
@@ -96,14 +96,14 @@ const PatientPicture = ({ imageUrl, setImageUrl, setS3ImageUrl }) => {
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >
-      {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton}
+      {image ? <img src={image} alt='avatar' style={{ width: '100%' }} /> : uploadButton}
     </Upload>
   )
 }
 
 PatientPicture.propTypes = {
-  imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func,
+  image: PropTypes.string,
+  setImage: PropTypes.func,
   setS3ImageUrl: PropTypes.func
 }
 
