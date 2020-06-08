@@ -65,15 +65,6 @@ const CreatePatient = ({ addPatient }) => {
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
-      emergencyContact: {
-        fullName: newPatient.emergencyContactName,
-        phone: newPatient.emergencyContactPhone
-      },
-      representative: {
-        fullName: newPatient.representativeName,
-        phone: newPatient.representativePhone,
-        relationship: newPatient.representativeRelationship
-      },
       familyHistory: {
         diseases: familyHistory,
         observations: familyHistoryObservations

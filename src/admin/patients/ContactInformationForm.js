@@ -67,7 +67,16 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: values })
+    const emergencyContact = {
+      fullName: values.emergencyContactName,
+      phone: values.emergencyContactPhone
+    }
+    const representative = {
+      fullName: values.representativeName,
+      phone: values.representativePhone,
+      relationship: values.representativeRelationship
+    }
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
     next()
   }
   const onValuesChange = async changedValue => {
@@ -100,7 +109,17 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
   }
   const previous = () => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: form.getFieldsValue() })
+    const values = form.getFieldsValue()
+    const emergencyContact = {
+      fullName: values.emergencyContactName,
+      phone: values.emergencyContactPhone
+    }
+    const representative = {
+      fullName: values.representativeName,
+      phone: values.representativePhone,
+      relationship: values.representativeRelationship
+    }
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
     dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: newPatient.whatsapp } })
     prev()
   }
