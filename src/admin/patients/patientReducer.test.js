@@ -3,27 +3,27 @@ import patientReducer from './patientReducer'
 const patients = [{ key: 1, firstName: 'John' }, { key: 2, firstName: 'Jeff' }]
 
 describe('patientReducer', () => {
-  let newState
+  let state
 
   beforeEach(() => {
-    newState = patientReducer([], { type: 'LOAD', patients })
+    state = patientReducer([], { type: 'LOAD', patients })
   })
 
   it('loads patients', () => {
-    expect(newState).toBe(patients)
+    expect(state).toBe(patients)
   })
 
   it('adds new patient', () => {
     const patient = { key: 3, firstName: 'Peter' }
-    newState = patientReducer(newState, { type: 'ADD', patient: patient })
+    state = patientReducer(state, { type: 'ADD', patient: patient })
 
-    expect(newState).toHaveLength(3)
-    expect(newState).toContain(patient)
+    expect(state).toHaveLength(3)
+    expect(state).toContain(patient)
   })
 
   it('raises exception', () => {
     expect(() => {
-      newState = patientReducer(newState, { type: 'UNKNOWN' })
+      state = patientReducer(state, { })
     }).toThrow(Error)
   })
 })
