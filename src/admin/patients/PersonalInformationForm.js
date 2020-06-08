@@ -38,12 +38,12 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, image, setImage, receivePromos, setReceivePromos, setS3ImageUrl }) => {
+const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    setPersonalInformation(values)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: values })
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -52,13 +52,13 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
     setShowRepresentative(years < 18)
   }
   const receivePromosOnChange = e => {
-    setReceivePromos(e.target.checked)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
   return (
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture image={image} setImage={setImage} setS3ImageUrl={setS3ImageUrl} />
+          <PatientPicture image={image} setImage={setImage} dispatchNewPatient={dispatchNewPatient} />
         </Col>
       </Row>
       <Form
@@ -67,7 +67,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
-        initialValues={personalInformation}
+        initialValues={newPatient}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -132,7 +132,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='receivePromos'>
-              <Checkbox checked={receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+              <Checkbox checked={newPatient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -151,15 +151,12 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
 
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
-  personalInformation: PropTypes.object,
-  setPersonalInformation: PropTypes.func,
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
   image: PropTypes.string,
-  setImage: PropTypes.func,
-  receivePromos: PropTypes.bool,
-  setReceivePromos: PropTypes.func,
-  setS3ImageUrl: PropTypes.func
+  setImage: PropTypes.func
 }
 
 export default PersonalInformationForm

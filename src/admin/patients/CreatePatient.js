@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Steps, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
@@ -16,16 +16,22 @@ const steps = [
   'Contact Information',
   'Background Information'
 ]
+const newPatientReducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE':
+      return { ...state, ...action.updatedValues }
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`)
+  }
+}
 
 const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
   const [currentStep, setCurrentStep] = useState(0)
   const [image, setImage] = useState()
-  const [s3ImageUrl, setS3ImageUrl] = useState()
-  const [receivePromos, setReceivePromos] = useState(true)
+  const [newPatient, dispatchNewPatient] = useReducer(newPatientReducer, { receivePromos: true })
   const [whatsapp, setWhatsapp] = useState(false)
   const [showRepresentative, setShowRepresentative] = useState(false)
-  const [personalInformation, setPersonalInformation] = useState({})
   const [contactInformation, setContactInformation] = useState({
     countryResidence: 'E',
     province: 'Azuay',
@@ -55,10 +61,8 @@ const CreatePatient = ({ addPatient }) => {
 
   const createPatient = async () => {
     const data = {
-      profilePictureUrl: s3ImageUrl,
-      ...personalInformation,
-      birthdate: personalInformation.birthdate.format('YYYY-MM-DD'),
-      receivePromos,
+      ...newPatient,
+      birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
       whatsapp,
       healthInsuranceCompany: contactInformation.healthInsuranceCompany,
       email: contactInformation.email,
@@ -109,11 +113,8 @@ const CreatePatient = ({ addPatient }) => {
                 next={next}
                 image={image}
                 setImage={setImage}
-                setS3ImageUrl={setS3ImageUrl}
-                receivePromos={receivePromos}
-                setReceivePromos={setReceivePromos}
-                personalInformation={personalInformation}
-                setPersonalInformation={setPersonalInformation}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />

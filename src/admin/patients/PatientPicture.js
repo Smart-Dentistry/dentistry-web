@@ -22,7 +22,7 @@ function getBase64 (img, callback) {
   reader.readAsDataURL(img)
 }
 
-const PatientPicture = ({ image, setImage, setS3ImageUrl }) => {
+const PatientPicture = ({ image, setImage, dispatchNewPatient }) => {
   const [loadingImage, setLoadingImage] = useState(false)
   const uploadImage = async options => {
     setImage(null)
@@ -50,7 +50,7 @@ const PatientPicture = ({ image, setImage, setS3ImageUrl }) => {
       return
     }
     const { data } = response
-    setS3ImageUrl(`${data.url}${data.fields.key}`)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { profilePictureUrl: `${data.url}${data.fields.key}` } })
     const form = new FormData()
     for (const [key, value] of Object.entries(data.fields)) {
       form.append(key, value)
@@ -104,7 +104,7 @@ const PatientPicture = ({ image, setImage, setS3ImageUrl }) => {
 PatientPicture.propTypes = {
   image: PropTypes.string,
   setImage: PropTypes.func,
-  setS3ImageUrl: PropTypes.func
+  dispatchNewPatient: PropTypes.func
 }
 
 export default PatientPicture
