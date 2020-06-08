@@ -29,14 +29,16 @@ const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
   const [currentStep, setCurrentStep] = useState(0)
   const [image, setImage] = useState()
-  const [newPatient, dispatchNewPatient] = useReducer(newPatientReducer, { receivePromos: true })
-  const [whatsapp, setWhatsapp] = useState(false)
   const [showRepresentative, setShowRepresentative] = useState(false)
-  const [contactInformation, setContactInformation] = useState({
-    countryResidence: 'E',
-    province: 'Azuay',
-    canton: 'Cuenca'
-  })
+  const [newPatient, dispatchNewPatient] = useReducer(
+    newPatientReducer,
+    {
+      receivePromos: true,
+      whatsapp: false,
+      countryResidence: 'E',
+      province: 'Azuay',
+      canton: 'Cuenca'
+    })
   const [familyHistory, setFamilyHistory] = useState([])
   const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
   const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
@@ -63,20 +65,14 @@ const CreatePatient = ({ addPatient }) => {
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
-      whatsapp,
-      healthInsuranceCompany: contactInformation.healthInsuranceCompany,
-      email: contactInformation.email,
-      countryOfResidence: contactInformation.countryResidence,
-      address: contactInformation.addressLine,
-      phone: contactInformation.phone,
       emergencyContact: {
-        fullName: contactInformation.emergencyContactName,
-        phone: contactInformation.emergencyContactPhone
+        fullName: newPatient.emergencyContactName,
+        phone: newPatient.emergencyContactPhone
       },
       representative: {
-        fullName: contactInformation.representativeName,
-        phone: contactInformation.representativePhone,
-        relationship: contactInformation.representativeRelationship
+        fullName: newPatient.representativeName,
+        phone: newPatient.representativePhone,
+        relationship: newPatient.representativeRelationship
       },
       familyHistory: {
         diseases: familyHistory,
@@ -124,10 +120,8 @@ const CreatePatient = ({ addPatient }) => {
               <ContactInformationForm
                 prev={prev}
                 next={next}
-                whatsapp={whatsapp}
-                setWhatsapp={setWhatsapp}
-                contactInformation={contactInformation}
-                setContactInformation={setContactInformation}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
