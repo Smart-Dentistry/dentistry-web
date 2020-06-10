@@ -19,22 +19,32 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners }) => {
+const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
   const [enableAddPractitioner, setEnableAddPractitioner] = useState(false)
   const [form] = Form.useForm()
   const onFinish = values => {
-    setGeneralPractitioners([...generalPractitioners, {
-      name: values.practitionerName,
-      phone: values.practitionerPhone,
-      disease: values.practitionerDisease
-    }])
+    dispatchNewPatient({
+      type: 'UPDATE',
+      updatedValues: {
+        generalPractitioners: [...newPatient.generalPractitioners, {
+          name: values.practitionerName,
+          phone: values.practitionerPhone,
+          disease: values.practitionerDisease
+        }]
+      }
+    })
     form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
     setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
-    const newGeneralPractitioners = [...generalPractitioners]
+    const newGeneralPractitioners = [...newPatient.generalPractitioners]
     newGeneralPractitioners.splice(index, 1)
-    setGeneralPractitioners(newGeneralPractitioners)
+    dispatchNewPatient({
+      type: 'UPDATE',
+      updatedValues: {
+        generalPractitioners: newGeneralPractitioners
+      }
+    })
   }
   const onValuesChange = (changedValues, allValues) => {
     setEnableAddPractitioner(allValues.practitionerName && allValues.practitionerDisease)
@@ -66,15 +76,15 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
         </Row>
         <Row>
           <Col offset={6} span={3}>
-            <Tooltip title="Add name and disease">
-              <Button disabled={!enableAddPractitioner} htmlType="submit" type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
+            <Tooltip title='Add name and disease'>
+              <Button disabled={!enableAddPractitioner} htmlType='submit' type='primary' style={{ marginBottom: 25 }}><PlusOutlined />Add</Button>
             </Tooltip>
           </Col>
         </Row>
       </Form>
       <Row gutter={[16, 16]}>
         <Space direction='vertical' style={{ width: '100%' }}>
-          {generalPractitioners.map((item, index) =>
+          {newPatient.generalPractitioners.map((item, index) =>
             <Col span={12} offset={6} key={item}>
               <Card
                 size='small'
@@ -82,8 +92,10 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
                 key={item}
                 extra={
                   <Button type='button' className='linkButton' onClick={() => removePractitioner(index)}>
-                    <DeleteFilled style={{ color: '#E53B32' }}/>
-                  </Button>}>
+                    <DeleteFilled style={{ color: '#E53B32' }} />
+                  </Button>
+                }
+              >
                 <p>Phone: {item.phone}</p>
                 <p>Disease: {item.disease}</p>
               </Card>
@@ -97,8 +109,8 @@ const GeneralPractitioners = ({ generalPractitioners, setGeneralPractitioners })
 }
 
 GeneralPractitioners.propTypes = {
-  generalPractitioners: PropTypes.array,
-  setGeneralPractitioners: PropTypes.func
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func
 }
 
 export default GeneralPractitioners

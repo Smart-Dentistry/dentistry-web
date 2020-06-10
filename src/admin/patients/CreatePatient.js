@@ -45,10 +45,9 @@ const CreatePatient = ({ addPatient }) => {
       personalHistory: {
         diseases: [],
         observations: ''
-      }
+      },
+      generalPractitioners: []
     })
-  // const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
-  const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [, createNewPatient] = useAxios(
     {
       url: `${process.env.REACT_APP_API_URL}/patients/`,
@@ -70,8 +69,7 @@ const CreatePatient = ({ addPatient }) => {
   const createPatient = async () => {
     const data = {
       ...newPatient,
-      birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
-      generalPractitioners
+      birthdate: newPatient.birthdate.format('YYYY-MM-DD')
     }
     let patient
     try {
@@ -124,8 +122,6 @@ const CreatePatient = ({ addPatient }) => {
                 prev={prev}
                 newPatient={newPatient}
                 dispatchNewPatient={dispatchNewPatient}
-                generalPractitioners={generalPractitioners}
-                setGeneralPractitioners={setGeneralPractitioners}
                 createPatient={createPatient}
               />
             )

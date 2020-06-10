@@ -11,7 +11,7 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, newPatient, dispatchNewPatient, generalPractitioners, setGeneralPractitioners, createPatient }) => {
+const BackgroundForm = ({ prev, newPatient, dispatchNewPatient, createPatient }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -34,7 +34,7 @@ const BackgroundForm = ({ prev, newPatient, dispatchNewPatient, generalPractitio
         dispatchNewPatient={dispatchNewPatient}
       />
       <PersonalHistory diseases={diseases} newPatient={newPatient} dispatchNewPatient={dispatchNewPatient} />
-      <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
+      <GeneralPractioners newPatient={newPatient} dispatchNewPatient={dispatchNewPatient} />
       <Row>
         <Col offset={6} span={6}>
           <Button type='primary' onClick={prev}>Previous</Button>
