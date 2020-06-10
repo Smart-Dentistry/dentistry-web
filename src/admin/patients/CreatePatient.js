@@ -37,10 +37,14 @@ const CreatePatient = ({ addPatient }) => {
       whatsapp: false,
       countryResidence: 'E',
       province: 'Azuay',
-      canton: 'Cuenca'
+      canton: 'Cuenca',
+      familyHistory: {
+        diseases: [],
+        observations: ''
+      }
     })
-  const [familyHistory, setFamilyHistory] = useState([])
-  const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
+  // const [familyHistory, setFamilyHistory] = useState([])
+  // const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
   const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [, createNewPatient] = useAxios(
@@ -65,10 +69,10 @@ const CreatePatient = ({ addPatient }) => {
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
-      familyHistory: {
-        diseases: familyHistory,
-        observations: familyHistoryObservations
-      },
+      // familyHistory: {
+      //   diseases: familyHistory,
+      //   observations: familyHistoryObservations
+      // },
       personalHistory,
       generalPractitioners
     }
@@ -121,10 +125,12 @@ const CreatePatient = ({ addPatient }) => {
             return (
               <BackgroundForm
                 prev={prev}
-                familyHistory={familyHistory}
-                setFamilyHistory={setFamilyHistory}
-                familyHistoryObservations={familyHistoryObservations}
-                setFamilyHistoryObservations={setFamilyHistoryObservations}
+                // familyHistory={familyHistory}
+                // setFamilyHistory={setFamilyHistory}
+                // familyHistoryObservations={familyHistoryObservations}
+                // setFamilyHistoryObservations={setFamilyHistoryObservations}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 personalHistory={personalHistory}
                 setPersonalHistory={setPersonalHistory}
                 generalPractitioners={generalPractitioners}

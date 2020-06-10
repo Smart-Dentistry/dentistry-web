@@ -11,7 +11,7 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, familyHistory, setFamilyHistory, personalHistory, setPersonalHistory, familyHistoryObservations, setFamilyHistoryObservations, generalPractitioners, setGeneralPractitioners, createPatient }) => {
+const BackgroundForm = ({ prev, newPatient, dispatchNewPatient, personalHistory, setPersonalHistory, generalPractitioners, setGeneralPractitioners, createPatient }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -30,10 +30,8 @@ const BackgroundForm = ({ prev, familyHistory, setFamilyHistory, personalHistory
       <FamilyHistory
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
-        familyHistory={familyHistory}
-        setFamilyHistory={setFamilyHistory}
-        familyHistoryObservations={familyHistoryObservations}
-        setFamilyHistoryObservations={setFamilyHistoryObservations}
+        newPatient={newPatient}
+        dispatchNewPatient={dispatchNewPatient}
       />
       <PersonalHistory diseases={diseases} personalHistory={personalHistory} setPersonalHistory={setPersonalHistory}/>
       <GeneralPractioners generalPractitioners={generalPractitioners} setGeneralPractitioners={setGeneralPractitioners} />
@@ -53,12 +51,10 @@ const BackgroundForm = ({ prev, familyHistory, setFamilyHistory, personalHistory
 
 BackgroundForm.propTypes = {
   prev: PropTypes.func,
-  familyHistory: PropTypes.array,
-  setFamilyHistory: PropTypes.func,
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func,
   personalHistory: PropTypes.object,
   setPersonalHistory: PropTypes.func,
-  familyHistoryObservations: PropTypes.string,
-  setFamilyHistoryObservations: PropTypes.func,
   generalPractitioners: PropTypes.array,
   setGeneralPractitioners: PropTypes.func,
   createPatient: PropTypes.func
