@@ -4,17 +4,7 @@ import useAxios from 'axios-hooks'
 
 import PatientTable from './PatientTable'
 import CreatePatient from './CreatePatient'
-
-const patientReducer = (state, action) => {
-  switch (action.type) {
-    case 'LOAD':
-      return action.patients
-    case 'ADD':
-      return [action.patient, ...state]
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`)
-  }
-}
+import patientReducer from './patientReducer'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({

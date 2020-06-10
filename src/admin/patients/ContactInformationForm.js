@@ -17,7 +17,6 @@ import PhoneInput from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
 
-const { Option } = Select
 const { Title } = Typography
 const inputLayout = {
   wrapperCol: { span: 24 }
@@ -33,8 +32,12 @@ const validateMessages = {
     number: '${label} is not a validate number!'
   }
 }
+const countryOfResidenceOptions = [
+  { value: 'E', label: 'Ecuador' },
+  { value: 'A', label: 'Abroad' }
+]
 
-const ContactInformationForm = ({ prev, next, contactInformation, setContactInformation, showRepresentative, setShowRepresentative, whatsapp, setWhatsapp }) => {
+const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -42,13 +45,13 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
   })
   const [{ data: cantonsData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${contactInformation.province === 'Azuay' ? 1 : contactInformation.province}/cantons/`
+    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${newPatient.province === 'Azuay' ? 1 : newPatient.province}/cantons/`
   })
   useEffect(() => {
     if (provincesData) {
       setProvinces(provincesData)
       form.setFieldsValue({
-        province: contactInformation.province === 'Azuay' ? 1 : contactInformation.province
+        province: newPatient.province === 'Azuay' ? 1 : newPatient.province
       })
     }
   }, [provincesData])
@@ -56,7 +59,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     if (cantonsData) {
       setCantons(cantonsData)
       form.setFieldsValue({
-        canton: contactInformation.canton === 'Cuenca' ? 3 : contactInformation.canton
+        canton: newPatient.canton === 'Cuenca' ? 3 : newPatient.canton
       })
     }
   }, [cantonsData])
@@ -64,7 +67,16 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    setContactInformation(values)
+    const emergencyContact = {
+      fullName: values.emergencyContactName,
+      phone: values.emergencyContactPhone
+    }
+    const representative = {
+      fullName: values.representativeName,
+      phone: values.representativePhone,
+      relationship: values.representativeRelationship
+    }
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
     next()
   }
   const onValuesChange = async changedValue => {
@@ -85,7 +97,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         })
         break
       case 'countryResidence':
-        setContactInformation({ ...contactInformation, countryResidence: value })
+        dispatchNewPatient({ type: 'UPDATE', updatedValues: { countryResidence: value } })
         break
       case 'representative':
         setShowRepresentative(value)
@@ -94,7 +106,22 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
     }
   }
   const whatsappOnChange = e => {
-    setWhatsapp(e.target.checked)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
+  }
+  const previous = () => {
+    const values = form.getFieldsValue()
+    const emergencyContact = {
+      fullName: values.emergencyContactName,
+      phone: values.emergencyContactPhone
+    }
+    const representative = {
+      fullName: values.representativeName,
+      phone: values.representativePhone,
+      relationship: values.representativeRelationship
+    }
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: newPatient.whatsapp } })
+    prev()
   }
 
   return (
@@ -107,20 +134,17 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
-        initialValues={contactInformation}
+        initialValues={newPatient}
         onValuesChange={onValuesChange}
       >
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
-              <Select>
-                <Option value='E'>Ecuador</Option>
-                <Option value='A'>Abroad</Option>
-              </Select>
+              <Select options={countryOfResidenceOptions} />
             </Form.Item>
           </Col>
         </Row>
-        {contactInformation.countryResidence === 'E' ? (
+        {newPatient.countryResidence === 'E' ? (
           <>
             <Row>
               <Col offset={6} span={5}>
@@ -151,7 +175,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='whatsapp' label='Whatsapp'>
-              <Checkbox checked={whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
+              <Checkbox checked={newPatient.whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -161,7 +185,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
               <Input />
             </Form.Item>
           </Col>
-          {contactInformation.countryResidence === 'E' ? (
+          {newPatient.countryResidence === 'E' ? (
             <Col offset={2} span={5}>
               <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
                 <Input />
@@ -218,7 +242,7 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
         ) : null}
         <Row>
           <Col offset={6} span={6}>
-            <Button type='primary' onClick={prev}>Previous</Button>
+            <Button type='primary' onClick={previous}>Previous</Button>
           </Col>
           <Col span={6}>
             <Row justify='end'>
@@ -234,12 +258,10 @@ const ContactInformationForm = ({ prev, next, contactInformation, setContactInfo
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
   next: PropTypes.func,
-  contactInformation: PropTypes.object,
-  setContactInformation: PropTypes.func,
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
-  setShowRepresentative: PropTypes.func,
-  whatsapp: PropTypes.bool,
-  setWhatsapp: PropTypes.func
+  setShowRepresentative: PropTypes.func
 }
 
 export default ContactInformationForm

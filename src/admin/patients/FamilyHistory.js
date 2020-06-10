@@ -25,11 +25,11 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory, familyHistoryObservations, setFamilyHistoryObservations }) => {
+const FamilyHistory = ({ diseases, setDiseases, newPatient, dispatchNewPatient }) => {
   // console.log(familyHistory)
   const [disease, setDisease] = useState(null)
   const [enableAddFamilyDisease, setEnableAddFamilyDisease] = useState(false)
-  const [familyBackground, setFamilyBackground] = useState(familyHistory.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
+  const [familyBackground, setFamilyBackground] = useState(newPatient.familyHistory.diseases.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
   const [selectedRelatives, setSelectedRelatives] = useState([])
 
   const relativesOnChange = checkedValues => {
@@ -41,7 +41,8 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
     setEnableAddFamilyDisease(selectedRelatives.length > 0)
   }
   const observationsOnchange = e => {
-    setFamilyHistoryObservations(e.target.value)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { familyHistory: { ...newPatient.familyHistory, observations: e.target.value } } })
+    console.log({ ...newPatient.familyHistory, observations: '' })
   }
   const addFamilyDisease = () => {
     const tempDiseases = [...diseases]
@@ -50,18 +51,29 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
     setDiseases(tempDiseases)
     const newDisease = `${tempDisease.label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
-    setFamilyHistory([...familyHistory, {
-      id: disease,
-      label: tempDisease.label,
-      relatives: selectedRelatives
-    }])
+    dispatchNewPatient({
+      type: 'UPDATE',
+      updatedValues: {
+        familyHistory: {
+          ...newPatient.familyHistory,
+          diseases: [
+            ...newPatient.familyHistory.diseases,
+            {
+              id: disease,
+              label: tempDisease.label,
+              relatives: selectedRelatives
+            }
+          ]
+        }
+      }
+    })
     setDisease(null)
     setSelectedRelatives([])
     setEnableAddFamilyDisease(false)
   }
   const removeFamilyDisease = (diseaseToRemove, key) => {
     const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
-    const newFamilyHistory = [...familyHistory]
+    const newFamilyHistory = [...newPatient.familyHistory.diseases]
     const diseaseToRemoveValue = newFamilyHistory[key].id
     const tempDiseases = [...diseases]
     const tempDisease = tempDiseases.find(e => e.value === diseaseToRemoveValue)
@@ -69,7 +81,15 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
     setDiseases(tempDiseases)
     newFamilyHistory.splice(key, 1)
     setFamilyBackground(newDiseases)
-    setFamilyHistory(newFamilyHistory)
+    dispatchNewPatient({
+      type: 'UPDATE',
+      updatedValues: {
+        familyHistory: {
+          ...newPatient.familyHistory,
+          diseases: newFamilyHistory
+        }
+      }
+    })
   }
 
   return (
@@ -133,7 +153,7 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
           </div>
         </Col>
         <Col offset={6} span={12}>
-          <TextArea value={familyHistoryObservations} onChange={observationsOnchange} rows={2} style={{ marginBottom: '24px' }} />
+          <TextArea value={newPatient.familyHistory.observations} onChange={observationsOnchange} rows={2} style={{ marginBottom: '24px' }} />
         </Col>
       </Row>
     </>
@@ -143,10 +163,8 @@ const FamilyHistory = ({ diseases, setDiseases, familyHistory, setFamilyHistory,
 FamilyHistory.propTypes = {
   diseases: PropTypes.array,
   setDiseases: PropTypes.func,
-  familyHistory: PropTypes.array,
-  setFamilyHistory: PropTypes.func,
-  familyHistoryObservations: PropTypes.string,
-  setFamilyHistoryObservations: PropTypes.func
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func
 }
 
 export default FamilyHistory

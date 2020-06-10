@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Steps, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
@@ -16,25 +16,38 @@ const steps = [
   'Contact Information',
   'Background Information'
 ]
+const newPatientReducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE':
+      return { ...state, ...action.updatedValues }
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`)
+  }
+}
 
 const CreatePatient = ({ addPatient }) => {
-  const [currentStep, setCurrentStep] = useState(0)
   const history = useHistory()
-  const [imageUrl, setImageUrl] = useState()
-  const [s3ImageUrl, setS3ImageUrl] = useState()
-  const [receivePromos, setReceivePromos] = useState(true)
-  const [whatsapp, setWhatsapp] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [image, setImage] = useState()
   const [showRepresentative, setShowRepresentative] = useState(false)
-  const [personalInformation, setPersonalInformation] = useState({})
-  const [contactInformation, setContactInformation] = useState({
-    countryResidence: 'E',
-    province: 'Azuay',
-    canton: 'Cuenca'
-  })
-  const [familyHistory, setFamilyHistory] = useState([])
-  const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
-  const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
-  const [generalPractitioners, setGeneralPractitioners] = useState([])
+  const [newPatient, dispatchNewPatient] = useReducer(
+    newPatientReducer,
+    {
+      receivePromos: true,
+      whatsapp: false,
+      countryResidence: 'E',
+      province: 'Azuay',
+      canton: 'Cuenca',
+      familyHistory: {
+        diseases: [],
+        observations: ''
+      },
+      personalHistory: {
+        diseases: [],
+        observations: ''
+      },
+      generalPractitioners: []
+    })
   const [, createNewPatient] = useAxios(
     {
       url: `${process.env.REACT_APP_API_URL}/patients/`,
@@ -55,31 +68,8 @@ const CreatePatient = ({ addPatient }) => {
 
   const createPatient = async () => {
     const data = {
-      profilePictureUrl: s3ImageUrl,
-      ...personalInformation,
-      birthdate: personalInformation.birthdate.format('YYYY-MM-DD'),
-      receivePromos,
-      whatsapp,
-      healthInsuranceCompany: contactInformation.healthInsuranceCompany,
-      email: contactInformation.email,
-      countryOfResidence: contactInformation.countryResidence,
-      address: contactInformation.addressLine,
-      phone: contactInformation.phone,
-      emergencyContact: {
-        fullName: contactInformation.emergencyContactName,
-        phone: contactInformation.emergencyContactPhone
-      },
-      representative: {
-        fullName: contactInformation.representativeName,
-        phone: contactInformation.representativePhone,
-        relationship: contactInformation.representativeRelationship
-      },
-      familyHistory: {
-        diseases: familyHistory,
-        observations: familyHistoryObservations
-      },
-      personalHistory,
-      generalPractitioners
+      ...newPatient,
+      birthdate: newPatient.birthdate.format('YYYY-MM-DD')
     }
     let patient
     try {
@@ -87,8 +77,6 @@ const CreatePatient = ({ addPatient }) => {
       patient = response.data
     } catch (error) {
       message.error('There was an error, please try again.')
-      console.log(error)
-      console.log(error.reponse)
       return
     }
     addPatient(patient)
@@ -107,13 +95,10 @@ const CreatePatient = ({ addPatient }) => {
             return (
               <PersonalInformationForm
                 next={next}
-                imageUrl={imageUrl}
-                setImageUrl={setImageUrl}
-                setS3ImageUrl={setS3ImageUrl}
-                receivePromos={receivePromos}
-                setReceivePromos={setReceivePromos}
-                personalInformation={personalInformation}
-                setPersonalInformation={setPersonalInformation}
+                image={image}
+                setImage={setImage}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
@@ -123,10 +108,8 @@ const CreatePatient = ({ addPatient }) => {
               <ContactInformationForm
                 prev={prev}
                 next={next}
-                whatsapp={whatsapp}
-                setWhatsapp={setWhatsapp}
-                contactInformation={contactInformation}
-                setContactInformation={setContactInformation}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
@@ -135,14 +118,8 @@ const CreatePatient = ({ addPatient }) => {
             return (
               <BackgroundForm
                 prev={prev}
-                familyHistory={familyHistory}
-                setFamilyHistory={setFamilyHistory}
-                familyHistoryObservations={familyHistoryObservations}
-                setFamilyHistoryObservations={setFamilyHistoryObservations}
-                personalHistory={personalHistory}
-                setPersonalHistory={setPersonalHistory}
-                generalPractitioners={generalPractitioners}
-                setGeneralPractitioners={setGeneralPractitioners}
+                newPatient={newPatient}
+                dispatchNewPatient={dispatchNewPatient}
                 createPatient={createPatient}
               />
             )

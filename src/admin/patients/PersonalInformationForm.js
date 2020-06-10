@@ -13,7 +13,6 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import PatientPicture from './PatientPicture'
 
-const { Option } = Select
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -21,13 +20,30 @@ const validateMessages = {
   // eslint-disable-next-line
   required: '${label} is required!'
 }
+const sexOptions = [
+  { value: 'M', label: 'Male' },
+  { value: 'F', label: 'Female' }
+]
+const maritalStatusOptions = [
+  { value: 'SI', label: 'Single' },
+  { value: 'MA', label: 'Married' },
+  { value: 'DI', label: 'Divorced' },
+  { value: 'WI', label: 'Widowed' },
+  { value: 'DP', label: 'Domestic Partnership' },
+  { value: 'NS', label: 'Not Specified' }
+]
+const referralSourceOptions = [
+  { value: 'P', label: 'Personal Reference' },
+  { value: 'S', label: 'Social Media' },
+  { value: 'O', label: 'Other' }
+]
 
-const PersonalInformationForm = ({ next, personalInformation, setPersonalInformation, showRepresentative, setShowRepresentative, imageUrl, setImageUrl, receivePromos, setReceivePromos, setS3ImageUrl }) => {
+const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    setPersonalInformation(values)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: values })
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -36,13 +52,13 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
     setShowRepresentative(years < 18)
   }
   const receivePromosOnChange = e => {
-    setReceivePromos(e.target.checked)
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
   return (
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture imageUrl={imageUrl} setImageUrl={setImageUrl} setS3ImageUrl={setS3ImageUrl} />
+          <PatientPicture image={image} setImage={setImage} dispatchNewPatient={dispatchNewPatient} />
         </Col>
       </Row>
       <Form
@@ -51,7 +67,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
-        initialValues={personalInformation}
+        initialValues={newPatient}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -85,10 +101,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='sex' label='Sex' rules={[{ required: true }]}>
-              <Select>
-                <Option value='M'>Male</Option>
-                <Option value='F'>Female</Option>
-              </Select>
+              <Select options={sexOptions} />
             </Form.Item>
           </Col>
         </Row>
@@ -100,14 +113,7 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='maritalStatus' label='Marital Status' rules={[{ required: true }]}>
-              <Select>
-                <Option value='SI'>Single</Option>
-                <Option value='MA'>Married</Option>
-                <Option value='DI'>Divorced</Option>
-                <Option value='WI'>Widowed</Option>
-                <Option value='DP'>Domestic Partnership</Option>
-                <Option value='NS'>Not Specified</Option>
-              </Select>
+              <Select options={maritalStatusOptions} />
             </Form.Item>
           </Col>
         </Row>
@@ -119,18 +125,14 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='referralSource' label='Referral Source' rules={[{ required: true }]}>
-              <Select>
-                <Option value='P'>Personal Reference</Option>
-                <Option value='S'>Social Media</Option>
-                <Option value='O'>Other</Option>
-              </Select>
+              <Select options={referralSourceOptions} />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='receivePromos'>
-              <Checkbox checked={receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+              <Checkbox checked={newPatient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -149,15 +151,12 @@ const PersonalInformationForm = ({ next, personalInformation, setPersonalInforma
 
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
-  personalInformation: PropTypes.object,
-  setPersonalInformation: PropTypes.func,
+  newPatient: PropTypes.object,
+  dispatchNewPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
-  imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func,
-  receivePromos: PropTypes.bool,
-  setReceivePromos: PropTypes.func,
-  setS3ImageUrl: PropTypes.func
+  image: PropTypes.string,
+  setImage: PropTypes.func
 }
 
 export default PersonalInformationForm

@@ -23,7 +23,7 @@ const Admin = () => {
           <div className='site-layout-background' style={{ padding: 24, minHeight: 360 }}>
             <Switch>
               <Route exact path='/admin' render={() => (<Redirect to='/admin/dashboard' />)} />
-              <Route path='/admin/:page' component={AdminContent} />
+              <Route path='/admin/' component={AdminContent} />
             </Switch>
           </div>
         </Content>
