@@ -41,11 +41,13 @@ const CreatePatient = ({ addPatient }) => {
       familyHistory: {
         diseases: [],
         observations: ''
+      },
+      personalHistory: {
+        diseases: [],
+        observations: ''
       }
     })
-  // const [familyHistory, setFamilyHistory] = useState([])
-  // const [familyHistoryObservations, setFamilyHistoryObservations] = useState('')
-  const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
+  // const [personalHistory, setPersonalHistory] = useState({ diseases: [], observations: '' })
   const [generalPractitioners, setGeneralPractitioners] = useState([])
   const [, createNewPatient] = useAxios(
     {
@@ -69,11 +71,6 @@ const CreatePatient = ({ addPatient }) => {
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
-      // familyHistory: {
-      //   diseases: familyHistory,
-      //   observations: familyHistoryObservations
-      // },
-      personalHistory,
       generalPractitioners
     }
     let patient
@@ -125,14 +122,8 @@ const CreatePatient = ({ addPatient }) => {
             return (
               <BackgroundForm
                 prev={prev}
-                // familyHistory={familyHistory}
-                // setFamilyHistory={setFamilyHistory}
-                // familyHistoryObservations={familyHistoryObservations}
-                // setFamilyHistoryObservations={setFamilyHistoryObservations}
                 newPatient={newPatient}
                 dispatchNewPatient={dispatchNewPatient}
-                personalHistory={personalHistory}
-                setPersonalHistory={setPersonalHistory}
                 generalPractitioners={generalPractitioners}
                 setGeneralPractitioners={setGeneralPractitioners}
                 createPatient={createPatient}
