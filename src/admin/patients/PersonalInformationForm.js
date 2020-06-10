@@ -54,6 +54,11 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
   const receivePromosOnChange = e => {
     dispatchNewPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
+
+  const disabledDate = (current) => {
+    return current && current >= moment().startOf('day')
+  }
+
   return (
     <>
       <Row justify='center'>
@@ -120,7 +125,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='birthdate' label='Birthdate' rules={[{ required: true }]}>
-              <DatePicker onChange={datePickerOnChange} />
+              <DatePicker onChange={datePickerOnChange} disabledDate={disabledDate} showToday={ false }/>
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
