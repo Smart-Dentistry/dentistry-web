@@ -23,7 +23,6 @@ const PatientTable = ({ patients, removePatient }) => {
       okText: 'Delete',
       okType: 'danger',
       cancelText: 'Cancel',
-      wrapClassName: 'abc',
       onOk () {
         axios.delete(`${process.env.REACT_APP_API_URL}/patients/${record.key}/`)
         removePatient(record.key)
