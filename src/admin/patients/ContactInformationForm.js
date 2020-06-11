@@ -170,7 +170,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true }]}>
-              <PhoneInput className='telephone-input' />
+              <PhoneInput defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -206,7 +206,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
-              <PhoneInput className='telephone-input' />
+              <PhoneInput defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
         </Row>
@@ -227,7 +227,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
               </Col>
               <Col offset={2} span={5}>
                 <Form.Item {...inputLayout} name='representativePhone' label='Phone'>
-                  <PhoneInput className='telephone-input' />
+                  <PhoneInput defaultCountry='EC' className='telephone-input' />
                 </Form.Item>
               </Col>
             </Row>

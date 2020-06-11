@@ -38,6 +38,7 @@ const CreatePatient = ({ addPatient }) => {
       countryResidence: 'E',
       province: 'Azuay',
       canton: 'Cuenca',
+      phone: '+593',
       familyHistory: {
         diseases: [],
         observations: ''
