@@ -26,7 +26,7 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients'
-        render={props => <PatientTable {...props} patients={patients} />}
+        render={props => <PatientTable {...props} patients={patients} removePatient={key => dispatch({ type: 'REMOVE', key })} />}
       />
       <Route render={() => <Redirect to='/404' />} />
     </Switch>
