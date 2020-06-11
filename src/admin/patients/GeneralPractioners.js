@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import PhoneInput from 'react-phone-number-input'
 
 const { Title } = Typography
+const { TextArea } = Input
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -29,11 +30,17 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
         generalPractitioners: [...newPatient.generalPractitioners, {
           name: values.practitionerName,
           phone: values.practitionerPhone,
-          disease: values.practitionerDisease
+          specialization: values.specialization,
+          observations: values.observations
         }]
       }
     })
-    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
+    form.setFieldsValue({
+      practitionerName: null,
+      practitionerPhone: null,
+      specialization: null,
+      observations: null
+    })
     setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
@@ -47,7 +54,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
     })
   }
   const onValuesChange = (changedValues, allValues) => {
-    setEnableAddPractitioner(allValues.practitionerName && allValues.practitionerDisease)
+    setEnableAddPractitioner(allValues.practitionerName && allValues.specialization)
   }
   return (
     <>
@@ -69,8 +76,13 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
             </Form.Item>
           </Col>
           <Col span={4}>
-            <Form.Item {...inputLayout} name='practitionerDisease' label='Disease'>
+            <Form.Item {...inputLayout} name='specialization' label='Specialization'>
               <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={6} span={12}>
+            <Form.Item {...inputLayout} name='observations' label='Observations'>
+              <TextArea />
             </Form.Item>
           </Col>
         </Row>
@@ -97,7 +109,8 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
                 }
               >
                 <p>Phone: {item.phone}</p>
-                <p>Disease: {item.disease}</p>
+                <p>Specialization: {item.specialization}</p>
+                <p>Observations: {item.observations}</p>
               </Card>
             </Col>
           )}
