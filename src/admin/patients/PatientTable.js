@@ -1,6 +1,7 @@
 import React from 'react'
-import { Table, Button, Space } from 'antd'
+import { Table, Button, Space, Modal } from 'antd'
 import { useHistory } from 'react-router-dom'
+// import { ExclamationCircleOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 
 import { useTranslation } from 'react-i18next'
@@ -8,9 +9,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
+const { confirm } = Modal
+
 const PatientTable = ({ patients }) => {
   const { t } = useTranslation()
   const history = useHistory()
+
+  const removePatient = (record, index) => {
+    confirm({
+      title: 'Delete patient',
+      icon: <FontAwesomeIcon icon={faTrash} style={{ verticalAlign: '0', marginRight: '0.5rem' }} />,
+      content: 'Please confirm you want to delete all data for this patient.',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      wrapClassName: 'abc',
+      onOk () {
+        console.log('OK')
+      },
+      onCancel () {
+        console.log('Cancel')
+      }
+    })
+    console.log(record)
+    console.log(index)
+  }
 
   const columns = [
     {
@@ -45,7 +68,9 @@ const PatientTable = ({ patients }) => {
       render: (text, record, index) => (
         <Space size='middle'>
           <FontAwesomeIcon icon={faPen} />
-          <FontAwesomeIcon icon={faTrash} />
+          <button type='button' className='linkButton' onClick={() => removePatient(record, index)}>
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
           <FontAwesomeIcon icon={faWhatsapp} />
         </Space>
       )
