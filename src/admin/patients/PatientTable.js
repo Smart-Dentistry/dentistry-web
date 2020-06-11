@@ -28,11 +28,6 @@ const PatientTable = ({ patients }) => {
       key: 'idDocumentNumber'
     },
     {
-      title: t('Email'),
-      dataIndex: 'email',
-      key: 'email'
-    },
-    {
       title: t('Phone'),
       dataIndex: 'phone',
       key: 'phone'
