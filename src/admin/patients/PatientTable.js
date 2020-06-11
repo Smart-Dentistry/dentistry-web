@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const PatientTable = ({ patients }) => {
   const { t } = useTranslation()
@@ -36,6 +37,18 @@ const PatientTable = ({ patients }) => {
       title: t('Age'),
       dataIndex: 'age',
       key: 'age'
+    },
+    {
+      title: t('Actions'),
+      key: 'actions',
+      // eslint-disable-next-line react/display-name
+      render: (text, record, index) => (
+        <Space size='middle'>
+          <FontAwesomeIcon icon={faPen} />
+          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faWhatsapp} />
+        </Space>
+      )
     }
   ]
 
