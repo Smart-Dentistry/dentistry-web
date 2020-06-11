@@ -29,11 +29,11 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
         generalPractitioners: [...newPatient.generalPractitioners, {
           name: values.practitionerName,
           phone: values.practitionerPhone,
-          disease: values.practitionerDisease
+          specialization: values.specialization
         }]
       }
     })
-    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, practitionerDisease: null })
+    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, specialization: null })
     setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
@@ -47,7 +47,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
     })
   }
   const onValuesChange = (changedValues, allValues) => {
-    setEnableAddPractitioner(allValues.practitionerName && allValues.practitionerDisease)
+    setEnableAddPractitioner(allValues.practitionerName && allValues.specialization)
   }
   return (
     <>
@@ -69,7 +69,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
             </Form.Item>
           </Col>
           <Col span={4}>
-            <Form.Item {...inputLayout} name='practitionerDisease' label='Disease'>
+            <Form.Item {...inputLayout} name='specialization' label='Specialization'>
               <Input />
             </Form.Item>
           </Col>
@@ -97,7 +97,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
                 }
               >
                 <p>Phone: {item.phone}</p>
-                <p>Disease: {item.disease}</p>
+                <p>Specialization: {item.specialization}</p>
               </Card>
             </Col>
           )}
