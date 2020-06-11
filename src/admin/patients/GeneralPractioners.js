@@ -72,7 +72,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
           </Col>
           <Col span={4}>
             <Form.Item {...inputLayout} name='practitionerPhone' label='Phone'>
-              <PhoneInput defaultCountry='EC' className='telephone-input' />
+              <PhoneInput placeholder='+593987654321' defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
           <Col span={4}>

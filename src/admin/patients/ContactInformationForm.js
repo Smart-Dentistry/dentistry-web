@@ -13,7 +13,7 @@ import {
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
-import PhoneInput from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
 
@@ -206,7 +206,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
-              <PhoneInput defaultCountry='EC' className='telephone-input' />
+              <PhoneInput placeholder={formatPhoneNumberIntl('+593987654321')} defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
         </Row>
