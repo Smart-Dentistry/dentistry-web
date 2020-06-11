@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import PhoneInput from 'react-phone-number-input'
 
 const { Title } = Typography
+const { TextArea } = Input
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -29,11 +30,17 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
         generalPractitioners: [...newPatient.generalPractitioners, {
           name: values.practitionerName,
           phone: values.practitionerPhone,
-          specialization: values.specialization
+          specialization: values.specialization,
+          observations: values.observations
         }]
       }
     })
-    form.setFieldsValue({ practitionerName: null, practitionerPhone: null, specialization: null })
+    form.setFieldsValue({
+      practitionerName: null,
+      practitionerPhone: null,
+      specialization: null,
+      observations: null
+    })
     setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
@@ -73,6 +80,11 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
               <Input />
             </Form.Item>
           </Col>
+          <Col offset={6} span={12}>
+            <Form.Item {...inputLayout} name='observations' label='Observations'>
+              <TextArea />
+            </Form.Item>
+          </Col>
         </Row>
         <Row>
           <Col offset={6} span={3}>
@@ -98,6 +110,7 @@ const GeneralPractitioners = ({ newPatient, dispatchNewPatient }) => {
               >
                 <p>Phone: {item.phone}</p>
                 <p>Specialization: {item.specialization}</p>
+                <p>Observations: {item.observations}</p>
               </Card>
             </Col>
           )}
