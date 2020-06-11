@@ -1,8 +1,8 @@
 import React from 'react'
 import { Table, Button, Space, Modal } from 'antd'
 import { useHistory } from 'react-router-dom'
-// import { ExclamationCircleOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,11 +11,11 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const { confirm } = Modal
 
-const PatientTable = ({ patients }) => {
+const PatientTable = ({ patients, removePatient }) => {
   const { t } = useTranslation()
   const history = useHistory()
 
-  const removePatient = (record, index) => {
+  const removePatientOnClick = (record, index) => {
     confirm({
       title: 'Delete patient',
       icon: <FontAwesomeIcon icon={faTrash} style={{ verticalAlign: '0', marginRight: '0.5rem' }} />,
@@ -25,10 +25,8 @@ const PatientTable = ({ patients }) => {
       cancelText: 'Cancel',
       wrapClassName: 'abc',
       onOk () {
-        console.log('OK')
-      },
-      onCancel () {
-        console.log('Cancel')
+        axios.delete(`${process.env.REACT_APP_API_URL}/patients/${record.key}/`)
+        removePatient(record.key)
       }
     })
     console.log(record)
@@ -68,7 +66,7 @@ const PatientTable = ({ patients }) => {
       render: (text, record, index) => (
         <Space size='middle'>
           <FontAwesomeIcon icon={faPen} />
-          <button type='button' className='linkButton' onClick={() => removePatient(record, index)}>
+          <button type='button' className='linkButton' onClick={() => removePatientOnClick(record, index)}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
           <FontAwesomeIcon icon={faWhatsapp} />
@@ -93,7 +91,8 @@ const PatientTable = ({ patients }) => {
 }
 
 PatientTable.propTypes = {
-  patients: PropTypes.array
+  patients: PropTypes.array,
+  removePatient: PropTypes.func
 }
 
 export default PatientTable
