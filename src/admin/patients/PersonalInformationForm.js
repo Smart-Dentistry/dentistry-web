@@ -38,7 +38,7 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
+const PersonalInformationForm = ({ next, patient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -72,7 +72,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
-        initialValues={newPatient}
+        initialValues={patient}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -125,7 +125,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='birthdate' label='Birthdate' rules={[{ required: true }]}>
-              <DatePicker onChange={datePickerOnChange} disabledDate={disabledDate} showToday={ false }/>
+              <DatePicker onChange={datePickerOnChange} disabledDate={disabledDate} showToday={false} />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -137,7 +137,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='receivePromos'>
-              <Checkbox checked={newPatient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+              <Checkbox checked={patient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -156,7 +156,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
 
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
-  newPatient: PropTypes.object,
+  patient: PropTypes.object,
   dispatchNewPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,

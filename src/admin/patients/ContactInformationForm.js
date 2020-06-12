@@ -37,7 +37,7 @@ const countryOfResidenceOptions = [
   { value: 'A', label: 'Abroad' }
 ]
 
-const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative }) => {
+const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showRepresentative, setShowRepresentative }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -45,13 +45,13 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
   })
   const [{ data: cantonsData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${newPatient.province === 'Azuay' ? 1 : newPatient.province}/cantons/`
+    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${patient.province === 'Azuay' ? 1 : patient.province}/cantons/`
   })
   useEffect(() => {
     if (provincesData) {
       setProvinces(provincesData)
       form.setFieldsValue({
-        province: newPatient.province === 'Azuay' ? 1 : newPatient.province
+        province: patient.province === 'Azuay' ? 1 : patient.province
       })
     }
   }, [provincesData])
@@ -59,7 +59,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     if (cantonsData) {
       setCantons(cantonsData)
       form.setFieldsValue({
-        canton: newPatient.canton === 'Cuenca' ? 3 : newPatient.canton
+        canton: patient.canton === 'Cuenca' ? 3 : patient.canton
       })
     }
   }, [cantonsData])
@@ -120,7 +120,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
       relationship: values.representativeRelationship
     }
     dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: newPatient.whatsapp } })
+    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: patient.whatsapp } })
     prev()
   }
 
@@ -134,7 +134,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
-        initialValues={newPatient}
+        initialValues={patient}
         onValuesChange={onValuesChange}
       >
         <Row>
@@ -144,7 +144,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
             </Form.Item>
           </Col>
         </Row>
-        {newPatient.countryResidence === 'E' ? (
+        {patient.countryResidence === 'E' ? (
           <>
             <Row>
               <Col offset={6} span={5}>
@@ -175,7 +175,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='whatsapp' label='Whatsapp'>
-              <Checkbox checked={newPatient.whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
+              <Checkbox checked={patient.whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -185,7 +185,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
               <Input />
             </Form.Item>
           </Col>
-          {newPatient.countryResidence === 'E' ? (
+          {patient.countryResidence === 'E' ? (
             <Col offset={2} span={5}>
               <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
                 <Input />
@@ -258,7 +258,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
   next: PropTypes.func,
-  newPatient: PropTypes.object,
+  patient: PropTypes.object,
   dispatchNewPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func

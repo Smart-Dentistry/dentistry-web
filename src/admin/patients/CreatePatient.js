@@ -58,7 +58,7 @@ const CreatePatient = ({ addPatient }) => {
 
   return (
     <PatientStepForms
-      newPatient={newPatient}
+      patient={newPatient}
       dispatchNewPatient={dispatchNewPatient}
       createPatient={createPatient}
     />
