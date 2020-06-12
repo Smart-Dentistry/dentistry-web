@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 import { Steps } from 'antd'
 import PropTypes from 'prop-types'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
 import BackgroundForm from './BackgroundForm'
+import newPatientReducer from './newPatientReducer'
 
 const { Step } = Steps
 const steps = [
@@ -13,8 +14,9 @@ const steps = [
   'Background Information'
 ]
 
-const PatientStepForm = ({ patient, dispatchPatient, processPatient }) => {
+const PatientStepForm = ({ initialPatient, processPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
+  const [patient, dispatchPatient] = useReducer(newPatientReducer, initialPatient)
   const [image, setImage] = useState()
   const [showRepresentative, setShowRepresentative] = useState(false)
   const next = () => {
@@ -73,7 +75,7 @@ const PatientStepForm = ({ patient, dispatchPatient, processPatient }) => {
 }
 
 PatientStepForm.propTypes = {
-  patient: PropTypes.object,
+  initialPatient: PropTypes.object,
   dispatchPatient: PropTypes.func,
   processPatient: PropTypes.func
 }

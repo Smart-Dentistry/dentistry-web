@@ -64,7 +64,7 @@ const PatientTable = ({ patients, removePatient }) => {
       // eslint-disable-next-line react/display-name
       render: (text, record, index) => (
         <Space size='middle'>
-          <Link to={`/admin/patients/${record.key}/edit`}>
+          <Link to={{ pathname: `/admin/patients/${record.key}/edit`, state: { patient: record, index } }}>
             <FontAwesomeIcon icon={faPen} />
           </Link>
           <button type='button' className='linkButton' onClick={() => removePatientOnClick(record, index)}>
