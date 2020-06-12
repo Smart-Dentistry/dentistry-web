@@ -5,17 +5,9 @@ import useAxios from 'axios-hooks'
 import PropTypes from 'prop-types'
 
 import PatientStepForms from './PatientStepForms'
+import newPatientReducer from './newPatientReducer'
 
 import './CreatePatient.sass'
-
-const newPatientReducer = (state, action) => {
-  switch (action.type) {
-    case 'UPDATE':
-      return { ...state, ...action.updatedValues }
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`)
-  }
-}
 
 const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
