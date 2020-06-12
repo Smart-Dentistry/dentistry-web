@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, Button, Space, Modal } from 'antd'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
@@ -64,7 +64,9 @@ const PatientTable = ({ patients, removePatient }) => {
       // eslint-disable-next-line react/display-name
       render: (text, record, index) => (
         <Space size='middle'>
-          <FontAwesomeIcon icon={faPen} />
+          <Link to={`/admin/patients/${record.key}/edit`}>
+            <FontAwesomeIcon icon={faPen} />
+          </Link>
           <button type='button' className='linkButton' onClick={() => removePatientOnClick(record, index)}>
             <FontAwesomeIcon icon={faTrash} />
           </button>
