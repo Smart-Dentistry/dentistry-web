@@ -11,17 +11,20 @@ const EditPatient = ({ updatePatient }) => {
   const history = useHistory()
   const location = useLocation()
   const patientFromTable = location.state.patient
+  const address = patientFromTable.address
+  const emergencyContact = patientFromTable.emergencyContact
+  const representative = patientFromTable.representative
   const patient = {
     ...patientFromTable,
     birthdate: moment(patientFromTable.birthdate, 'YYYY-MM-DD'),
-    province: patientFromTable.address.province,
-    canton: patientFromTable.address.canton,
-    addressLine: patientFromTable.address.addressLine,
-    emergencyContactName: patientFromTable.emergencyContact.fullName,
-    emergencyContactPhone: patientFromTable.emergencyContact.phone,
-    representativeName: patientFromTable.representative.fullName,
-    representativePhone: patientFromTable.representative.phone,
-    representativeRelationship: patientFromTable.representative.relationship
+    province: address ? address.province : 1,
+    canton: address ? address.canton : 3,
+    addressLine: address ? address.addressLine : '',
+    emergencyContactName: emergencyContact ? emergencyContact.fullName : '',
+    emergencyContactPhone: emergencyContact ? emergencyContact.phone : '',
+    representativeName: representative ? representative.fullName : '',
+    representativePhone: representative ? representative.phone : '',
+    representativeRelationship: representative ? representative.relationship : ''
   }
   const [, update] = useAxios(
     {
