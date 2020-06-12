@@ -41,7 +41,6 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
   }
   const observationsOnchange = e => {
     dispatchPatient({ type: 'UPDATE', updatedValues: { familyHistory: { ...patient.familyHistory, observations: e.target.value } } })
-    console.log({ ...patient.familyHistory, observations: '' })
   }
   const addFamilyDisease = () => {
     const tempDiseases = [...diseases]

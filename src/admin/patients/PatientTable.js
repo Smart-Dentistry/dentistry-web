@@ -28,8 +28,6 @@ const PatientTable = ({ patients, removePatient }) => {
         removePatient(record.key)
       }
     })
-    console.log(record)
-    console.log(index)
   }
 
   const columns = [

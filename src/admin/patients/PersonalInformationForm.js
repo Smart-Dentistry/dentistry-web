@@ -43,6 +43,7 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresent
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
+    values.receivePromos = patient.receivePromos
     dispatchPatient({ type: 'UPDATE', updatedValues: values })
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })

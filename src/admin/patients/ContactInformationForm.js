@@ -67,6 +67,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
+    values.whatsapp = patient.whatsapp
     const emergencyContact = {
       fullName: values.emergencyContactName,
       phone: values.emergencyContactPhone
