@@ -27,7 +27,7 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients/:key/edit'
-        render={props => <EditPatient {...props} />}
+        render={props => <EditPatient {...props} updatePatient={(patient, index) => dispatch({ type: 'UPDATE', patient, index })} />}
       />
       <Route
         exact
