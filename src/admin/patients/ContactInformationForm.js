@@ -50,16 +50,19 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
   useEffect(() => {
     if (provincesData) {
       setProvinces(provincesData)
+      console.log(provincesData)
+      const province = provincesData.find(province => province.value === patient.province)
       form.setFieldsValue({
-        province: patient.province === 'Azuay' ? 1 : patient.province
+        province: province ? province.label : 1
       })
     }
   }, [provincesData])
   useEffect(() => {
     if (cantonsData) {
       setCantons(cantonsData)
+      const canton = cantonsData.find(canton => canton.value === patient.canton)
       form.setFieldsValue({
-        canton: patient.canton === 'Cuenca' ? 3 : patient.canton
+        canton: canton ? canton.label : 3
       })
     }
   }, [cantonsData])

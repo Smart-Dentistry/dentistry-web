@@ -14,8 +14,8 @@ const CreatePatient = ({ addPatient }) => {
     receivePromos: true,
     whatsapp: false,
     countryOfResidence: 'E',
-    province: 'Azuay',
-    canton: 'Cuenca',
+    province: 1,
+    canton: 3,
     phone: '+593',
     familyHistory: {
       diseases: [],
