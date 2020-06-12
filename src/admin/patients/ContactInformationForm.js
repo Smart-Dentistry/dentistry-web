@@ -96,8 +96,8 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
           canton: response.data[0].value
         })
         break
-      case 'countryResidence':
-        dispatchPatient({ type: 'UPDATE', updatedValues: { countryResidence: value } })
+      case 'countryOfResidence':
+        dispatchPatient({ type: 'UPDATE', updatedValues: { countryOfResidence: value } })
         break
       case 'representative':
         setShowRepresentative(value)
@@ -139,12 +139,12 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
       >
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='countryOfResidence' label='Country Of Residence' rules={[{ required: true }]}>
               <Select options={countryOfResidenceOptions} />
             </Form.Item>
           </Col>
         </Row>
-        {patient.countryResidence === 'E' ? (
+        {patient.countryOfResidence === 'E' ? (
           <>
             <Row>
               <Col offset={6} span={5}>
@@ -185,7 +185,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
               <Input />
             </Form.Item>
           </Col>
-          {patient.countryResidence === 'E' ? (
+          {patient.countryOfResidence === 'E' ? (
             <Col offset={2} span={5}>
               <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
                 <Input />

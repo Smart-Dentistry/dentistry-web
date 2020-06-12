@@ -13,7 +13,7 @@ const CreatePatient = ({ addPatient }) => {
   const patient = {
     receivePromos: true,
     whatsapp: false,
-    countryResidence: 'E',
+    countryOfResidence: 'E',
     province: 'Azuay',
     canton: 'Cuenca',
     phone: '+593',
