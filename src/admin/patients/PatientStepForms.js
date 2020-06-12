@@ -18,7 +18,7 @@ const steps = [
 const PatientStepForm = ({ initialPatient, processPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [patient, dispatchPatient] = useReducer(newPatientReducer, initialPatient)
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(initialPatient.profilePictureUrl)
   const [showRepresentative, setShowRepresentative] = useState(!_.isEmpty(initialPatient.representative))
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
