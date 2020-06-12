@@ -38,12 +38,12 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, patient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
+const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: values })
+    dispatchPatient({ type: 'UPDATE', updatedValues: values })
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -52,7 +52,7 @@ const PersonalInformationForm = ({ next, patient, dispatchNewPatient, showRepres
     setShowRepresentative(years < 18)
   }
   const receivePromosOnChange = e => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
 
   const disabledDate = (current) => {
@@ -63,7 +63,7 @@ const PersonalInformationForm = ({ next, patient, dispatchNewPatient, showRepres
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture image={image} setImage={setImage} dispatchNewPatient={dispatchNewPatient} />
+          <PatientPicture image={image} setImage={setImage} dispatchPatient={dispatchPatient} />
         </Col>
       </Row>
       <Form
@@ -157,7 +157,7 @@ const PersonalInformationForm = ({ next, patient, dispatchNewPatient, showRepres
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
   image: PropTypes.string,

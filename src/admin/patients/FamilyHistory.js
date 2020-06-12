@@ -25,8 +25,7 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases, setDiseases, patient, dispatchNewPatient }) => {
-  // console.log(familyHistory)
+const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
   const [disease, setDisease] = useState(null)
   const [enableAddFamilyDisease, setEnableAddFamilyDisease] = useState(false)
   const [familyBackground, setFamilyBackground] = useState(patient.familyHistory.diseases.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
@@ -41,7 +40,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchNewPatient }) =
     setEnableAddFamilyDisease(selectedRelatives.length > 0)
   }
   const observationsOnchange = e => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { familyHistory: { ...patient.familyHistory, observations: e.target.value } } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { familyHistory: { ...patient.familyHistory, observations: e.target.value } } })
     console.log({ ...patient.familyHistory, observations: '' })
   }
   const addFamilyDisease = () => {
@@ -51,7 +50,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchNewPatient }) =
     setDiseases(tempDiseases)
     const newDisease = `${tempDisease.label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
-    dispatchNewPatient({
+    dispatchPatient({
       type: 'UPDATE',
       updatedValues: {
         familyHistory: {
@@ -81,7 +80,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchNewPatient }) =
     setDiseases(tempDiseases)
     newFamilyHistory.splice(key, 1)
     setFamilyBackground(newDiseases)
-    dispatchNewPatient({
+    dispatchPatient({
       type: 'UPDATE',
       updatedValues: {
         familyHistory: {
@@ -164,7 +163,7 @@ FamilyHistory.propTypes = {
   diseases: PropTypes.array,
   setDiseases: PropTypes.func,
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func
+  dispatchPatient: PropTypes.func
 }
 
 export default FamilyHistory

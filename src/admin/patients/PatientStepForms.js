@@ -13,7 +13,7 @@ const steps = [
   'Background Information'
 ]
 
-const PatientStepForm = ({ patient, dispatchNewPatient, createPatient }) => {
+const PatientStepForm = ({ patient, dispatchPatient, createPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [image, setImage] = useState()
   const [showRepresentative, setShowRepresentative] = useState(false)
@@ -39,7 +39,7 @@ const PatientStepForm = ({ patient, dispatchNewPatient, createPatient }) => {
                 image={image}
                 setImage={setImage}
                 patient={patient}
-                dispatchNewPatient={dispatchNewPatient}
+                dispatchPatient={dispatchPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
@@ -50,7 +50,7 @@ const PatientStepForm = ({ patient, dispatchNewPatient, createPatient }) => {
                 prev={prev}
                 next={next}
                 patient={patient}
-                dispatchNewPatient={dispatchNewPatient}
+                dispatchPatient={dispatchPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
@@ -60,7 +60,7 @@ const PatientStepForm = ({ patient, dispatchNewPatient, createPatient }) => {
               <BackgroundForm
                 prev={prev}
                 patient={patient}
-                dispatchNewPatient={dispatchNewPatient}
+                dispatchPatient={dispatchPatient}
                 createPatient={createPatient}
               />
             )
@@ -74,7 +74,7 @@ const PatientStepForm = ({ patient, dispatchNewPatient, createPatient }) => {
 
 PatientStepForm.propTypes = {
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  dispatchPatient: PropTypes.func,
   createPatient: PropTypes.func
 }
 

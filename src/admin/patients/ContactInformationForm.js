@@ -37,7 +37,7 @@ const countryOfResidenceOptions = [
   { value: 'A', label: 'Abroad' }
 ]
 
-const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showRepresentative, setShowRepresentative }) => {
+const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepresentative, setShowRepresentative }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -76,7 +76,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showR
       phone: values.representativePhone,
       relationship: values.representativeRelationship
     }
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
     next()
   }
   const onValuesChange = async changedValue => {
@@ -97,7 +97,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showR
         })
         break
       case 'countryResidence':
-        dispatchNewPatient({ type: 'UPDATE', updatedValues: { countryResidence: value } })
+        dispatchPatient({ type: 'UPDATE', updatedValues: { countryResidence: value } })
         break
       case 'representative':
         setShowRepresentative(value)
@@ -106,7 +106,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showR
     }
   }
   const whatsappOnChange = e => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
   }
   const previous = () => {
     const values = form.getFieldsValue()
@@ -119,8 +119,8 @@ const ContactInformationForm = ({ prev, next, patient, dispatchNewPatient, showR
       phone: values.representativePhone,
       relationship: values.representativeRelationship
     }
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: patient.whatsapp } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { whatsapp: patient.whatsapp } })
     prev()
   }
 
@@ -259,7 +259,7 @@ ContactInformationForm.propTypes = {
   prev: PropTypes.func,
   next: PropTypes.func,
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func
 }

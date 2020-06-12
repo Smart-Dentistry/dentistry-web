@@ -11,7 +11,7 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, patient, dispatchNewPatient, createPatient }) => {
+const BackgroundForm = ({ prev, patient, dispatchPatient, createPatient }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -31,10 +31,10 @@ const BackgroundForm = ({ prev, patient, dispatchNewPatient, createPatient }) =>
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
         patient={patient}
-        dispatchNewPatient={dispatchNewPatient}
+        dispatchPatient={dispatchPatient}
       />
-      <PersonalHistory diseases={diseases} patient={patient} dispatchNewPatient={dispatchNewPatient} />
-      <GeneralPractioners patient={patient} dispatchNewPatient={dispatchNewPatient} />
+      <PersonalHistory diseases={diseases} patient={patient} dispatchPatient={dispatchPatient} />
+      <GeneralPractioners patient={patient} dispatchPatient={dispatchPatient} />
       <Row>
         <Col offset={6} span={6}>
           <Button type='primary' onClick={prev}>Previous</Button>
@@ -52,7 +52,7 @@ const BackgroundForm = ({ prev, patient, dispatchNewPatient, createPatient }) =>
 BackgroundForm.propTypes = {
   prev: PropTypes.func,
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  dispatchPatient: PropTypes.func,
   generalPractitioners: PropTypes.array,
   setGeneralPractitioners: PropTypes.func,
   createPatient: PropTypes.func

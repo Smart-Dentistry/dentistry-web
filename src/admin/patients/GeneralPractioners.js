@@ -20,11 +20,11 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const GeneralPractitioners = ({ patient, dispatchNewPatient }) => {
+const GeneralPractitioners = ({ patient, dispatchPatient }) => {
   const [enableAddPractitioner, setEnableAddPractitioner] = useState(false)
   const [form] = Form.useForm()
   const onFinish = values => {
-    dispatchNewPatient({
+    dispatchPatient({
       type: 'UPDATE',
       updatedValues: {
         generalPractitioners: [...patient.generalPractitioners, {
@@ -46,7 +46,7 @@ const GeneralPractitioners = ({ patient, dispatchNewPatient }) => {
   const removePractitioner = index => {
     const newGeneralPractitioners = [...patient.generalPractitioners]
     newGeneralPractitioners.splice(index, 1)
-    dispatchNewPatient({
+    dispatchPatient({
       type: 'UPDATE',
       updatedValues: {
         generalPractitioners: newGeneralPractitioners
@@ -123,7 +123,7 @@ const GeneralPractitioners = ({ patient, dispatchNewPatient }) => {
 
 GeneralPractitioners.propTypes = {
   patient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func
+  dispatchPatient: PropTypes.func
 }
 
 export default GeneralPractitioners
