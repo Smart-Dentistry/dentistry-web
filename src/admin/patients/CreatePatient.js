@@ -60,7 +60,7 @@ const CreatePatient = ({ addPatient }) => {
     <PatientStepForms
       patient={newPatient}
       dispatchPatient={dispatchNewPatient}
-      createPatient={createPatient}
+      processPatient={createPatient}
     />
   )
 }

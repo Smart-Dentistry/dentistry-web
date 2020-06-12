@@ -11,7 +11,7 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, patient, dispatchPatient, createPatient }) => {
+const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -41,7 +41,7 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, createPatient }) => {
         </Col>
         <Col span={6}>
           <Row justify='end'>
-            <Button type='primary' onClick={createPatient}>Create</Button>
+            <Button type='primary' onClick={processPatient}>{patient.key ? 'Save' : 'Create'}</Button>
           </Row>
         </Col>
       </Row>
@@ -55,7 +55,7 @@ BackgroundForm.propTypes = {
   dispatchPatient: PropTypes.func,
   generalPractitioners: PropTypes.array,
   setGeneralPractitioners: PropTypes.func,
-  createPatient: PropTypes.func
+  processPatient: PropTypes.func
 }
 
 export default BackgroundForm

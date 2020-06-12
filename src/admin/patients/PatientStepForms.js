@@ -13,7 +13,7 @@ const steps = [
   'Background Information'
 ]
 
-const PatientStepForm = ({ patient, dispatchPatient, createPatient }) => {
+const PatientStepForm = ({ patient, dispatchPatient, processPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [image, setImage] = useState()
   const [showRepresentative, setShowRepresentative] = useState(false)
@@ -61,7 +61,7 @@ const PatientStepForm = ({ patient, dispatchPatient, createPatient }) => {
                 prev={prev}
                 patient={patient}
                 dispatchPatient={dispatchPatient}
-                createPatient={createPatient}
+                processPatient={processPatient}
               />
             )
           default:
@@ -75,7 +75,7 @@ const PatientStepForm = ({ patient, dispatchPatient, createPatient }) => {
 PatientStepForm.propTypes = {
   patient: PropTypes.object,
   dispatchPatient: PropTypes.func,
-  createPatient: PropTypes.func
+  processPatient: PropTypes.func
 }
 
 export default PatientStepForm
