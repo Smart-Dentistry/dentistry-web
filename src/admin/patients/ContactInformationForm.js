@@ -50,7 +50,6 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
   useEffect(() => {
     if (provincesData) {
       setProvinces(provincesData)
-      console.log(provincesData)
       const province = provincesData.find(province => province.value === patient.province)
       form.setFieldsValue({
         province: province ? province.label : 1
