@@ -5,6 +5,7 @@ import useAxios from 'axios-hooks'
 import PatientTable from './PatientTable'
 import CreatePatient from './CreatePatient'
 import patientReducer from './patientReducer'
+import EditPatient from './EditPatient'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({
@@ -22,6 +23,11 @@ const Patients = () => {
         exact
         path='/admin/patients/create'
         render={props => <CreatePatient {...props} addPatient={patient => dispatch({ type: 'ADD', patient })} />}
+      />
+      <Route
+        exact
+        path='/admin/patients/:key/edit'
+        render={props => <EditPatient {...props} updatePatient={(patient, index) => dispatch({ type: 'UPDATE', patient, index })} />}
       />
       <Route
         exact

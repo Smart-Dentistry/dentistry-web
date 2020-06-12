@@ -38,12 +38,13 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
+const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: values })
+    values.receivePromos = patient.receivePromos
+    dispatchPatient({ type: 'UPDATE', updatedValues: values })
     next()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -52,7 +53,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
     setShowRepresentative(years < 18)
   }
   const receivePromosOnChange = e => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
 
   const disabledDate = (current) => {
@@ -63,7 +64,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
     <>
       <Row justify='center'>
         <Col>
-          <PatientPicture image={image} setImage={setImage} dispatchNewPatient={dispatchNewPatient} />
+          <PatientPicture image={image} setImage={setImage} dispatchPatient={dispatchPatient} />
         </Col>
       </Row>
       <Form
@@ -72,7 +73,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
-        initialValues={newPatient}
+        initialValues={patient}
       >
         <Row>
           <Col offset={6} span={5}>
@@ -125,7 +126,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='birthdate' label='Birthdate' rules={[{ required: true }]}>
-              <DatePicker onChange={datePickerOnChange} disabledDate={disabledDate} showToday={ false }/>
+              <DatePicker onChange={datePickerOnChange} disabledDate={disabledDate} showToday={false} />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -137,7 +138,7 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='receivePromos'>
-              <Checkbox checked={newPatient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
+              <Checkbox checked={patient.receivePromos} onChange={receivePromosOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Receive Promos</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -156,8 +157,8 @@ const PersonalInformationForm = ({ next, newPatient, dispatchNewPatient, showRep
 
 PersonalInformationForm.propTypes = {
   next: PropTypes.func,
-  newPatient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  patient: PropTypes.object,
+  dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
   image: PropTypes.string,

@@ -37,7 +37,7 @@ const countryOfResidenceOptions = [
   { value: 'A', label: 'Abroad' }
 ]
 
-const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, showRepresentative, setShowRepresentative }) => {
+const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepresentative, setShowRepresentative }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -45,21 +45,23 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
   })
   const [{ data: cantonsData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${newPatient.province === 'Azuay' ? 1 : newPatient.province}/cantons/`
+    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${patient.province === 'Azuay' ? 1 : patient.province}/cantons/`
   })
   useEffect(() => {
     if (provincesData) {
       setProvinces(provincesData)
+      const province = provincesData.find(province => province.value === patient.province)
       form.setFieldsValue({
-        province: newPatient.province === 'Azuay' ? 1 : newPatient.province
+        province: province ? province.label : 1
       })
     }
   }, [provincesData])
   useEffect(() => {
     if (cantonsData) {
       setCantons(cantonsData)
+      const canton = cantonsData.find(canton => canton.value === patient.canton)
       form.setFieldsValue({
-        canton: newPatient.canton === 'Cuenca' ? 3 : newPatient.canton
+        canton: canton ? canton.label : 3
       })
     }
   }, [cantonsData])
@@ -67,6 +69,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     console.log('Failed:', errorInfo)
   }
   const onFinish = values => {
+    values.whatsapp = patient.whatsapp
     const emergencyContact = {
       fullName: values.emergencyContactName,
       phone: values.emergencyContactPhone
@@ -76,7 +79,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
       phone: values.representativePhone,
       relationship: values.representativeRelationship
     }
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
     next()
   }
   const onValuesChange = async changedValue => {
@@ -96,8 +99,8 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
           canton: response.data[0].value
         })
         break
-      case 'countryResidence':
-        dispatchNewPatient({ type: 'UPDATE', updatedValues: { countryResidence: value } })
+      case 'countryOfResidence':
+        dispatchPatient({ type: 'UPDATE', updatedValues: { countryOfResidence: value } })
         break
       case 'representative':
         setShowRepresentative(value)
@@ -106,7 +109,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
     }
   }
   const whatsappOnChange = e => {
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { whatsapp: e.target.checked } })
   }
   const previous = () => {
     const values = form.getFieldsValue()
@@ -119,8 +122,8 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
       phone: values.representativePhone,
       relationship: values.representativeRelationship
     }
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    dispatchNewPatient({ type: 'UPDATE', updatedValues: { whatsapp: newPatient.whatsapp } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
+    dispatchPatient({ type: 'UPDATE', updatedValues: { whatsapp: patient.whatsapp } })
     prev()
   }
 
@@ -134,17 +137,17 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
         onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
-        initialValues={newPatient}
+        initialValues={patient}
         onValuesChange={onValuesChange}
       >
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='countryResidence' label='Country Of Residence' rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='countryOfResidence' label='Country Of Residence' rules={[{ required: true }]}>
               <Select options={countryOfResidenceOptions} />
             </Form.Item>
           </Col>
         </Row>
-        {newPatient.countryResidence === 'E' ? (
+        {patient.countryOfResidence === 'E' ? (
           <>
             <Row>
               <Col offset={6} span={5}>
@@ -175,7 +178,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='whatsapp' label='Whatsapp'>
-              <Checkbox checked={newPatient.whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
+              <Checkbox checked={patient.whatsapp} onChange={whatsappOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>Whatsapp</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -185,7 +188,7 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
               <Input />
             </Form.Item>
           </Col>
-          {newPatient.countryResidence === 'E' ? (
+          {patient.countryOfResidence === 'E' ? (
             <Col offset={2} span={5}>
               <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
                 <Input />
@@ -258,8 +261,8 @@ const ContactInformationForm = ({ prev, next, newPatient, dispatchNewPatient, sh
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
   next: PropTypes.func,
-  newPatient: PropTypes.object,
-  dispatchNewPatient: PropTypes.func,
+  patient: PropTypes.object,
+  dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func
 }
