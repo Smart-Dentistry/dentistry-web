@@ -20,7 +20,6 @@ const newPatientReducer = (state, action) => {
 const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
   const [image, setImage] = useState()
-  const [showRepresentative, setShowRepresentative] = useState(false)
   const [newPatient, dispatchNewPatient] = useReducer(
     newPatientReducer,
     {
@@ -72,8 +71,6 @@ const CreatePatient = ({ addPatient }) => {
       setImage={setImage}
       newPatient={newPatient}
       dispatchNewPatient={dispatchNewPatient}
-      showRepresentative={showRepresentative}
-      setShowRepresentative={setShowRepresentative}
       createPatient={createPatient}
     />
   )
