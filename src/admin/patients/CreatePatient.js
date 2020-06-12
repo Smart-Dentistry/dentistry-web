@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import useAxios from 'axios-hooks'
@@ -19,7 +19,6 @@ const newPatientReducer = (state, action) => {
 
 const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
-  const [image, setImage] = useState()
   const [newPatient, dispatchNewPatient] = useReducer(
     newPatientReducer,
     {
@@ -67,8 +66,6 @@ const CreatePatient = ({ addPatient }) => {
 
   return (
     <PatientStepForms
-      image={image}
-      setImage={setImage}
       newPatient={newPatient}
       dispatchNewPatient={dispatchNewPatient}
       createPatient={createPatient}

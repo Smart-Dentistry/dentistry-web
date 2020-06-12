@@ -13,8 +13,9 @@ const steps = [
   'Background Information'
 ]
 
-const PatientStepForm = ({ image, setImage, newPatient, dispatchNewPatient, createPatient }) => {
+const PatientStepForm = ({ newPatient, dispatchNewPatient, createPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
+  const [image, setImage] = useState()
   const [showRepresentative, setShowRepresentative] = useState(false)
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -72,8 +73,6 @@ const PatientStepForm = ({ image, setImage, newPatient, dispatchNewPatient, crea
 }
 
 PatientStepForm.propTypes = {
-  image: PropTypes.string,
-  setImage: PropTypes.func,
   newPatient: PropTypes.object,
   dispatchNewPatient: PropTypes.func,
   createPatient: PropTypes.func
