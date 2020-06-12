@@ -6,7 +6,6 @@ import _ from 'lodash'
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
 import BackgroundForm from './BackgroundForm'
-import newPatientReducer from './newPatientReducer'
 
 const { Step } = Steps
 const steps = [
@@ -15,9 +14,18 @@ const steps = [
   'Background Information'
 ]
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE':
+      return { ...state, ...action.updatedValues }
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`)
+  }
+}
+
 const PatientStepForm = ({ initialPatient, processPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
-  const [patient, dispatchPatient] = useReducer(newPatientReducer, initialPatient)
+  const [patient, dispatchPatient] = useReducer(reducer, initialPatient)
   const [image, setImage] = useState(initialPatient.profilePictureUrl)
   const [showRepresentative, setShowRepresentative] = useState(!_.isEmpty(initialPatient.representative))
   const next = () => {
