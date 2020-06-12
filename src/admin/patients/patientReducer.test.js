@@ -29,6 +29,16 @@ describe('patientReducer', () => {
     expect(state).not.toContain(patient)
   })
 
+  it('updates a patient', () => {
+    const index = 0
+    const updatedPatient = {...patients[index]}
+    updatedPatient.firstName = 'Tom'
+    state = patientReducer(state, {type: 'UPDATE', patient: updatedPatient, index})
+    
+    expect(state).toHaveLength(2)
+    expect(state[index].firstName).toEqual('Tom')
+  })
+
   it('raises exception', () => {
     expect(() => {
       state = patientReducer(state, { })
