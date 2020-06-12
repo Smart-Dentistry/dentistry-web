@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from 'react'
 import { Steps } from 'antd'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
@@ -18,7 +19,7 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [patient, dispatchPatient] = useReducer(newPatientReducer, initialPatient)
   const [image, setImage] = useState()
-  const [showRepresentative, setShowRepresentative] = useState(false)
+  const [showRepresentative, setShowRepresentative] = useState(!_.isEmpty(initialPatient.representative))
   const next = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     setCurrentStep(currentStep + 1)

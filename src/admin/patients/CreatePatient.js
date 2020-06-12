@@ -38,7 +38,12 @@ const CreatePatient = ({ addPatient }) => {
   const createPatient = async (newPatient) => {
     const data = {
       ...newPatient,
-      birthdate: newPatient.birthdate.format('YYYY-MM-DD')
+      birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
+      address: {
+        province: newPatient.province,
+        canton: newPatient.canton,
+        addressLine: newPatient.addressLine
+      }
     }
     let patient
     try {
