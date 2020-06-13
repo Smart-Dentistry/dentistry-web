@@ -3,6 +3,7 @@ import { Table, Button, Space, Modal } from 'antd'
 import { useHistory, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -49,7 +50,9 @@ const PatientTable = ({ patients, removePatient }) => {
     {
       title: t('Phone'),
       dataIndex: 'phone',
-      key: 'phone'
+      key: 'phone',
+      // eslint-disable-next-line react/display-name
+      render: (text, record, index) => formatPhoneNumberIntl(text)
     },
     {
       title: t('Age'),
