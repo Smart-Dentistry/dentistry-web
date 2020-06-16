@@ -28,7 +28,7 @@ const EditPatient = ({ updatePatient }) => {
   }
   const [, update] = useAxios(
     {
-      url: `${process.env.REACT_APP_API_URL}/patients/${patientFromTable.key}/`,
+      url: `/patients/${patientFromTable.key}/`,
       method: 'put'
     },
     { manual: true }

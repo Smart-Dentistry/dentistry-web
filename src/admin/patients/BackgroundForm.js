@@ -15,7 +15,7 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/diseases/`
+    url: '/diseases/'
   })
   useEffect(() => {
     if (diseasesData) {

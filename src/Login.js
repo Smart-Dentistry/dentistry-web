@@ -6,55 +6,70 @@ import {
   Row,
   Col,
   Typography,
-  Space
+  Space,
+  message
 } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import {
   faTooth
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 const { Title } = Typography
 
 const Login = () => {
-  const onFinish = values => { }
+  const history = useHistory()
+  const onFinish = async values => {
+    let response
+    try {
+      response = await axios.post('/token-auth/', values)
+    } catch (error) {
+      message.error('The combination of username and password is incorrect!')
+    }
+    const { data } = response
+    window.localStorage.setItem('token', data.access)
+    window.localStorage.setItem('refreshToken', data.refresh)
+    history.push('/admin')
+  }
   return (
     <Row type='flex' justify='center' align='middle' style={{ minHeight: '100vh' }}>
-      <Col span={4} >
+      <Col span={4}>
         <Space style={{ textAlign: 'center', width: '100%', marginBottom: '15px' }} direction='vertical'>
-          <FontAwesomeIcon icon={faTooth} style={{ fontSize: '4rem', color: 'black' }}/>
-          <Title level={3} >Login</Title>
+          <FontAwesomeIcon icon={faTooth} style={{ fontSize: '4rem', color: 'black' }} />
+          <Title level={3}>Login</Title>
         </Space>
         <Form
-          name="normal_login"
-          className="login-form"
+          name='normal_login'
+          className='login-form'
           initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name='username'
             rules={[{ required: true, message: 'Please input your Username!' }]}
           >
-            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
           </Form.Item>
           <Form.Item
-            name="password"
+            name='password'
             rules={[{ required: true, message: 'Please input your Password!' }]}
           >
             <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
+              prefix={<LockOutlined className='site-form-item-icon' />}
+              type='password'
+              placeholder='Password'
             />
           </Form.Item>
           <Form.Item>
-            <a className="login-form-forgot" href="">
+            <a className='login-form-forgot' href=''>
               Forgot password
             </a>
           </Form.Item>
 
           <Form.Item style={{ float: 'right' }}>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+            <Button type='primary' htmlType='submit' className='login-form-button'>
               Log in
             </Button>
           </Form.Item>

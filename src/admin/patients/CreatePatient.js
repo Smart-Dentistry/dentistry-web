@@ -29,7 +29,7 @@ const CreatePatient = ({ addPatient }) => {
   }
   const [, createNewPatient] = useAxios(
     {
-      url: `${process.env.REACT_APP_API_URL}/patients/`,
+      url: '/patients/',
       method: 'post'
     },
     { manual: true }

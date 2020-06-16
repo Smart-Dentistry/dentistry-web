@@ -4,7 +4,7 @@ import useAxios from 'axios-hooks'
 
 const Home = () => {
   const [{ data, loading, error }] = useAxios(
-    `${process.env.REACT_APP_API_URL}/users/`
+    '/users/'
   )
   const [users, setUsers] = useState([])
   useEffect(() => { if (data) setUsers(data) }, [data])
