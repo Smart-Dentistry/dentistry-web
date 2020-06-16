@@ -39,6 +39,12 @@ axios.interceptors.response.use((response) => {
   // Return a successful response back to the calling service
   return response
 }, (error) => {
+  // when trying to log in and no token nor refreshToken
+  if (error.response.status === 401 && !window.localStorage.getItem('token') && !window.localStorage.getItem('refreshToken')) {
+    return new Promise((resolve, reject) => {
+      reject(error)
+    })
+  }
   // Return any error which is not due to authentication back to the calling service
   if (error.response.status !== 401) {
     return new Promise((resolve, reject) => {

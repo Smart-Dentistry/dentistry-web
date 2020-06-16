@@ -27,6 +27,7 @@ const Login = () => {
       response = await axios.post('/token-auth/', values)
     } catch (error) {
       message.error('The combination of username and password is incorrect!')
+      return
     }
     const { data } = response
     window.localStorage.setItem('token', data.access)

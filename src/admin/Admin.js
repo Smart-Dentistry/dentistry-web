@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import { Layout, Breadcrumb, Menu } from 'antd'
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,12 +34,24 @@ const { Header, Content, Footer } = Layout
 
 const Admin = () => {
   const [layoutWidth, setLayoutWidth] = useState('200px')
+  const history = useHistory()
+  const onClick = item => {
+    switch (item.key) {
+      case '1': {
+        window.localStorage.removeItem('token')
+        window.localStorage.removeItem('refreshToken')
+        history.push('/login')
+        break
+      }
+      default: break
+    }
+  }
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sidebar setLayoutWidth={setLayoutWidth} />
       <Layout className='site-layout' style={{ paddingLeft: layoutWidth }}>
         <Header className='site-layout-background' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%', float: 'right' }}>
-          <Menu mode='horizontal'>
+          <Menu mode='horizontal' onClick={onClick}>
             <Menu.Item key='1'>Log out</Menu.Item>
           </Menu>
         </Header>
