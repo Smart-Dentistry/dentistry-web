@@ -9,7 +9,7 @@ import EditPatient from './EditPatient'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/patients/`
+    url: '/patients/'
   })
   const [patients, dispatch] = useReducer(patientReducer, [])
   useEffect(() => { if (data) dispatch({ type: 'LOAD', patients: data }) }, [data])

@@ -42,10 +42,10 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
   const [{ data: provincesData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/`
+    url: '/provinces-of-ecuador/'
   })
   const [{ data: cantonsData }] = useAxios({
-    url: `${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${patient.province === 'Azuay' ? 1 : patient.province}/cantons/`
+    url: `/provinces-of-ecuador/${patient.province === 'Azuay' ? 1 : patient.province}/cantons/`
   })
   useEffect(() => {
     if (provincesData) {
@@ -89,7 +89,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
     switch (key) {
       case 'province':
         try {
-          response = await axios.get(`${process.env.REACT_APP_API_URL}/provinces-of-ecuador/${value}/cantons/`)
+          response = await axios.get(`/provinces-of-ecuador/${value}/cantons/`)
         } catch (error) {
           console.log(error)
           return

@@ -25,7 +25,7 @@ const PatientTable = ({ patients, removePatient }) => {
       okType: 'danger',
       cancelText: 'Cancel',
       onOk () {
-        axios.delete(`${process.env.REACT_APP_API_URL}/patients/${record.key}/`)
+        axios.delete(`/patients/${record.key}/`)
         removePatient(record.key)
       }
     })

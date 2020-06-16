@@ -40,7 +40,7 @@ const PatientPicture = ({ image, setImage, dispatchPatient }) => {
     let response
     try {
       response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/get-presigned-url/`,
+        '/get-presigned-url/',
         config
       )
     } catch (err) {

@@ -24,7 +24,7 @@ const Login = () => {
   const onFinish = async values => {
     let response
     try {
-      response = await axios.post(`${process.env.REACT_APP_API_URL}/token-auth/`, values)
+      response = await axios.post('/token-auth/', values)
     } catch (error) {
       message.error('The combination of username and password is incorrect!')
     }
