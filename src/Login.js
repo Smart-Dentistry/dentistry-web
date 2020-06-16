@@ -14,11 +14,13 @@ import {
   faTooth
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const { Title } = Typography
 
 const Login = () => {
+  const history = useHistory()
   const onFinish = async values => {
     let response
     try {
@@ -29,7 +31,7 @@ const Login = () => {
     const { data } = response
     window.localStorage.setItem('token', data.access)
     window.localStorage.setItem('refreshToken', data.refresh)
-    // history.push('/admin')
+    history.push('/admin')
   }
   return (
     <Row type='flex' justify='center' align='middle' style={{ minHeight: '100vh' }}>
