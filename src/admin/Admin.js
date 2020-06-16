@@ -46,6 +46,10 @@ const Admin = () => {
       default: break
     }
   }
+  if (!localStorage.getItem('token') && !localStorage.getItem('refreshToken')) {
+    history.push('/login')
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sidebar setLayoutWidth={setLayoutWidth} />
@@ -61,7 +65,7 @@ const Admin = () => {
           </Breadcrumb>
           <div className='site-layout-background' style={{ padding: 24, minHeight: 360 }}>
             <Switch>
-              <Route exact path='/admin' render={() => (<Redirect to='/admin/dashboard' />)} />
+              <Route exact path='/admin' render={() => <Redirect to='/admin/dashboard' />} />
               <Route path='/admin/' component={AdminContent} />
             </Switch>
           </div>
