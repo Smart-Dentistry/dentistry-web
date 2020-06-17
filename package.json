@@ -31,7 +31,8 @@
     "eject": "react-app-rewired eject",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
-    "test:all": "CI=true yarn test && yarn lint"
+    "test:all": "CI=true yarn test && yarn lint",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
