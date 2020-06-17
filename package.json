@@ -32,7 +32,8 @@
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
     "test:all": "CI=true yarn test && yarn lint",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:all": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
