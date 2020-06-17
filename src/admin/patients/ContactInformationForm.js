@@ -173,7 +173,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true }]}>
-              <PhoneInput defaultCountry='EC' className='telephone-input' />
+              <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')}/>
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -230,7 +230,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
               </Col>
               <Col offset={2} span={5}>
                 <Form.Item {...inputLayout} name='representativePhone' label='Phone'>
-                  <PhoneInput defaultCountry='EC' className='telephone-input' />
+                  <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')}/>
                 </Form.Item>
               </Col>
             </Row>
