@@ -71,7 +71,7 @@ const PatientTable = ({ patients, removePatient }) => {
           <button type='button' className='linkButton' onClick={() => removePatientOnClick(record, index)}>
             <FontAwesomeIcon icon={faTrash} style={{ color: '#d11a2a' }} />
           </button>
-          {record.whatsapp ? <a href={record.whatsappLink} target='_blank' rel='noopener noreferrer'><FontAwesomeIcon icon={faWhatsappSquare} style={{ color: '#25d366' }} /></a> : null}
+          {record.whatsapp ? <a href={record.whatsappLink} target='_blank' rel='noopener noreferrer'><FontAwesomeIcon icon={faWhatsappSquare} style={{ color: '#25d366', fontSize: '1.3rem' }} /></a> : null}
         </Space>
       )
     }
