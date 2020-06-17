@@ -2,35 +2,12 @@ import React, { useState } from 'react'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import { Layout, Breadcrumb, Menu } from 'antd'
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
-
 import AdminContent from './AdminContent'
 import Sidebar from './Sidebar'
 
 import './Admin.sass'
 
 const { Header, Content, Footer } = Layout
-
-// const menu = (
-//   <Menu>
-//     <Menu.Item>
-//       <Button>
-//         Profile
-//       </Button>
-//     </Menu.Item>
-//     <Menu.Item>
-//       <Button>
-//         Settings
-//       </Button>
-//     </Menu.Item>
-//     <Menu.Item>
-//       <Button>
-//         Log Out
-//       </Button>
-//     </Menu.Item>
-//   </Menu>
-// )
 
 const Admin = () => {
   const [layoutWidth, setLayoutWidth] = useState('200px')
