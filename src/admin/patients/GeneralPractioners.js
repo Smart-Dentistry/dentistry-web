@@ -12,7 +12,7 @@ import {
 } from 'antd'
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
 import PropTypes from 'prop-types'
-import PhoneInput from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -71,8 +71,16 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
             </Form.Item>
           </Col>
           <Col span={4}>
-            <Form.Item {...inputLayout} name='practitionerPhone' label='Phone'>
-              <PhoneInput placeholder='+593987654321' defaultCountry='EC' className='telephone-input' />
+            <Form.Item {...inputLayout} name='practitionerPhone' label='Phone' rules={[
+              ({ getFieldValue }) => ({
+                validator (rule, value) {
+                  if (!value || isValidPhoneNumber(value)) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Invalid phone number'))
+                }
+              })]}>
+              <PhoneInput placeholder={formatPhoneNumberIntl('+593987654321')} defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
           <Col span={4}>

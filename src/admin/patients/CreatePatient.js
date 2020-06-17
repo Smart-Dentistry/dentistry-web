@@ -16,7 +16,7 @@ const CreatePatient = ({ addPatient }) => {
     countryOfResidence: 'E',
     province: 1,
     canton: 3,
-    phone: '+593',
+    phone: '',
     familyHistory: {
       diseases: [],
       observations: ''

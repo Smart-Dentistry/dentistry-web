@@ -13,7 +13,7 @@ import {
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
-import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
 
@@ -172,8 +172,16 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
         ) : null}
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true }]}>
-              <PhoneInput defaultCountry='EC' className='telephone-input' />
+            <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true },
+              ({ getFieldValue }) => ({
+                validator (rule, value) {
+                  if (isValidPhoneNumber(value)) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Invalid phone number'))
+                }
+              })]}>
+              <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')} />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
@@ -208,7 +216,15 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone'>
+            <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone' rules={[
+              ({ getFieldValue }) => ({
+                validator (rule, value) {
+                  if (!value || isValidPhoneNumber(value)) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Invalid phone number'))
+                }
+              })]}>
               <PhoneInput placeholder={formatPhoneNumberIntl('+593987654321')} defaultCountry='EC' className='telephone-input' />
             </Form.Item>
           </Col>
@@ -229,8 +245,16 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
                 </Form.Item>
               </Col>
               <Col offset={2} span={5}>
-                <Form.Item {...inputLayout} name='representativePhone' label='Phone'>
-                  <PhoneInput defaultCountry='EC' className='telephone-input' />
+                <Form.Item {...inputLayout} name='representativePhone' label='Phone' rules={[
+                  ({ getFieldValue }) => ({
+                    validator (rule, value) {
+                      if (!value || isValidPhoneNumber(value)) {
+                        return Promise.resolve()
+                      }
+                      return Promise.reject(new Error('Invalid phone number'))
+                    }
+                  })]}>
+                  <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')} />
                 </Form.Item>
               </Col>
             </Row>
