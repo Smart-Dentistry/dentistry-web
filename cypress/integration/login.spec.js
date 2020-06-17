@@ -1,0 +1,36 @@
+describe('Login', () => {
+  it('User can log in', () => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('#login_username').as('username')
+    cy.get('#login_password').as('password')
+    cy.get('button[type="submit"]').as('loginButton')
+    cy.get('@username').type('m')
+    cy.get('@password').type('pi3.1415')
+    cy.get('@loginButton').click()
+    cy.get('#logout').as('logout')
+    cy.get('@logout').should('have.text', 'Log out')
+  })
+
+  it('User can log out', () => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('#login_username').as('username')
+    cy.get('#login_password').as('password')
+    cy.get('button[type="submit"]').as('loginButton')
+    cy.get('@username').type('m')
+    cy.get('@password').type('pi3.1415')
+    cy.get('@loginButton').click()
+    cy.get('#logout').as('logout')
+    cy.get('@logout').click()
+  })
+
+  it('Use cannot log in with invalid credentials', () => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('#login_username').as('username')
+    cy.get('#login_password').as('password')
+    cy.get('button[type="submit"]').as('loginButton')
+    cy.get('@username').type('m')
+    cy.get('@password').type('piabcd123')
+    cy.get('@loginButton').click()
+    cy.contains('The combination of username and password is incorrect!')
+  })
+})

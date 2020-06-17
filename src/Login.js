@@ -42,7 +42,7 @@ const Login = () => {
           <Title level={3}>Login</Title>
         </Space>
         <Form
-          name='normal_login'
+          name='login'
           className='login-form'
           initialValues={{ remember: true }}
           onFinish={onFinish}
