@@ -54,12 +54,12 @@ const Admin = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sidebar setLayoutWidth={setLayoutWidth} />
       <Layout className='site-layout' style={{ paddingLeft: layoutWidth }}>
-        <Header className='site-layout-background' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%', float: 'right' }}>
-          <Menu mode='horizontal' onClick={onClick}>
+        <Header id='header' className='site-layout-background'>
+          <Menu mode='horizontal' onClick={onClick} style={{ position: 'absolute', top: 0, right: '200px' }}>
             <Menu.Item key='1'>Log out</Menu.Item>
           </Menu>
         </Header>
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{ margin: '0 16px', marginTop: '65px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Patients</Breadcrumb.Item>
           </Breadcrumb>
