@@ -22,7 +22,7 @@ const { Title } = Typography
 const Login = () => {
   const history = useHistory()
   if (localStorage.getItem('token') && localStorage.getItem('refreshToken')) {
-    history.push('/admin/dashboard')
+    history.push('/admin')
   }
   const onFinish = async values => {
     let response
