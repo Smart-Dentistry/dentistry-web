@@ -52,4 +52,8 @@ describe('Patients', () => {
     cy.contains('John')
     cy.contains('Smith')
   })
+
+  // TODO: add testing to create patient with full data
+  // TODO: add testing to verify patient is edited
+  // TODO: add testing to verify patient is deleted
 })
