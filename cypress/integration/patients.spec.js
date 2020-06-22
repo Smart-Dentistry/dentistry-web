@@ -11,7 +11,7 @@ describe('Patients', () => {
     cy.get('@patientsSidebar').click()
   })
 
-  it.skip('Table of patients is displayed', () => {
+  it('Table of patients is displayed', () => {
     cy.contains('New Patient')
     cy.contains('Name')
     cy.contains('Last Name')
@@ -21,7 +21,7 @@ describe('Patients', () => {
     cy.contains('Actions')
   })
 
-  it.skip('Patient is created with basic information', () => {
+  it('Patient is created with basic information', () => {
     cy.get('.ant-btn').as('createNewPatient')
     cy.get('@createNewPatient').click()
     cy.get('#personalInformation_firstName').as('firstName')
@@ -29,7 +29,7 @@ describe('Patients', () => {
     cy.get('#personalInformation_lastName').as('lastName')
     cy.get('@lastName').type('Smith')
     cy.get('#personalInformation_idDocumentNumber').as('idDocumentNumber')
-    cy.get('@idDocumentNumber').type('1234567890')
+    cy.get('@idDocumentNumber').type('0987654321')
     cy.get('#personalInformation_sex').as('sex')
     cy.get('@sex').click()
     cy.contains('Male').click()
@@ -51,6 +51,15 @@ describe('Patients', () => {
     cy.contains('Smith')
   })
 
+  it('Patient is created with basic information', () => {
+    cy.get('svg.svg-inline--fa.fa-trash-alt.fa-w-14').first().click()
+    cy.get('.ant-btn-dangerous').click()
+    cy.contains('0987654321').should('not.exist')
+    cy.contains('+593987654321').should('not.exist')
+  })
+
+
+
   it('Patient is created with full information', () => {
     cy.get('.ant-btn').as('createNewPatient')
     cy.get('@createNewPatient').click()
@@ -63,7 +72,7 @@ describe('Patients', () => {
     cy.get('#personalInformation_secondLastName').as('secondLastName')
     cy.get('@secondLastName').type('Hidalgo')
     cy.get('#personalInformation_idDocumentNumber').as('idDocumentNumber')
-    cy.get('@idDocumentNumber').type('1234567890')
+    cy.get('@idDocumentNumber').type('0123456789')
     cy.get('#personalInformation_sex').as('sex')
     cy.get('@sex').click()
     cy.contains('Male').click()
@@ -81,7 +90,7 @@ describe('Patients', () => {
     cy.get('#contactInformation_addressLine').as('addressLine')
     cy.get('@addressLine').type('Sierra Bonita 123')
     cy.get('#contactInformation_phone').as('phone')
-    cy.get('@phone').type('+593987654321')
+    cy.get('@phone').type('+593987654312')
     cy.get('#contactInformation_whatsapp').as('whatsapp')
     cy.get('@whatsapp').click()
     cy.get('#contactInformation_email').as('email')
@@ -109,7 +118,55 @@ describe('Patients', () => {
     cy.scrollTo(0, 0)
     cy.contains('Peter')
     cy.contains('Johnson')
+
+    cy.get('svg.svg-inline--fa.fa-trash-alt.fa-w-14').first().click()
+    cy.get('.ant-btn-dangerous').click()
+    cy.contains('0123456789').should('not.exist')
+    cy.contains('+593987654312').should('not.exist')
   })
-  // TODO: add testing to verify patient is edited
-  // TODO: add testing to verify patient is deleted
+
+  it('Patient is edited', () => {
+    cy.get('.ant-btn').as('createNewPatient')
+    cy.get('@createNewPatient').click()
+    cy.get('#personalInformation_firstName').as('firstName')
+    cy.get('@firstName').type('ThisIsMyName')
+    cy.get('#personalInformation_lastName').as('lastName')
+    cy.get('@lastName').type('Black')
+    cy.get('#personalInformation_idDocumentNumber').as('idDocumentNumber')
+    cy.get('@idDocumentNumber').type('0987654321')
+    cy.get('#personalInformation_sex').as('sex')
+    cy.get('@sex').click()
+    cy.contains('Male').click()
+    cy.get('#personalInformation_maritalStatus').click()
+    cy.contains('Single').click()
+    cy.get('#personalInformation_birthdate').as('birthdate')
+    cy.get('@birthdate').click()
+    cy.get('@birthdate').type('1990-01-01')
+    cy.get('#personalInformation_referralSource').click()
+    cy.contains('Other').click()
+    cy.get('.ant-btn').click()
+    cy.get('#contactInformation_phone').as('phone')
+    cy.get('@phone').type('+593987654321')
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 500)
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 0)
+    cy.contains('ThisIsMyName')
+    cy.contains('Black')
+
+    cy.get('svg.svg-inline--fa.fa-edit.fa-w-18').first().click()
+    cy.get('@firstName').clear()
+    cy.get('@firstName').type('ThisIsEditedName')
+    cy.get('.ant-btn').click()
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 500)
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 0)
+    cy.contains('ThisIsMyName').should('not.exist')
+    cy.contains('ThisIsEditedName')
+    cy.contains('Black')
+
+    cy.get('svg.svg-inline--fa.fa-trash-alt.fa-w-14').first().click()
+    cy.get('.ant-btn-dangerous').click()
+  })
 })
