@@ -51,14 +51,12 @@ describe('Patients', () => {
     cy.contains('Smith')
   })
 
-  it('Patient is created with basic information', () => {
+  it('Patient is deleted', () => {
     cy.get('svg.svg-inline--fa.fa-trash-alt.fa-w-14').first().click()
     cy.get('.ant-btn-dangerous').click()
     cy.contains('0987654321').should('not.exist')
     cy.contains('+593987654321').should('not.exist')
   })
-
-
 
   it('Patient is created with full information', () => {
     cy.get('.ant-btn').as('createNewPatient')
