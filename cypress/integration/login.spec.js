@@ -21,6 +21,7 @@ describe('Login', () => {
     cy.get('@loginButton').click()
     cy.get('#logout').as('logout')
     cy.get('@logout').click()
+    cy.contains('Forgot password')
   })
 
   it('Use cannot log in with invalid credentials', () => {

@@ -1,0 +1,57 @@
+describe('Patients', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/login')
+    cy.get('#login_username').as('username')
+    cy.get('#login_password').as('password')
+    cy.get('button[type="submit"]').as('loginButton')
+    cy.get('@username').type('m')
+    cy.get('@password').type('pi3.1415')
+    cy.get('@loginButton').click()
+    cy.get('.ant-layout-sider-children > .ant-menu > :nth-child(3)').as('patientsSidebar')
+    cy.get('@patientsSidebar').click()
+  })
+
+  it('Table of patients is displayed', () => {
+    cy.contains('New Patient')
+    cy.contains('Name')
+    cy.contains('Last Name')
+    cy.contains('ID')
+    cy.contains('Phone')
+    cy.contains('Age')
+    cy.contains('Actions')
+  })
+
+  it('Patient is created with basic information', () => {
+    cy.get('.ant-btn').as('createNewPatient')
+    cy.get('@createNewPatient').click()
+    cy.get('#personalInformation_firstName').as('firstName')
+    cy.get('@firstName').type('John')
+    cy.get('#personalInformation_lastName').as('lastName')
+    cy.get('@lastName').type('Smith')
+    cy.get('#personalInformation_idDocumentNumber').as('idDocumentNumber')
+    cy.get('@idDocumentNumber').type('1234567890')
+    cy.get('#personalInformation_sex').as('sex')
+    cy.get('@sex').click()
+    cy.contains('Male').click()
+    cy.get('#personalInformation_maritalStatus').click()
+    cy.contains('Single').click()
+    cy.get('#personalInformation_birthdate').as('birthdate')
+    cy.get('@birthdate').click()
+    cy.get('@birthdate').type('1990-01-01')
+    cy.get('#personalInformation_referralSource').click()
+    cy.contains('Other').click()
+    cy.get('.ant-btn').click()
+    cy.get('#contactInformation_phone').as('phone')
+    cy.get('@phone').type('+593987654321')
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 500)
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 0)
+    cy.contains('John')
+    cy.contains('Smith')
+  })
+
+  // TODO: add testing to create patient with full data
+  // TODO: add testing to verify patient is edited
+  // TODO: add testing to verify patient is deleted
+})
