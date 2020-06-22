@@ -7,8 +7,9 @@ import { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faWhatsappSquare } from '@fortawesome/free-brands-svg-icons'
+import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const { confirm } = Modal
 
@@ -66,12 +67,12 @@ const PatientTable = ({ patients, removePatient }) => {
       render: (text, record, index) => (
         <Space size='middle'>
           <Link to={{ pathname: `/admin/patients/${record.key}/edit`, state: { patient: record, index } }}>
-            <FontAwesomeIcon icon={faPen} style={{ fontSize: '1.125rem' }} />
+            <FontAwesomeIcon icon={faEdit} />
           </Link>
           <button type='button' className='linkButton' onClick={() => removePatientOnClick(record, index)}>
-            <FontAwesomeIcon icon={faTrash} style={{ color: '#d11a2a', fontSize: '1.125rem' }} />
+            <FontAwesomeIcon icon={faTrashAlt} style={{ color: '#d11a2a' }} />
           </button>
-          {record.whatsapp ? <a href={record.whatsappLink} target='_blank' rel='noopener noreferrer'><FontAwesomeIcon icon={faWhatsappSquare} style={{ color: '#25d366', fontSize: '1.3rem' }} /></a> : null}
+          {record.whatsapp ? <a href={record.whatsappLink} target='_blank' rel='noopener noreferrer'><FontAwesomeIcon icon={faWhatsapp} style={{ color: '#25d366' }} /></a> : null}
         </Space>
       )
     }
