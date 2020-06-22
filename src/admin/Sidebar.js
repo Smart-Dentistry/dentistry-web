@@ -21,10 +21,9 @@ const items = [
   { key: '5', icon: faUserMd, label: 'Users', path: '/admin/users' }
 ]
 
-const Sidebar = ({ setLayoutWidth }) => {
+const Sidebar = ({ setLayoutWidth, collapsed, setCollapsed }) => {
   const location = useLocation()
   const history = useHistory()
-  const [collapsed, setCollapsed] = useState(false)
   const computeSelected = () => {
     const selected = items.find(_item => location.pathname.startsWith(_item.path))
     return selected ? selected.key : null
@@ -79,7 +78,9 @@ const Sidebar = ({ setLayoutWidth }) => {
 }
 
 Sidebar.propTypes = {
-  setLayoutWidth: PropTypes.func
+  setLayoutWidth: PropTypes.func,
+  setCollapsed: PropTypes.func,
+  collapsed: PropTypes.bool
 }
 
 export default Sidebar

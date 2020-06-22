@@ -11,6 +11,7 @@ const { Header, Content, Footer } = Layout
 
 const Admin = () => {
   const [layoutWidth, setLayoutWidth] = useState('200px')
+  const [collapsed, setCollapsed] = useState(false)
   const history = useHistory()
   const onClick = item => {
     switch (item.key) {
@@ -29,10 +30,10 @@ const Admin = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sidebar setLayoutWidth={setLayoutWidth} />
+      <Sidebar setLayoutWidth={setLayoutWidth} collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout className='site-layout' style={{ paddingLeft: layoutWidth }}>
         <Header id='header' className='site-layout-background'>
-          <Menu mode='horizontal' onClick={onClick} style={{ position: 'absolute', top: 0, right: '200px' }}>
+          <Menu mode='horizontal' onClick={onClick} style={{ position: 'absolute', top: 0, right: collapsed ? '80px' : '200px' }}>
             <Menu.Item id='logout' key='1'>Log out</Menu.Item>
           </Menu>
         </Header>
