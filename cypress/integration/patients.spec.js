@@ -11,7 +11,7 @@ describe('Patients', () => {
     cy.get('@patientsSidebar').click()
   })
 
-  it('Table of patients is displayed', () => {
+  it.skip('Table of patients is displayed', () => {
     cy.contains('New Patient')
     cy.contains('Name')
     cy.contains('Last Name')
@@ -21,7 +21,7 @@ describe('Patients', () => {
     cy.contains('Actions')
   })
 
-  it('Patient is created with basic information', () => {
+  it.skip('Patient is created with basic information', () => {
     cy.get('.ant-btn').as('createNewPatient')
     cy.get('@createNewPatient').click()
     cy.get('#personalInformation_firstName').as('firstName')
@@ -51,7 +51,65 @@ describe('Patients', () => {
     cy.contains('Smith')
   })
 
-  // TODO: add testing to create patient with full data
+  it('Patient is created with full information', () => {
+    cy.get('.ant-btn').as('createNewPatient')
+    cy.get('@createNewPatient').click()
+    cy.get('#personalInformation_firstName').as('firstName')
+    cy.get('@firstName').type('Peter')
+    cy.get('#personalInformation_middleName').as('middleName')
+    cy.get('@middleName').type('James')
+    cy.get('#personalInformation_lastName').as('lastName')
+    cy.get('@lastName').type('Johnson')
+    cy.get('#personalInformation_secondLastName').as('secondLastName')
+    cy.get('@secondLastName').type('Hidalgo')
+    cy.get('#personalInformation_idDocumentNumber').as('idDocumentNumber')
+    cy.get('@idDocumentNumber').type('1234567890')
+    cy.get('#personalInformation_sex').as('sex')
+    cy.get('@sex').click()
+    cy.contains('Male').click()
+    cy.get('#personalInformation_maritalStatus').click()
+    cy.contains('Single').click()
+    cy.get('#personalInformation_jobTitle').as('jobTitle')
+    cy.get('@jobTitle').type('Aerospace Engineer')
+    cy.get('#personalInformation_birthdate').as('birthdate')
+    cy.get('@birthdate').click()
+    cy.get('@birthdate').type('1990-01-01')
+    cy.get('#personalInformation_referralSource').click()
+    cy.contains('Other').click()
+    cy.get('.ant-btn').click()
+
+    cy.get('#contactInformation_addressLine').as('addressLine')
+    cy.get('@addressLine').type('Sierra Bonita 123')
+    cy.get('#contactInformation_phone').as('phone')
+    cy.get('@phone').type('+593987654321')
+    cy.get('#contactInformation_whatsapp').as('whatsapp')
+    cy.get('@whatsapp').click()
+    cy.get('#contactInformation_email').as('email')
+    cy.get('@email').type('peter.johnson@gmail.com')
+    cy.get('#contactInformation_healthInsuranceCompany').as('healthInsuranceCompany')
+    cy.get('@healthInsuranceCompany').type('Salud S.A.')
+
+    cy.get('#contactInformation_emergencyContactName').as('emergencyContactName')
+    cy.get('@emergencyContactName').type('Albert Einstein')
+    cy.get('#contactInformation_emergencyContactPhone').as('emergencyContactPhone')
+    cy.get('@emergencyContactPhone').type('+13053991321')
+
+    cy.get('#contactInformation_representative').as('representative')
+    cy.get('@representative').click()
+    cy.get('#contactInformation_representativeName').as('representativeName')
+    cy.get('@representativeName').type('Isaac Newton')
+    cy.get('#contactInformation_representativePhone').as('emergencyContactPhone')
+    cy.get('@emergencyContactPhone').type('+13053991321')
+    cy.get('#contactInformation_representativeRelationship').as('representativeRelationship')
+    cy.get('@representativeRelationship').type('Best friend')
+
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 500)
+    cy.get('.ant-row > .ant-btn').click()
+    cy.scrollTo(0, 0)
+    cy.contains('Peter')
+    cy.contains('Johnson')
+  })
   // TODO: add testing to verify patient is edited
   // TODO: add testing to verify patient is deleted
 })
