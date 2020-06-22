@@ -32,10 +32,10 @@
     "eject": "react-app-rewired eject",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
-    "test:all": "CI=true yarn test && yarn lint",
-    "test:dev": "CI=true yarn test",
+    "test:all": "CI=true yarn test",
+    "test:dev": "CI=true yarn test && yarn cypress:all",
     "cypress:open": "cypress open",
-    "cypress:all": "cypress run"
+    "cypress:all": "cypress run --browser chrome"
   },
   "eslintConfig": {
     "extends": "react-app"
