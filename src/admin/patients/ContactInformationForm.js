@@ -80,7 +80,6 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
       relationship: values.representativeRelationship
     }
     dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    console.log(values)
     processPatient(patient)
   }
   const onValuesChange = async changedValue => {
@@ -105,6 +104,9 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
         break
       case 'representative':
         setShowRepresentative(value)
+        break
+      case 'phone':
+        dispatchPatient({ type: 'UPDATE', updatedValues: { phone: value } })
         break
       default: break
     }

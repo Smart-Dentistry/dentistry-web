@@ -15,17 +15,7 @@ const CreatePatient = ({ addPatient }) => {
     whatsapp: false,
     countryOfResidence: 'E',
     province: 1,
-    canton: 3,
-    phone: '',
-    familyHistory: {
-      diseases: [],
-      observations: ''
-    },
-    personalHistory: {
-      diseases: [],
-      observations: ''
-    },
-    generalPractitioners: []
+    canton: 3
   }
   const [, createNewPatient] = useAxios(
     {
@@ -36,7 +26,6 @@ const CreatePatient = ({ addPatient }) => {
   )
 
   const createPatient = async (newPatient) => {
-    // console.log(newPatient)
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
