@@ -27,7 +27,7 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     // eslint-disable-next-line
-    email: '${label} is not valid email!',
+    email: '${label} is not a valid email!',
     // eslint-disable-next-line
     number: '${label} is not a valid number!'
   }
@@ -65,9 +65,6 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       })
     }
   }, [cantonsData])
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo)
-  }
   const onFinish = values => {
     values.whatsapp = patient.whatsapp
     const emergencyContact = {
@@ -137,7 +134,6 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         layout='vertical'
         name='contactInformation'
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
         initialValues={patient}
