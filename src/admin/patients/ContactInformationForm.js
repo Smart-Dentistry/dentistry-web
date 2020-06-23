@@ -27,9 +27,9 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     // eslint-disable-next-line
-    email: '${label} is not validate email!',
+    email: '${label} is not valid email!',
     // eslint-disable-next-line
-    number: '${label} is not a validate number!'
+    number: '${label} is not a valid number!'
   }
 }
 const countryOfResidenceOptions = [
@@ -37,7 +37,7 @@ const countryOfResidenceOptions = [
   { value: 'A', label: 'Abroad' }
 ]
 
-const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepresentative, setShowRepresentative, processPatient }) => {
+const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresentative, setShowRepresentative, processPatient }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -287,7 +287,6 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
 
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
-  next: PropTypes.func,
   patient: PropTypes.object,
   dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,

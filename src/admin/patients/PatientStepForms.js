@@ -36,7 +36,7 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
   }
   return (
     <>
-      <Steps current={currentStep} style={{ marginBottom: '2rem' }}>
+      <Steps current={currentStep} style={{ marginBottom: '2rem', padding: '0 18rem' }}>
         {steps.map((step, index) => <Step key={index} title={step} />)}
       </Steps>
       {(() => {
@@ -49,7 +49,6 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
                 setImage={setImage}
                 patient={patient}
                 dispatchPatient={dispatchPatient}
-                showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
             )
@@ -57,7 +56,6 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
             return (
               <ContactInformationForm
                 prev={prev}
-                next={next}
                 patient={patient}
                 dispatchPatient={dispatchPatient}
                 showRepresentative={showRepresentative}
