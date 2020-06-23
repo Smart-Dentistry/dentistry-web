@@ -36,6 +36,7 @@ const CreatePatient = ({ addPatient }) => {
   )
 
   const createPatient = async (newPatient) => {
+    // console.log(newPatient)
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
