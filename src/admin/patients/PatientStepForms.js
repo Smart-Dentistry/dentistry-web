@@ -5,13 +5,11 @@ import _ from 'lodash'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
-import BackgroundForm from './BackgroundForm'
 
 const { Step } = Steps
 const steps = [
   'Personal Information',
-  'Contact Information',
-  'Background Information'
+  'Contact Information'
 ]
 
 const reducer = (state, action) => {
@@ -38,7 +36,7 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
   }
   return (
     <>
-      <Steps current={currentStep} style={{ marginBottom: '2rem' }}>
+      <Steps current={currentStep} style={{ marginBottom: '2rem', padding: '0 18rem' }}>
         {steps.map((step, index) => <Step key={index} title={step} />)}
       </Steps>
       {(() => {
@@ -51,7 +49,6 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
                 setImage={setImage}
                 patient={patient}
                 dispatchPatient={dispatchPatient}
-                showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
               />
             )
@@ -59,19 +56,10 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
             return (
               <ContactInformationForm
                 prev={prev}
-                next={next}
                 patient={patient}
                 dispatchPatient={dispatchPatient}
                 showRepresentative={showRepresentative}
                 setShowRepresentative={setShowRepresentative}
-              />
-            )
-          case 2:
-            return (
-              <BackgroundForm
-                prev={prev}
-                patient={patient}
-                dispatchPatient={dispatchPatient}
                 processPatient={processPatient}
               />
             )

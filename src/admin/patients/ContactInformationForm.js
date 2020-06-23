@@ -27,9 +27,9 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     // eslint-disable-next-line
-    email: '${label} is not validate email!',
+    email: '${label} is not a valid email!',
     // eslint-disable-next-line
-    number: '${label} is not a validate number!'
+    number: '${label} is not a valid number!'
   }
 }
 const countryOfResidenceOptions = [
@@ -37,7 +37,7 @@ const countryOfResidenceOptions = [
   { value: 'A', label: 'Abroad' }
 ]
 
-const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepresentative, setShowRepresentative }) => {
+const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresentative, setShowRepresentative, processPatient }) => {
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -65,9 +65,6 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
       })
     }
   }, [cantonsData])
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo)
-  }
   const onFinish = values => {
     values.whatsapp = patient.whatsapp
     const emergencyContact = {
@@ -80,7 +77,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
       relationship: values.representativeRelationship
     }
     dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    next()
+    processPatient(patient)
   }
   const onValuesChange = async changedValue => {
     let response
@@ -104,6 +101,9 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
         break
       case 'representative':
         setShowRepresentative(value)
+        break
+      case 'phone':
+        dispatchPatient({ type: 'UPDATE', updatedValues: { phone: value } })
         break
       default: break
     }
@@ -134,7 +134,6 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
         layout='vertical'
         name='contactInformation'
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         scrollToFirstError
         initialValues={patient}
@@ -273,7 +272,7 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
           </Col>
           <Col span={6}>
             <Row justify='end'>
-              <Button type='primary' htmlType='submit'>Next</Button>
+              <Button type='primary' htmlType='submit'>{patient.key ? 'Save' : 'Create'}</Button>
             </Row>
           </Col>
         </Row>
@@ -284,11 +283,11 @@ const ContactInformationForm = ({ prev, next, patient, dispatchPatient, showRepr
 
 ContactInformationForm.propTypes = {
   prev: PropTypes.func,
-  next: PropTypes.func,
   patient: PropTypes.object,
   dispatchPatient: PropTypes.func,
   showRepresentative: PropTypes.bool,
-  setShowRepresentative: PropTypes.func
+  setShowRepresentative: PropTypes.func,
+  processPatient: PropTypes.func
 }
 
 export default ContactInformationForm

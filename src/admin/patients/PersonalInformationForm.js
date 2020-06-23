@@ -38,15 +38,11 @@ const referralSourceOptions = [
   { value: 'O', label: 'Other' }
 ]
 
-const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresentative, setShowRepresentative, image, setImage }) => {
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo)
-  }
+const PersonalInformationForm = ({ next, patient, dispatchPatient, setShowRepresentative, image, setImage }) => {
   const onFinish = values => {
     values.receivePromos = patient.receivePromos
     dispatchPatient({ type: 'UPDATE', updatedValues: values })
     next()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const datePickerOnChange = value => {
     const years = moment().diff(value, 'years')
@@ -55,11 +51,9 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresent
   const receivePromosOnChange = e => {
     dispatchPatient({ type: 'UPDATE', updatedValues: { receivePromos: e.target.checked } })
   }
-
   const disabledDate = (current) => {
     return current && current >= moment().startOf('day')
   }
-
   return (
     <>
       <Row justify='center'>
@@ -71,7 +65,6 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresent
         layout='vertical'
         name='personalInformation'
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         validateMessages={validateMessages}
         initialValues={patient}
       >
@@ -143,8 +136,7 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, showRepresent
           </Col>
         </Row>
         <Row>
-          <Col span={12} />
-          <Col span={6}>
+          <Col offset={12} span={6}>
             <Row justify='end'>
               <Button type='primary' htmlType='submit'>Next</Button>
             </Row>
@@ -159,7 +151,6 @@ PersonalInformationForm.propTypes = {
   next: PropTypes.func,
   patient: PropTypes.object,
   dispatchPatient: PropTypes.func,
-  showRepresentative: PropTypes.bool,
   setShowRepresentative: PropTypes.func,
   image: PropTypes.string,
   setImage: PropTypes.func

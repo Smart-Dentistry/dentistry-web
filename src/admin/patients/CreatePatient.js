@@ -12,28 +12,11 @@ const CreatePatient = ({ addPatient }) => {
   const history = useHistory()
   const patient = {
     receivePromos: true,
-    whatsapp: false,
     countryOfResidence: 'E',
     province: 1,
-    canton: 3,
-    phone: '',
-    familyHistory: {
-      diseases: [],
-      observations: ''
-    },
-    personalHistory: {
-      diseases: [],
-      observations: ''
-    },
-    generalPractitioners: []
+    canton: 3
   }
-  const [, createNewPatient] = useAxios(
-    {
-      url: '/patients/',
-      method: 'post'
-    },
-    { manual: true }
-  )
+  const [, createNewPatient] = useAxios({ url: '/patients/', method: 'post' }, { manual: true })
 
   const createPatient = async (newPatient) => {
     const data = {
@@ -58,12 +41,7 @@ const CreatePatient = ({ addPatient }) => {
     history.push('/admin/patients')
   }
 
-  return (
-    <PatientStepForms
-      initialPatient={patient}
-      processPatient={createPatient}
-    />
-  )
+  return <PatientStepForms initialPatient={patient} processPatient={createPatient} />
 }
 
 CreatePatient.propTypes = {

@@ -56,13 +56,7 @@ const EditPatient = ({ updatePatient }) => {
     message.success({ content: 'Patient was updated sucessfully', duration: 3 })
     history.push('/admin/patients')
   }
-
-  return (
-    <PatientStepForms
-      initialPatient={patient}
-      processPatient={updateExistingPatient}
-    />
-  )
+  return <PatientStepForms initialPatient={patient} processPatient={updateExistingPatient} />
 }
 
 EditPatient.propTypes = {
