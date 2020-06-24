@@ -8,12 +8,16 @@ import {
   Card,
   Typography,
   Tooltip,
-  Space
+  Space,
+  Modal
 } from 'antd'
-import { PlusOutlined, DeleteFilled } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
+import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import PropTypes from 'prop-types'
 import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+const { confirm } = Modal
 const { Title } = Typography
 const { TextArea } = Input
 const inputLayout = {
@@ -53,9 +57,20 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
       }
     })
   }
+  const editPractitioner = (record, index) => {
+    confirm({
+      title: 'Delete patient',
+      icon: <FontAwesomeIcon icon={faEdit} style={{ verticalAlign: '0', marginRight: '0.5rem' }} />,
+      content: 'Please confirm you want to delete all data for this patient.',
+      okText: 'Delete',
+      okType: 'danger',
+      cancelText: 'Cancel'
+    })
+  }
   const onValuesChange = (changedValues, allValues) => {
     setEnableAddPractitioner(allValues.practitionerName && allValues.specialization)
   }
+  patient.generalPractitioners = [{ name: 'Greg House', phone: '+593987654321', specialization: 'Neurologist', observations: 'Hey House' }]
   return (
     <>
       <Row>
@@ -111,9 +126,14 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
                 title={item.name}
                 key={item}
                 extra={
-                  <Button type='button' className='linkButton' onClick={() => removePractitioner(index)}>
-                    <DeleteFilled style={{ color: '#E53B32' }} />
-                  </Button>
+                  <Space>
+                    <Button type='button' className='linkButton' onClick={() => editPractitioner(index)}>
+                      <FontAwesomeIcon icon={faEdit} style={{ color: '#4190f7' }} />
+                    </Button>
+                    <Button type='button' className='linkButton' onClick={() => removePractitioner(index)}>
+                      <FontAwesomeIcon icon={faTrashAlt} style={{ color: '#d11a2a' }} />
+                    </Button>
+                  </Space>
                 }
               >
                 <p>Phone: {item.phone}</p>

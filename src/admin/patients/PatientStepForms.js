@@ -5,6 +5,7 @@ import _ from 'lodash'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
+import BackgroundForm from './BackgroundForm'
 
 const { Step } = Steps
 const steps = [
@@ -43,14 +44,19 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
         switch (currentStep) {
           case 0:
             return (
-              <PersonalInformationForm
-                next={next}
-                image={image}
-                setImage={setImage}
-                patient={patient}
-                dispatchPatient={dispatchPatient}
-                setShowRepresentative={setShowRepresentative}
-              />
+              <>
+                <PersonalInformationForm
+                  next={next}
+                  image={image}
+                  setImage={setImage}
+                  patient={patient}
+                  dispatchPatient={dispatchPatient}
+                  setShowRepresentative={setShowRepresentative}
+                />
+                <BackgroundForm
+                  patient={patient}
+                />
+              </>
             )
           case 1:
             return (

@@ -32,7 +32,6 @@ const PersonalHistory = ({ diseases, patient, dispatchPatient }) => {
         name='personalHistory'
         onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
-        initialValues={patient.personalHistory}
       >
         <Row>
           <Col offset={6} span={12}>

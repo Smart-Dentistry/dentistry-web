@@ -41,7 +41,7 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
         </Col>
         <Col span={6}>
           <Row justify='end'>
-            <Button type='primary' onClick={() => processPatient(patient)}>{patient.key ? 'Save' : 'Create'}</Button>
+            <Button type='primary' onClick={() => processPatient(patient)}>Save</Button>
           </Row>
         </Col>
       </Row>
