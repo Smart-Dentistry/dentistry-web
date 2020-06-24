@@ -57,14 +57,48 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
       }
     })
   }
-  const editPractitioner = (record, index) => {
+  const editPractitioner = (index) => {
     confirm({
-      title: 'Delete patient',
-      icon: <FontAwesomeIcon icon={faEdit} style={{ verticalAlign: '0', marginRight: '0.5rem' }} />,
-      content: 'Please confirm you want to delete all data for this patient.',
-      okText: 'Delete',
-      okType: 'danger',
-      cancelText: 'Cancel'
+      title: 'Edit patient',
+      icon: <FontAwesomeIcon icon={faEdit} style={{ verticalAlign: '0', marginRight: '0.5rem', color: '#4190f7' }} />,
+      content:
+      <Form onFinish={onFinish} form={form} layout='vertical' onValuesChange={onValuesChange}>
+        <Row gutter={16}>
+          <Col span={8}>
+            <Form.Item {...inputLayout} name='practitionerName' label='Name'>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item {...inputLayout} name='practitionerPhone' label='Phone' rules={[
+              ({ getFieldValue }) => ({
+                validator (rule, value) {
+                  if (!value || isValidPhoneNumber(value)) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Invalid phone number'))
+                }
+              })]}>
+              <PhoneInput placeholder={formatPhoneNumberIntl('+593987654321')} defaultCountry='EC' className='telephone-input' />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item {...inputLayout} name='specialization' label='Specialization'>
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Form.Item {...inputLayout} name='observations' label='Observations'>
+              <TextArea />
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>,
+      okText: 'Save',
+      cancelText: 'Cancel',
+      width: 800
     })
   }
   const onValuesChange = (changedValues, allValues) => {

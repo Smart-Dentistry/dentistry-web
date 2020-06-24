@@ -5,7 +5,6 @@ import _ from 'lodash'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
-import BackgroundForm from './BackgroundForm'
 
 const { Step } = Steps
 const steps = [
@@ -52,9 +51,6 @@ const PatientStepForm = ({ initialPatient, processPatient }) => {
                   patient={patient}
                   dispatchPatient={dispatchPatient}
                   setShowRepresentative={setShowRepresentative}
-                />
-                <BackgroundForm
-                  patient={patient}
                 />
               </>
             )
