@@ -56,8 +56,10 @@ const PatientPicture = ({ image, setImage, dispatchPatient }) => {
       form.append(key, value)
     }
     form.append('file', file)
+    const instance = axios.create()
+    instance.interceptors.request.use(config => config)
     try {
-      await axios.post(data.url, form)
+      await instance.post(data.url, form)
     } catch (err) {
       message.error('Profile image was not uploaded. Please try again.')
       setLoadingImage(false)
