@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import {
   Form,
@@ -10,7 +10,7 @@ import {
   Space,
   message
 } from 'antd'
-import { faTooth } from '@fortawesome/free-solid-svg-icons'
+import { faTooth, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LockOutlined } from '@ant-design/icons'
 import axios from 'axios'
@@ -21,7 +21,9 @@ const ResetPasswordConfirm = () => {
   const [form] = Form.useForm()
   const history = useHistory()
   const { token } = useParams()
+  const [disableAccept, setDisableAccept] = useState(false)
   const onFinish = async values => {
+    setDisableAccept(true)
     const instance = axios.create()
     instance.interceptors.request.use(config => config)
 
@@ -34,6 +36,7 @@ const ResetPasswordConfirm = () => {
       } else {
         message.error('There was an error, please try again.', 5)
       }
+      setDisableAccept(false)
       return
     }
     message.success('Your password has been reset successfully!')
@@ -87,8 +90,11 @@ const ResetPasswordConfirm = () => {
             <Space direction='vertical'>
               <Text>Password should be at least 8 characters long.</Text>
               <Form.Item style={{ float: 'right' }}>
-                <Button type='primary' htmlType='submit' className='login-form-button'>
-                  Accept
+                <Button type='primary' htmlType='submit' className='login-form-button' disabled={disableAccept}>
+                  <Space>
+                    {disableAccept ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
+                    <span>Accept</span>
+                  </Space>
                 </Button>
               </Form.Item>
             </Space>
