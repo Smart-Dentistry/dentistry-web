@@ -14,7 +14,7 @@ import {
   faTooth
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const { Title } = Typography
@@ -67,9 +67,9 @@ const Login = () => {
             />
           </Form.Item>
           <Form.Item>
-            <a className='login-form-forgot' href=''>
+            <Link className='login-form-forgot' to={{ pathname: '/reset-password' }}>
               Forgot password
-            </a>
+            </Link>
           </Form.Item>
 
           <Form.Item style={{ float: 'right' }}>
