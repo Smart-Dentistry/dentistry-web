@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Form,
   Button,
@@ -9,7 +9,7 @@ import {
   Space,
   message
 } from 'antd'
-import { faTooth } from '@fortawesome/free-solid-svg-icons'
+import { faTooth, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
@@ -27,7 +27,9 @@ const validateMessages = {
 
 const ResetPassword = () => {
   const history = useHistory()
+  const [disableSend, setDisableSend] = useState(false)
   const onFinish = async values => {
+    setDisableSend(true)
     const instance = axios.create()
     instance.interceptors.request.use(config => config)
 
@@ -40,6 +42,7 @@ const ResetPassword = () => {
       } else {
         message.error('There was an error, please try again.', 5)
       }
+      setDisableSend(false)
       return
     }
     message.success('A message has been sent to your email to reset your password!', 5)
@@ -67,8 +70,11 @@ const ResetPassword = () => {
               <Input placeholder='Email' />
             </Form.Item>
             <Form.Item style={{ float: 'right' }}>
-              <Button type='primary' htmlType='submit' className='login-form-button'>
-                Send
+              <Button type='primary' htmlType='submit' className='login-form-button' disabled={disableSend}>
+                <Space>
+                  {disableSend ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
+                  <span>Send</span>
+                </Space>
               </Button>
             </Form.Item>
           </Form>
