@@ -15,7 +15,7 @@ function App () {
       <Route path='/admin' component={Admin} />
       <Route path='/login' component={Login} />
       <Route path='/reset-password' component={ResetPassword} />
-      <Route path='/reset-password-confirm' component={ResetPasswordConfirm} />
+      <Route path='/reset-password-confirm/:token' component={ResetPasswordConfirm} />
       <Route render={() => <h2>404 Page Not Found</h2>} />
     </Switch>
   )

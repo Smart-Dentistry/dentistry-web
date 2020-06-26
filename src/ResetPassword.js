@@ -6,17 +6,45 @@ import {
   Row,
   Col,
   Typography,
-  Space
+  Space,
+  message
 } from 'antd'
-import {
-  faTooth
-} from '@fortawesome/free-solid-svg-icons'
+import { faTooth } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
 
 const { Title, Text } = Typography
 
+const validateMessages = {
+  // eslint-disable-next-line
+  required: 'This field is required!',
+  types: {
+    // eslint-disable-next-line
+    email: 'It is not a valid email!',
+  }
+}
+
 const ResetPassword = () => {
+  const history = useHistory()
   const onFinish = async values => {
+    const instance = axios.create()
+    instance.interceptors.request.use(config => config)
+    console.log(values)
+
+    try {
+      await axios.post('/password_reset/', values)
+    } catch (error) {
+      const data = error.response.data
+      if (data.email) {
+        message.error(data.email[0])
+      } else {
+        message.error('There was an error, please try again.', 5)
+      }
+      return
+    }
+    message.success('A message has been sent to your email to reset your password!', 5)
+    history.push('/login')
   }
   return (
     <Row type='flex' justify='center' align='middle' style={{ minHeight: '100vh' }}>
@@ -30,12 +58,12 @@ const ResetPassword = () => {
           <Form
             name='reset-password'
             className='login-form'
-            initialValues={{ remember: true }}
+            validateMessages={validateMessages}
             onFinish={onFinish}
           >
             <Form.Item
               name='email'
-              rules={[{ required: true, message: 'Please input your email!' }]}
+              rules={[{ required: true }, { type: 'email' }]}
             >
               <Input placeholder='Email' />
             </Form.Item>
