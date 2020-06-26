@@ -30,7 +30,6 @@ const ResetPassword = () => {
   const onFinish = async values => {
     const instance = axios.create()
     instance.interceptors.request.use(config => config)
-    console.log(values)
 
     try {
       await axios.post('/password_reset/', values)
