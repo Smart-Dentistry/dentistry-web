@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button, Space, Modal } from 'antd'
+import { Table, Button, Space, Modal, Input, Row, Col, message } from 'antd'
 import { useHistory, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
@@ -12,8 +12,9 @@ import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const { confirm } = Modal
+const { Search } = Input
 
-const PatientTable = ({ patients, removePatient }) => {
+const PatientTable = ({ patients, dispatch, removePatient }) => {
   const { t } = useTranslation()
   const history = useHistory()
 
@@ -78,12 +79,36 @@ const PatientTable = ({ patients, removePatient }) => {
     }
   ]
 
+  const filterPatients = async (value) => {
+    let response
+    try {
+      response = await axios.get(`/patients?search=${value}`)
+    } catch (error) {
+      message.error('There was an error, please try again.')
+      return
+    }
+    dispatch({ type: 'LOAD', patients: response.data })
+  }
+
   return (
     <Space direction='vertical' style={{ width: '100%' }}>
-      <Button type='primary' onClick={() => history.push('/admin/patients/create')}>
-        <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
-        {t('New Patient')}
-      </Button>
+      <Row>
+        <Col span={8}>
+          <Search
+            placeholder='search first name, last name, or id'
+            onSearch={filterPatients}
+            enterButton
+          />
+        </Col>
+        <Col span={16}>
+          <Row justify='end'>
+            <Button type='primary' onClick={() => history.push('/admin/patients/create')}>
+              <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
+              {t('New Patient')}
+            </Button>
+          </Row>
+        </Col>
+      </Row>
       <Table
         columns={columns}
         dataSource={patients}
@@ -95,6 +120,7 @@ const PatientTable = ({ patients, removePatient }) => {
 
 PatientTable.propTypes = {
   patients: PropTypes.array,
+  dispatch: PropTypes.func,
   removePatient: PropTypes.func
 }
 
