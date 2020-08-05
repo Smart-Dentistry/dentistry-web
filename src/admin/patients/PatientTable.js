@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button, Space, Modal } from 'antd'
+import { Table, Button, Space, Modal, Input, Row, Col } from 'antd'
 import { useHistory, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
@@ -12,6 +12,7 @@ import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
 const { confirm } = Modal
+const { Search } = Input
 
 const PatientTable = ({ patients, removePatient }) => {
   const { t } = useTranslation()
@@ -80,10 +81,23 @@ const PatientTable = ({ patients, removePatient }) => {
 
   return (
     <Space direction='vertical' style={{ width: '100%' }}>
-      <Button type='primary' onClick={() => history.push('/admin/patients/create')}>
-        <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
-        {t('New Patient')}
-      </Button>
+      <Row>
+        <Col span={8}>
+          <Search
+            placeholder='search first name, last name, or id'
+            onSearch={value => console.log(value)}
+            enterButton
+          />
+        </Col>
+        <Col span={16}>
+          <Row justify='end'>
+            <Button type='primary' onClick={() => history.push('/admin/patients/create')}>
+              <FontAwesomeIcon icon={faPlus} style={{ color: 'white', marginRight: '0.75rem' }} />
+              {t('New Patient')}
+            </Button>
+          </Row>
+        </Col>
+      </Row>
       <Table
         columns={columns}
         dataSource={patients}
