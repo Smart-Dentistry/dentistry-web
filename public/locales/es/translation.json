@@ -1,10 +1,24 @@
 {
+  "Abroad": "",
+  "Country Of Residence": "",
+  "Province": "",
+  "Canton": "",
+  "Address": "",
+  "Phone": "Teléfono",
+  "Invalid phone number": "",
+  "Health Insurance Company": "",
+  "Emergency Contact and Representative": "",
+  "Full Name": "",
+  "Representative": "",
+  "Relationship": "",
+  "Previous": "",
+  "Save": "Guardar",
+  "Create": "Crear",
   "Personal Information": "",
   "Contact Information": "",
   "Name": "Nombre",
   "Last Name": "Apellido",
   "ID": "Cédula",
-  "Phone": "Teléfono",
   "Age": "Edad",
   "Actions": "Actions",
   "New Patient": "Nuevo Paciente",
@@ -28,5 +42,5 @@
   "Birthdate": "",
   "Referral Source": "",
   "Receive Promos": "",
-  "Next": ""
+  "Next": "Siguiente"
 }

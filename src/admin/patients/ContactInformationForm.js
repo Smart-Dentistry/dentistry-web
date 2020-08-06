@@ -13,6 +13,8 @@ import {
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
+import i18n from '../../i18n'
+import { useTranslation } from 'react-i18next'
 import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
@@ -34,10 +36,11 @@ const validateMessages = {
 }
 const countryOfResidenceOptions = [
   { value: 'E', label: 'Ecuador' },
-  { value: 'A', label: 'Abroad' }
+  { value: 'A', label: i18n.t('Abroad') }
 ]
 
 const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresentative, setShowRepresentative, processPatient }) => {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const [provinces, setProvinces] = useState([])
   const [cantons, setCantons] = useState([])
@@ -141,7 +144,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       >
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='countryOfResidence' label='Country Of Residence' rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='countryOfResidence' label={t('Country Of Residence')} rules={[{ required: true }]}>
               <Select options={countryOfResidenceOptions} />
             </Form.Item>
           </Col>
@@ -150,19 +153,19 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
           <>
             <Row>
               <Col offset={6} span={5}>
-                <Form.Item {...inputLayout} name='province' label='Province' rules={[{ required: true }]}>
+                <Form.Item {...inputLayout} name='province' label={t('Province')} rules={[{ required: true }]}>
                   <Select options={provinces} />
                 </Form.Item>
               </Col>
               <Col offset={2} span={5}>
-                <Form.Item {...inputLayout} name='canton' label='Canton' rules={[{ required: true }]}>
+                <Form.Item {...inputLayout} name='canton' label={t('Canton')} rules={[{ required: true }]}>
                   <Select options={cantons} />
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col offset={6} span={12}>
-                <Form.Item {...inputLayout} name='addressLine' label='Address'>
+                <Form.Item {...inputLayout} name='addressLine' label={t('Address')}>
                   <Input />
                 </Form.Item>
               </Col>
@@ -171,13 +174,13 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         ) : null}
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='phone' label='Phone' rules={[{ required: true },
+            <Form.Item {...inputLayout} name='phone' label={t('Phone')} rules={[{ required: true },
               ({ getFieldValue }) => ({
                 validator (rule, value) {
                   if (isValidPhoneNumber(value)) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error('Invalid phone number'))
+                  return Promise.reject(new Error(t('Invalid phone number')))
                 }
               })]}>
               <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')} />
@@ -197,7 +200,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
           </Col>
           {patient.countryOfResidence === 'E' ? (
             <Col offset={2} span={5}>
-              <Form.Item {...inputLayout} name='healthInsuranceCompany' label='Health Insurance Company'>
+              <Form.Item {...inputLayout} name='healthInsuranceCompany' label={t('Health Insurance Company')}>
                 <Input />
               </Form.Item>
             </Col>
@@ -205,23 +208,23 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         </Row>
         <Row>
           <Col offset={6} span={12}>
-            <Title level={4}>Emergency Contact and Representative</Title>
+            <Title level={4}>{t('Emergency Contact and Representative')}</Title>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='emergencyContactName' label='Full Name'>
+            <Form.Item {...inputLayout} name='emergencyContactName' label={t('Full Name')}>
               <Input />
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='emergencyContactPhone' label='Phone' rules={[
+            <Form.Item {...inputLayout} name='emergencyContactPhone' label={t('Phone')} rules={[
               ({ getFieldValue }) => ({
                 validator (rule, value) {
                   if (!value || isValidPhoneNumber(value)) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error('Invalid phone number'))
+                  return Promise.reject(new Error(t('Invalid phone number')))
                 }
               })]}>
               <PhoneInput placeholder={formatPhoneNumberIntl('+593987654321')} defaultCountry='EC' className='telephone-input' />
@@ -230,7 +233,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='representative' label='Representative'>
+            <Form.Item {...inputLayout} name='representative' label={t('Representative')}>
               <Switch checked={showRepresentative} />
             </Form.Item>
           </Col>
@@ -239,18 +242,18 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
           <>
             <Row>
               <Col offset={6} span={5}>
-                <Form.Item {...inputLayout} name='representativeName' label='Full Name'>
+                <Form.Item {...inputLayout} name='representativeName' label={t('Full Name')}>
                   <Input />
                 </Form.Item>
               </Col>
               <Col offset={2} span={5}>
-                <Form.Item {...inputLayout} name='representativePhone' label='Phone' rules={[
+                <Form.Item {...inputLayout} name='representativePhone' label={t('Phone')} rules={[
                   ({ getFieldValue }) => ({
                     validator (rule, value) {
                       if (!value || isValidPhoneNumber(value)) {
                         return Promise.resolve()
                       }
-                      return Promise.reject(new Error('Invalid phone number'))
+                      return Promise.reject(new Error(t('Invalid phone number')))
                     }
                   })]}>
                   <PhoneInput defaultCountry='EC' className='telephone-input' placeholder={formatPhoneNumberIntl('+593987654321')} />
@@ -259,7 +262,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
             </Row>
             <Row>
               <Col offset={6} span={5}>
-                <Form.Item {...inputLayout} name='representativeRelationship' label='Relationship'>
+                <Form.Item {...inputLayout} name='representativeRelationship' label={t('Relationship')}>
                   <Input />
                 </Form.Item>
               </Col>
@@ -268,11 +271,11 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         ) : null}
         <Row>
           <Col offset={6} span={6}>
-            <Button type='primary' onClick={previous}>Previous</Button>
+            <Button type='primary' onClick={previous}>{t('Previous')}</Button>
           </Col>
           <Col span={6}>
             <Row justify='end'>
-              <Button type='primary' htmlType='submit'>{patient.key ? 'Save' : 'Create'}</Button>
+              <Button type='primary' htmlType='submit'>{patient.key ? t('Save') : t('Create')}</Button>
             </Row>
           </Col>
         </Row>

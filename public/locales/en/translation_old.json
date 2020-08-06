@@ -1,3 +1,4 @@
 {
-  "Email": "Email"
+  "Email": "Email",
+  "${label} is required!": ""
 }
