@@ -2,14 +2,15 @@ import React, { useState, useReducer } from 'react'
 import { Steps } from 'antd'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
+import i18n from './i18n'
 
 import PersonalInformationForm from './PersonalInformationForm'
 import ContactInformationForm from './ContactInformationForm'
 
 const { Step } = Steps
 const steps = [
-  'Personal Information',
-  'Contact Information'
+  i18n.t('Personal Information'),
+  i18n.t('Contact Information')
 ]
 
 const reducer = (state, action) => {

@@ -1,9 +1,11 @@
 {
+  "Personal Information": "",
+  "Contact Information": "",
   "Name": "Nombre",
   "Last Name": "Apellido",
   "ID": "Cédula",
-  "Email": "Email",
   "Phone": "Teléfono",
   "Age": "Edad",
+  "Actions": "Actions",
   "New Patient": "Nuevo Paciente"
 }

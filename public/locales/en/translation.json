@@ -1,9 +1,11 @@
 {
+  "Personal Information": "Personal Information",
+  "Contact Information": "Contact Information",
   "Name": "Name",
   "Last Name": "Last Name",
   "ID": "ID",
-  "Email": "Email",
   "Phone": "Phone",
   "Age": "Age",
+  "Actions": "Actions",
   "New Patient": "New Patient"
 }
