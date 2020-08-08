@@ -85,7 +85,7 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, setShowRepres
         </Row>
         <Row>
           <Col offset={6} span={5}>
-            <Form.Item {...inputLayout} name='lastName' label='Last Name' rules={[{ required: true }]}>
+            <Form.Item {...inputLayout} name='lastName' label={t('Last Name')} rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
