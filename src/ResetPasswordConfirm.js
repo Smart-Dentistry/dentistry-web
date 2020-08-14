@@ -13,11 +13,13 @@ import {
 import { faTooth, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LockOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 
 const { Title, Text } = Typography
 
 const ResetPasswordConfirm = () => {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const history = useHistory()
   const { token } = useParams()
@@ -34,19 +36,19 @@ const ResetPasswordConfirm = () => {
       if (data.password) {
         message.error(data.password[0])
       } else {
-        message.error('There was an error, please try again.', 5)
+        message.error(t('There was an error, please try again.'), 5)
       }
       setDisableAccept(false)
       return
     }
-    message.success('Your password has been reset successfully!')
+    message.success(t('Your password has been reset successfully!'))
     history.push('/login')
   }
   const validatePassword = (rule, value, callback) => {
     const password = form.getFieldsValue().password
     if (value && value !== password) {
       // eslint-disable-next-line
-      callback('passwords should match')
+      callback(t('passwords should match'))
     } else {
       callback()
     }
@@ -56,10 +58,10 @@ const ResetPasswordConfirm = () => {
       <Col span={4}>
         <Space style={{ textAlign: 'center', width: '100%', marginBottom: '15px' }} direction='vertical'>
           <FontAwesomeIcon icon={faTooth} style={{ fontSize: '4rem', color: 'black' }} />
-          <Title level={3}>Reset Password</Title>
+          <Title level={3}>{t('Reset Password')}</Title>
         </Space>
         <Space direction='vertical'>
-          <Text>Please enter your new password.</Text>
+          <Text>{t('Please enter your new password.')}</Text>
           <Form
             name='reset-password'
             className='login-form'
@@ -69,31 +71,31 @@ const ResetPasswordConfirm = () => {
           >
             <Form.Item
               name='password'
-              rules={[{ required: true, message: 'Please input your Password!' }]}
+              rules={[{ required: true, message: t('Please input your Password!') }]}
             >
               <Input
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Password'
+                placeholder={t('Password')}
               />
             </Form.Item>
             <Form.Item
               name='confirmPassword'
-              rules={[{ required: true, message: 'Plase confirm your Password!' }, { validator: validatePassword }]}
+              rules={[{ required: true, message: t('Plase confirm your Password!') }, { validator: validatePassword }]}
             >
               <Input
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Confirm password'
+                placeholder={t('Confirm password')}
               />
             </Form.Item>
             <Space direction='vertical'>
-              <Text>Password should be at least 8 characters long.</Text>
+              <Text>{t('Password should be at least 8 characters long.')}</Text>
               <Form.Item style={{ float: 'right' }}>
                 <Button type='primary' htmlType='submit' className='login-form-button' disabled={disableAccept}>
                   <Space>
                     {disableAccept ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
-                    <span>Accept</span>
+                    <span>{t('Accept')}</span>
                   </Space>
                 </Button>
               </Form.Item>

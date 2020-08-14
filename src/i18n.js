@@ -3,16 +3,12 @@ import detector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 
 import translationES from '../public/locales/es/translation.json'
-import translationEN from '../public/locales/en/translation.json'
 
 // the translations
 // (tip move them in a JSON file and import them)
 const resources = {
   es: {
     translation: translationES
-  },
-  en: {
-    translation: translationEN
   }
 }
 const detection = {
