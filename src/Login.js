@@ -56,7 +56,7 @@ const Login = () => {
             name='username'
             rules={[{ required: true, message: t('Please input your Username!') }]}
           >
-            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+            <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder={t('Username')} />
           </Form.Item>
           <Form.Item
             name='password'
