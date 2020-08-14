@@ -15,11 +15,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useHistory, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 
 const { Title } = Typography
 
 const Login = () => {
+  const { t } = useTranslation()
   const history = useHistory()
   if (localStorage.getItem('token') && localStorage.getItem('refreshToken')) {
     history.push('/admin')
@@ -29,7 +31,7 @@ const Login = () => {
     try {
       response = await axios.post('/token-auth/', values)
     } catch (error) {
-      message.error('The combination of username and password is incorrect!')
+      message.error(t('The combination of username and password is incorrect!'))
       return
     }
     const { data } = response
@@ -52,13 +54,13 @@ const Login = () => {
         >
           <Form.Item
             name='username'
-            rules={[{ required: true, message: 'Please input your Username!' }]}
+            rules={[{ required: true, message: t('Please input your Username!') }]}
           >
             <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
           </Form.Item>
           <Form.Item
             name='password'
-            rules={[{ required: true, message: 'Please input your Password!' }]}
+            rules={[{ required: true, message: t('Please input your Password!') }]}
           >
             <Input
               prefix={<LockOutlined className='site-form-item-icon' />}
@@ -68,13 +70,13 @@ const Login = () => {
           </Form.Item>
           <Form.Item>
             <Link className='login-form-forgot' to={{ pathname: '/reset-password' }}>
-              Forgot password
+              {t('Forgot password')}
             </Link>
           </Form.Item>
 
           <Form.Item style={{ float: 'right' }}>
             <Button type='primary' htmlType='submit' className='login-form-button'>
-              Log in
+              {t('Log in')}
             </Button>
           </Form.Item>
         </Form>

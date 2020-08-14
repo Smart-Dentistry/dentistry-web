@@ -12,20 +12,23 @@ import {
 import { faTooth, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import i18n from './i18n'
+import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 
 const { Title, Text } = Typography
 
 const validateMessages = {
   // eslint-disable-next-line
-  required: 'This field is required!',
+  required: i18n.t('This field is required!'),
   types: {
     // eslint-disable-next-line
-    email: 'It is not a valid email!',
+    email: i18n.t('It is not a valid email!'),
   }
 }
 
 const ResetPassword = () => {
+  const { t } = useTranslation()
   const history = useHistory()
   const [disableSend, setDisableSend] = useState(false)
   const onFinish = async values => {
@@ -40,12 +43,12 @@ const ResetPassword = () => {
       if (data.email) {
         message.error(data.email[0])
       } else {
-        message.error('There was an error, please try again.', 5)
+        message.error(t('There was an error, please try again.'), 5)
       }
       setDisableSend(false)
       return
     }
-    message.success('A message has been sent to your email to reset your password!', 5)
+    message.success(t('A message has been sent to your email to reset your password!'), 5)
     history.push('/login')
   }
   return (
@@ -53,10 +56,10 @@ const ResetPassword = () => {
       <Col span={4}>
         <Space style={{ textAlign: 'center', width: '100%', marginBottom: '15px' }} direction='vertical'>
           <FontAwesomeIcon icon={faTooth} style={{ fontSize: '4rem', color: 'black' }} />
-          <Title level={3}>Reset Password</Title>
+          <Title level={3}>{t('Reset Password')}</Title>
         </Space>
         <Space direction='vertical'>
-          <Text>Enter your email address and we will send you a link to reset your password.</Text>
+          <Text>{t('Enter your email address and we will send you a link to reset your password.')}</Text>
           <Form
             name='reset-password'
             className='login-form'
@@ -73,7 +76,7 @@ const ResetPassword = () => {
               <Button type='primary' htmlType='submit' className='login-form-button' disabled={disableSend}>
                 <Space>
                   {disableSend ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
-                  <span>Send</span>
+                  <span>{t('Send')}</span>
                 </Space>
               </Button>
             </Form.Item>
