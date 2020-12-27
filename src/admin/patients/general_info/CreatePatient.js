@@ -18,7 +18,7 @@ const CreatePatient = ({ addPatient }) => {
   }
   const [, createNewPatient] = useAxios({ url: '/patients/', method: 'post' }, { manual: true })
 
-  const createPatient = async (newPatient) => {
+  const createPatient = async (newPatient, continueToMedHistory = true) => {
     const data = {
       ...newPatient,
       birthdate: newPatient.birthdate.format('YYYY-MM-DD'),
@@ -38,7 +38,11 @@ const CreatePatient = ({ addPatient }) => {
     }
     addPatient(patient)
     message.success({ content: 'Patient was created sucessfully', duration: 3 })
-    history.push('/admin/patients')
+    if (continueToMedHistory) {
+
+    } else {
+      history.push('/admin/patients')
+    }
   }
 
   return <PatientStepForms initialPatient={patient} processPatient={createPatient} />

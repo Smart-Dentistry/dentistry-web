@@ -8,8 +8,10 @@ import {
   Input,
   Checkbox,
   Typography,
-  Switch
+  Switch,
+  Modal
 } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faSave } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
@@ -22,6 +24,7 @@ import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-pho
 import 'react-phone-number-input/style.css'
 
 const { Title } = Typography
+const { confirm } = Modal
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -70,7 +73,8 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       })
     }
   }, [cantonsData])
-  const onFinish = values => {
+
+  const savePatient = (values, continueToMedHistory = true) => {
     values.whatsapp = patient.whatsapp
     const emergencyContact = {
       fullName: values.emergencyContactName,
@@ -82,7 +86,28 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       relationship: values.representativeRelationship
     }
     dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    processPatient(patient)
+    processPatient(patient, continueToMedHistory)
+  }
+
+  const onFinish = values => {
+    if (patient.key) {
+      savePatient(values)
+    } else {
+      confirm({
+        title: 'Medical History',
+        icon: <QuestionCircleOutlined />,
+        content: 'Would you like to continue to the medical record?',
+        okText: 'Yes',
+        cancelText: 'No',
+        onOk () {
+          savePatient(values)
+          // TODO: open
+        },
+        onCancel () {
+          savePatient(values, false)
+        }
+      })
+    }
   }
   const onValuesChange = async changedValue => {
     let response
