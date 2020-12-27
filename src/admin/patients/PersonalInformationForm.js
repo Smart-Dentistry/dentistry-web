@@ -9,6 +9,9 @@ import {
   DatePicker,
   Checkbox
 } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import i18n from '../../i18n'
@@ -141,7 +144,7 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, setShowRepres
         <Row>
           <Col offset={12} span={6}>
             <Row justify='end'>
-              <Button type='primary' htmlType='submit'>{t('Next')}</Button>
+              <Button type='primary' htmlType='submit'><FontAwesomeIcon icon={faChevronRight} /></Button>
             </Row>
           </Col>
         </Row>
