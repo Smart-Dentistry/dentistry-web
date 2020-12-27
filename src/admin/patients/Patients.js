@@ -31,6 +31,11 @@ const Patients = () => {
       />
       <Route
         exact
+        path='/admin/patients/:key/med-history'
+        render={props => <h1>Medical history</h1>}
+      />
+      <Route
+        exact
         path='/admin/patients'
         render={props => <PatientTable {...props} patients={patients} dispatch={dispatch} removePatient={key => dispatch({ type: 'REMOVE', key })} />}
       />

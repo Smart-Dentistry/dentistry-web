@@ -39,7 +39,7 @@ const CreatePatient = ({ addPatient }) => {
     addPatient(patient)
     message.success({ content: 'Patient was created sucessfully', duration: 3 })
     if (continueToMedHistory) {
-
+      history.push(`/admin/patients/${patient.key}/med-history`)
     } else {
       history.push('/admin/patients')
     }
