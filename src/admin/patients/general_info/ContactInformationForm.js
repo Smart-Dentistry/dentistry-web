@@ -96,12 +96,11 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       confirm({
         title: 'Medical History',
         icon: <QuestionCircleOutlined />,
-        content: 'Would you like to continue to the medical record?',
+        content: 'Would you like to continue to the medical history?',
         okText: 'Yes',
         cancelText: 'No',
         onOk () {
           savePatient(values)
-          // TODO: open
         },
         onCancel () {
           savePatient(values, false)
