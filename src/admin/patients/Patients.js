@@ -3,9 +3,9 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import useAxios from 'axios-hooks'
 
 import PatientTable from './PatientTable'
-import CreatePatient from './CreatePatient'
+import CreatePatient from './general_info/CreatePatient'
 import patientReducer from './patientReducer'
-import EditPatient from './EditPatient'
+import EditPatient from './general_info/EditPatient'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({

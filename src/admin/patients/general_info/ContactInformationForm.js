@@ -15,7 +15,7 @@ import { faChevronLeft, faSave } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
-import i18n from '../../i18n'
+import i18n from '../../../i18n'
 import { useTranslation } from 'react-i18next'
 import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
