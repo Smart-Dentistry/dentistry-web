@@ -7,8 +7,7 @@ import {
   Col,
   Select,
   DatePicker,
-  Checkbox,
-  Space
+  Checkbox
 } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -145,12 +144,7 @@ const PersonalInformationForm = ({ next, patient, dispatchPatient, setShowRepres
         <Row>
           <Col offset={12} span={6}>
             <Row justify='end'>
-              <Button type='primary' htmlType='submit'>
-                <Space>
-                  <span>{t('Next')}</span>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </Space>
-              </Button>
+              <Button type='primary' htmlType='submit'><FontAwesomeIcon icon={faChevronRight} /></Button>
             </Row>
           </Col>
         </Row>

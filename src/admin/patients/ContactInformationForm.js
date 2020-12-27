@@ -10,6 +10,8 @@ import {
   Typography,
   Switch
 } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
@@ -271,7 +273,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
         ) : null}
         <Row>
           <Col offset={6} span={6}>
-            <Button type='primary' onClick={previous}>{t('Previous')}</Button>
+            <Button type='primary' onClick={previous}><FontAwesomeIcon icon={faChevronLeft} /></Button>
           </Col>
           <Col span={6}>
             <Row justify='end'>
