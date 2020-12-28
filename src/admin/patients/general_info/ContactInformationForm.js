@@ -86,7 +86,7 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       relationship: values.representativeRelationship
     }
     dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    processPatient(patient, continueToMedHistory)
+    processPatient({ ...patient, ...{ ...values, emergencyContact, representative } }, continueToMedHistory)
   }
 
   const onFinish = values => {

@@ -24,6 +24,7 @@ const referralSources = {
   S: i18n.t('Social Media'),
   O: i18n.t('Other')
 }
+const span = 4
 
 const getFullName = patient => `${patient.firstName} ${patient.middleName} ${patient.lastName} ${patient.secondLastName}`
 
@@ -66,86 +67,86 @@ const PatientDetails = ({ removePatient }) => {
       <Title level={4}>General Details</Title>
       <div style={ { margin: '20px 0' } }>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>ID:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.idDocumentNumber }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Marital Status:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { maritalStatuses[patient.maritalStatus] }
           </Col>
         </Row>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Sex:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.sex === 'M' ? 'Male' : 'Female' }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Country:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.countryOfResidence === 'E' ? 'Ecuador' : 'Abroad' }
           </Col>
         </Row>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Job Title:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.jobTitle }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Birthdate:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.birthdate }
           </Col>
         </Row>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Address:</h4>
           </Col>
-          <Col span={3}>
-            { patient.address === null ? '-' : `${patient.address}` }
+          <Col span={span}>
+            { patient.address === null ? '-' : `${patient.address.addressLine}` }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Email:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.email ? patient.email : '-' }
           </Col>
         </Row>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Health Insurance:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.healthInsuranceCompany ? patient.healthInsuranceCompany : '-' }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Receive Promos:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.receivePromos ? 'Yes' : 'No' }
           </Col>
         </Row>
         <Row>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Phone:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { patient.phone }
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             <h4>Referral Source:</h4>
           </Col>
-          <Col span={3}>
+          <Col span={span}>
             { referralSources[patient.referralSource] }
           </Col>
         </Row>
