@@ -67,7 +67,9 @@ const PatientTable = ({ patients, dispatch, removePatient }) => {
       // eslint-disable-next-line react/display-name
       render: (text, record, index) => (
         <Space size='middle'>
-          <FontAwesomeIcon icon={faClipboard} />
+          <Link to={{ pathname: `/admin/patients/${record.key}/details`, state: { patient: record, index } }}>
+            <FontAwesomeIcon icon={faClipboard} style={{ color: '#5f6368' }} />
+          </Link>
           <Link to={{ pathname: `/admin/patients/${record.key}/edit`, state: { patient: record, index } }}>
             <FontAwesomeIcon icon={faEdit} />
           </Link>
