@@ -16,7 +16,7 @@ const PatientDetails = () => {
       <Title level={2}>
         <Space size='middle'>
           { getFullName(patient) }
-          <Link to={{ pathname: `/admin/patients/${patient.key}/edit`, state: { patient } }}>
+          <Link to={{ pathname: `/admin/patients/${patient.key}/edit`, state: { patient, index: location.state.index } }}>
             <FontAwesomeIcon icon={faEdit} />
           </Link>
           <FontAwesomeIcon icon={faTrashAlt} style={{ color: '#d11a2a' }} />
