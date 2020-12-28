@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
+import MedHistorySteps from './MedHistorySteps'
 
 const CreateMedHistory = () => {
   const history = useHistory()
@@ -9,7 +10,8 @@ const CreateMedHistory = () => {
     return <></>
   }
   const patient = location.state.patient
-  return <h1>{patient.firstName}</h1>
+  console.log(patient.key)
+  return <MedHistorySteps />
 }
 
 export default CreateMedHistory
