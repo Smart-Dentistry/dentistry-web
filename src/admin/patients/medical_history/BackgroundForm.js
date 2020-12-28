@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react'
 import {
   Row,
   Col,
-  Button
+  Button,
+  Typography,
+  Input
 } from 'antd'
 import useAxios from 'axios-hooks'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
+const { Title } = Typography
+const { TextArea } = Input
+
+const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -27,21 +34,29 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
 
   return (
     <>
+      <Row>
+        <Col offset={6} span={12}>
+          <Title level={4}>Appointment reason</Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col offset={6} span={12}>
+          <TextArea rows={3} style={ { marginBottom: '24px' } } />
+        </Col>
+      </Row>
       <FamilyHistory
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
-        patient={patient}
-        dispatchPatient={dispatchPatient}
+        medHistory={medHistory}
+        dispatchMedHistory={dispatchMedHistory}
       />
-      <PersonalHistory diseases={diseases} patient={patient} dispatchPatient={dispatchPatient} />
-      <GeneralPractioners patient={patient} dispatchPatient={dispatchPatient} />
+      <PersonalHistory diseases={diseases} medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
+      <GeneralPractioners medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
       <Row>
-        <Col offset={6} span={6}>
-          <Button type='primary' onClick={prev}>Previous</Button>
-        </Col>
+        <Col offset={6} span={6} />
         <Col span={6}>
           <Row justify='end'>
-            <Button type='primary' onClick={() => processPatient(patient)}>{patient.key ? 'Save' : 'Create'}</Button>
+            <Button type='primary' onClick={next}><FontAwesomeIcon icon={faChevronRight} /></Button>
           </Row>
         </Col>
       </Row>
@@ -50,12 +65,9 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
 }
 
 BackgroundForm.propTypes = {
-  prev: PropTypes.func,
-  patient: PropTypes.object,
-  dispatchPatient: PropTypes.func,
-  generalPractitioners: PropTypes.array,
-  setGeneralPractitioners: PropTypes.func,
-  processPatient: PropTypes.func
+  next: PropTypes.func,
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default BackgroundForm

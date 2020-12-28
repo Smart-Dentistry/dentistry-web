@@ -14,7 +14,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import i18n from '../../i18n'
+import i18n from '../../../i18n'
 import { useTranslation } from 'react-i18next'
 import PatientPicture from './PatientPicture'
 

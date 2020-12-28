@@ -20,14 +20,14 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const GeneralPractitioners = ({ patient, dispatchPatient }) => {
+const GeneralPractitioners = ({ medHistory, dispatchMedHistory }) => {
   const [enableAddPractitioner, setEnableAddPractitioner] = useState(false)
   const [form] = Form.useForm()
   const onFinish = values => {
-    dispatchPatient({
+    dispatchMedHistory({
       type: 'UPDATE',
       updatedValues: {
-        generalPractitioners: [...patient.generalPractitioners, {
+        generalPractitioners: [...medHistory.generalPractitioners, {
           name: values.practitionerName,
           phone: values.practitionerPhone,
           specialization: values.specialization,
@@ -44,9 +44,9 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
     setEnableAddPractitioner(false)
   }
   const removePractitioner = index => {
-    const newGeneralPractitioners = [...patient.generalPractitioners]
+    const newGeneralPractitioners = [...medHistory.generalPractitioners]
     newGeneralPractitioners.splice(index, 1)
-    dispatchPatient({
+    dispatchMedHistory({
       type: 'UPDATE',
       updatedValues: {
         generalPractitioners: newGeneralPractitioners
@@ -104,7 +104,7 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
       </Form>
       <Row gutter={[16, 16]}>
         <Space direction='vertical' style={{ width: '100%' }}>
-          {patient.generalPractitioners.map((item, index) =>
+          {medHistory.generalPractitioners.map((item, index) =>
             <Col span={12} offset={6} key={item}>
               <Card
                 size='small'
@@ -130,8 +130,8 @@ const GeneralPractitioners = ({ patient, dispatchPatient }) => {
 }
 
 GeneralPractitioners.propTypes = {
-  patient: PropTypes.object,
-  dispatchPatient: PropTypes.func
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default GeneralPractitioners

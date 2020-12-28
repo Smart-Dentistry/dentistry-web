@@ -8,20 +8,23 @@ import {
   Input,
   Checkbox,
   Typography,
-  Switch
+  Switch,
+  Modal
 } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faSave } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 import useAxios from 'axios-hooks'
 import axios from 'axios'
-import i18n from '../../i18n'
+import i18n from '../../../i18n'
 import { useTranslation } from 'react-i18next'
 import PhoneInput, { formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 import 'react-phone-number-input/style.css'
 
 const { Title } = Typography
+const { confirm } = Modal
 const inputLayout = {
   wrapperCol: { span: 24 }
 }
@@ -70,7 +73,8 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       })
     }
   }, [cantonsData])
-  const onFinish = values => {
+
+  const savePatient = (values, continueToMedHistory = true) => {
     values.whatsapp = patient.whatsapp
     const emergencyContact = {
       fullName: values.emergencyContactName,
@@ -82,7 +86,27 @@ const ContactInformationForm = ({ prev, patient, dispatchPatient, showRepresenta
       relationship: values.representativeRelationship
     }
     dispatchPatient({ type: 'UPDATE', updatedValues: { ...values, emergencyContact, representative } })
-    processPatient(patient)
+    processPatient({ ...patient, ...{ ...values, emergencyContact, representative } }, continueToMedHistory)
+  }
+
+  const onFinish = values => {
+    if (patient.key) {
+      savePatient(values)
+    } else {
+      confirm({
+        title: 'Medical History',
+        icon: <QuestionCircleOutlined />,
+        content: 'Would you like to continue to the medical history?',
+        okText: 'Yes',
+        cancelText: 'No',
+        onOk () {
+          savePatient(values)
+        },
+        onCancel () {
+          savePatient(values, false)
+        }
+      })
+    }
   }
   const onValuesChange = async changedValue => {
     let response

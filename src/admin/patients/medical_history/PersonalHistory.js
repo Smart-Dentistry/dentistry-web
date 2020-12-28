@@ -15,14 +15,14 @@ const inputLayout = {
   wrapperCol: { span: 24 }
 }
 
-const PersonalHistory = ({ diseases, patient, dispatchPatient }) => {
+const PersonalHistory = ({ diseases, medHistory, dispatchMedHistory }) => {
   const [form] = Form.useForm()
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
 
   const onValuesChange = changedValues => {
-    dispatchPatient({ type: 'UPDATE', updatedValues: { personalHistory: { ...patient.personalHistory, ...changedValues } } })
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { personalHistory: { ...medHistory.personalHistory, ...changedValues } } })
   }
   return (
     <>
@@ -32,7 +32,7 @@ const PersonalHistory = ({ diseases, patient, dispatchPatient }) => {
         name='personalHistory'
         onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
-        initialValues={patient.personalHistory}
+        initialValues={medHistory.personalHistory}
       >
         <Row>
           <Col offset={6} span={12}>
@@ -66,8 +66,8 @@ const PersonalHistory = ({ diseases, patient, dispatchPatient }) => {
 
 PersonalHistory.propTypes = {
   diseases: PropTypes.array,
-  patient: PropTypes.object,
-  dispatchPatient: PropTypes.func
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default PersonalHistory

@@ -25,10 +25,10 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
-const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
+const FamilyHistory = ({ diseases, setDiseases, medHistory, dispatchMedHistory }) => {
   const [disease, setDisease] = useState(null)
   const [enableAddFamilyDisease, setEnableAddFamilyDisease] = useState(false)
-  const [familyBackground, setFamilyBackground] = useState(patient.familyHistory.diseases.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
+  const [familyBackground, setFamilyBackground] = useState(medHistory.familyHistory.diseases.map(item => `${item.label} ${item.relatives.map(e => RELATIVES[e]).join('')}`))
   const [selectedRelatives, setSelectedRelatives] = useState([])
 
   const relativesOnChange = checkedValues => {
@@ -40,7 +40,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
     setEnableAddFamilyDisease(selectedRelatives.length > 0)
   }
   const observationsOnchange = e => {
-    dispatchPatient({ type: 'UPDATE', updatedValues: { familyHistory: { ...patient.familyHistory, observations: e.target.value } } })
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { familyHistory: { ...medHistory.familyHistory, observations: e.target.value } } })
   }
   const addFamilyDisease = () => {
     const tempDiseases = [...diseases]
@@ -49,13 +49,13 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
     setDiseases(tempDiseases)
     const newDisease = `${tempDisease.label} ${selectedRelatives.map(e => RELATIVES[e]).join('')}`
     setFamilyBackground([...familyBackground, newDisease])
-    dispatchPatient({
+    dispatchMedHistory({
       type: 'UPDATE',
       updatedValues: {
         familyHistory: {
-          ...patient.familyHistory,
+          ...medHistory.familyHistory,
           diseases: [
-            ...patient.familyHistory.diseases,
+            ...medHistory.familyHistory.diseases,
             {
               id: disease,
               label: tempDisease.label,
@@ -71,7 +71,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
   }
   const removeFamilyDisease = (diseaseToRemove, key) => {
     const newDiseases = familyBackground.filter(e => e !== diseaseToRemove)
-    const newFamilyHistory = [...patient.familyHistory.diseases]
+    const newFamilyHistory = [...medHistory.familyHistory.diseases]
     const diseaseToRemoveValue = newFamilyHistory[key].id
     const tempDiseases = [...diseases]
     const tempDisease = tempDiseases.find(e => e.value === diseaseToRemoveValue)
@@ -79,11 +79,11 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
     setDiseases(tempDiseases)
     newFamilyHistory.splice(key, 1)
     setFamilyBackground(newDiseases)
-    dispatchPatient({
+    dispatchMedHistory({
       type: 'UPDATE',
       updatedValues: {
         familyHistory: {
-          ...patient.familyHistory,
+          ...medHistory.familyHistory,
           diseases: newFamilyHistory
         }
       }
@@ -151,7 +151,7 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
           </div>
         </Col>
         <Col offset={6} span={12}>
-          <TextArea value={patient.familyHistory.observations} onChange={observationsOnchange} rows={2} style={{ marginBottom: '24px' }} />
+          <TextArea value={medHistory.familyHistory.observations} onChange={observationsOnchange} rows={2} style={{ marginBottom: '24px' }} />
         </Col>
       </Row>
     </>
@@ -161,8 +161,8 @@ const FamilyHistory = ({ diseases, setDiseases, patient, dispatchPatient }) => {
 FamilyHistory.propTypes = {
   diseases: PropTypes.array,
   setDiseases: PropTypes.func,
-  patient: PropTypes.object,
-  dispatchPatient: PropTypes.func
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default FamilyHistory
