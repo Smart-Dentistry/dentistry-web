@@ -31,7 +31,6 @@ const PatientDetails = ({ removePatient }) => {
   const location = useLocation()
   const history = useHistory()
   const patient = location.state.patient
-  console.log(patient)
 
   const removePatientOnClick = patient => {
     confirm({
@@ -107,23 +106,6 @@ const PatientDetails = ({ removePatient }) => {
             { patient.birthdate }
           </Col>
         </Row>
-        { patient.address ? (
-          <Row>
-            <Col span={span}>
-              <h4>Province:</h4>
-            </Col>
-            <Col span={span}>
-              { patient.address.province }
-            </Col>
-            <Col span={span}>
-              <h4>Canton:</h4>
-            </Col>
-            <Col span={span}>
-              { patient.address.canton }
-            </Col>
-          </Row>
-        ) : null}
-
         <Row>
           <Col span={span}>
             <h4>Address:</h4>
