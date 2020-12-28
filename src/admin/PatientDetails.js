@@ -6,6 +6,7 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import PropTypes from 'prop-types'
+import { formatPhoneNumberIntl } from 'react-phone-number-input'
 import i18n from '../i18n'
 
 const { Title } = Typography
@@ -139,7 +140,7 @@ const PatientDetails = ({ removePatient }) => {
             <h4>Phone:</h4>
           </Col>
           <Col span={span}>
-            { patient.phone }
+            { formatPhoneNumberIntl(patient.phone) }
           </Col>
           <Col span={span}>
             <h4>Referral Source:</h4>
@@ -163,7 +164,7 @@ const PatientDetails = ({ removePatient }) => {
               <h4>Phone:</h4>
             </Col>
             <Col span={span}>
-              { patient.emergencyContact.phone }
+              { formatPhoneNumberIntl(patient.emergencyContact.phone) }
             </Col>
           </Row>
         ) : <em>No emergency contact</em>}
@@ -182,7 +183,7 @@ const PatientDetails = ({ removePatient }) => {
               <h4>Phone:</h4>
             </Col>
             <Col span={span}>
-              { patient.representative.phone }
+              { formatPhoneNumberIntl(patient.representative.phone) }
             </Col>
           </Row>
         ) : <em>No representative</em>}
