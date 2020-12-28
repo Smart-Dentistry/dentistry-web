@@ -33,9 +33,9 @@ const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
         medHistory={medHistory}
-        dispatchPatient={dispatchMedHistory}
+        dispatchMedHistory={dispatchMedHistory}
       />
-      <PersonalHistory diseases={diseases} medHistory={medHistory} dispatchPatient={dispatchMedHistory} />
+      <PersonalHistory diseases={diseases} medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
       <GeneralPractioners medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
       <Row>
         <Col offset={6} span={6} />
