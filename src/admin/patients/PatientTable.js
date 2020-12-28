@@ -7,7 +7,7 @@ import { formatPhoneNumberIntl } from 'react-phone-number-input'
 
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { faEdit, faTrashAlt, faClipboard } from '@fortawesome/free-regular-svg-icons'
 import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 
@@ -67,6 +67,7 @@ const PatientTable = ({ patients, dispatch, removePatient }) => {
       // eslint-disable-next-line react/display-name
       render: (text, record, index) => (
         <Space size='middle'>
+          <FontAwesomeIcon icon={faClipboard} />
           <Link to={{ pathname: `/admin/patients/${record.key}/edit`, state: { patient: record, index } }}>
             <FontAwesomeIcon icon={faEdit} />
           </Link>
