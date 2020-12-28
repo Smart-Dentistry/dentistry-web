@@ -11,6 +11,7 @@ const EditPatient = ({ updatePatient }) => {
   const history = useHistory()
   const location = useLocation()
   const patientFromTable = location.state.patient
+  const toDetails = location.state.toDetails
   const address = patientFromTable.address
   const emergencyContact = patientFromTable.emergencyContact
   const representative = patientFromTable.representative
@@ -54,7 +55,16 @@ const EditPatient = ({ updatePatient }) => {
     }
     updatePatient(editedPatient, location.state.index)
     message.success({ content: 'Patient was updated sucessfully', duration: 3 })
-    history.push('/admin/patients')
+
+    if (toDetails) {
+      patient = { ...patient, birthdate: patient.birthdate.format('YYYY-MM-DD') }
+      history.push({
+        pathname: `/admin/patients/${patient.key}/details`,
+        state: { patient }
+      })
+    } else {
+      history.push('/admin/patients')
+    }
   }
   return <PatientStepForms initialPatient={patient} processPatient={updateExistingPatient} />
 }

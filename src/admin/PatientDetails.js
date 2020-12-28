@@ -11,12 +11,13 @@ const getFullName = patient => `${patient.firstName} ${patient.middleName} ${pat
 const PatientDetails = () => {
   const location = useLocation()
   const patient = location.state.patient
+  console.log(patient)
   return (
     <>
       <Title level={2}>
         <Space size='middle'>
           { getFullName(patient) }
-          <Link to={{ pathname: `/admin/patients/${patient.key}/edit`, state: { patient, index: location.state.index } }}>
+          <Link to={{ pathname: `/admin/patients/${patient.key}/edit`, state: { patient, index: location.state.index, toDetails: true } }}>
             <FontAwesomeIcon icon={faEdit} />
           </Link>
           <FontAwesomeIcon icon={faTrashAlt} style={{ color: '#d11a2a' }} />
