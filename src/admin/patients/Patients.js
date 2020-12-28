@@ -39,7 +39,7 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients/:key/details'
-        render={props => <PatientDetails {...props} /> }
+        render={props => <PatientDetails {...props} removePatient={key => dispatch({ type: 'REMOVE', key })} /> }
       />
       <Route
         exact

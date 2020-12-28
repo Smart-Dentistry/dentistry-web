@@ -29,6 +29,7 @@ const PatientTable = ({ patients, dispatch, removePatient }) => {
       onOk () {
         axios.delete(`/patients/${record.key}/`)
         removePatient(record.key)
+        message.success({ content: 'Patient was deleted sucessfully', duration: 3 })
       }
     })
   }
