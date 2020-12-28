@@ -6,6 +6,8 @@ import {
 } from 'antd'
 import useAxios from 'axios-hooks'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
@@ -39,7 +41,7 @@ const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
         <Col offset={6} span={6} />
         <Col span={6}>
           <Row justify='end'>
-            <Button type='primary' onClick={next}>Next</Button>
+            <Button type='primary' onClick={next}><FontAwesomeIcon icon={faChevronRight} /></Button>
           </Row>
         </Col>
       </Row>
