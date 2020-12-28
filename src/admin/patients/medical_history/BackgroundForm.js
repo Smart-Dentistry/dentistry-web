@@ -11,7 +11,7 @@ import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
 
-const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
+const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
   const [diseases, setDiseases] = useState([])
   const [{ data: diseasesData }] = useAxios({
@@ -30,18 +30,16 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
       <FamilyHistory
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
-        patient={patient}
-        dispatchPatient={dispatchPatient}
+        medHistory={medHistory}
+        dispatchPatient={dispatchMedHistory}
       />
-      <PersonalHistory diseases={diseases} patient={patient} dispatchPatient={dispatchPatient} />
-      <GeneralPractioners patient={patient} dispatchPatient={dispatchPatient} />
+      <PersonalHistory diseases={diseases} medHistory={medHistory} dispatchPatient={dispatchMedHistory} />
+      <GeneralPractioners medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
       <Row>
-        <Col offset={6} span={6}>
-          <Button type='primary' onClick={prev}>Previous</Button>
-        </Col>
+        <Col offset={6} span={6} />
         <Col span={6}>
           <Row justify='end'>
-            <Button type='primary' onClick={() => processPatient(patient)}>{patient.key ? 'Save' : 'Create'}</Button>
+            <Button type='primary' onClick={next}>Next</Button>
           </Row>
         </Col>
       </Row>
@@ -50,12 +48,9 @@ const BackgroundForm = ({ prev, patient, dispatchPatient, processPatient }) => {
 }
 
 BackgroundForm.propTypes = {
-  prev: PropTypes.func,
-  patient: PropTypes.object,
-  dispatchPatient: PropTypes.func,
-  generalPractitioners: PropTypes.array,
-  setGeneralPractitioners: PropTypes.func,
-  processPatient: PropTypes.func
+  next: PropTypes.func,
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default BackgroundForm

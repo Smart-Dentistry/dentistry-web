@@ -11,7 +11,14 @@ const CreateMedHistory = () => {
   }
   const patient = location.state.patient
   console.log(patient.key)
-  return <MedHistorySteps />
+  const medHistory = {
+    familyHistory: {
+      diseases: []
+    },
+    personalHistory: {},
+    generalPractitioners: []
+  }
+  return <MedHistorySteps initialMedHistory={medHistory} />
 }
 
 export default CreateMedHistory
