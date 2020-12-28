@@ -25,7 +25,6 @@ const referralSources = {
   O: i18n.t('Other')
 }
 const span = 4
-
 const getFullName = patient => `${patient.firstName} ${patient.middleName} ${patient.lastName} ${patient.secondLastName}`
 
 const PatientDetails = ({ removePatient }) => {
@@ -108,6 +107,23 @@ const PatientDetails = ({ removePatient }) => {
             { patient.birthdate }
           </Col>
         </Row>
+        { patient.address ? (
+          <Row>
+            <Col span={span}>
+              <h4>Province:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.address.province }
+            </Col>
+            <Col span={span}>
+              <h4>Canton:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.address.canton }
+            </Col>
+          </Row>
+        ) : null}
+
         <Row>
           <Col span={span}>
             <h4>Address:</h4>
@@ -152,7 +168,43 @@ const PatientDetails = ({ removePatient }) => {
         </Row>
       </div>
       <Title level={4}>Emergency Contact</Title>
+      <div style= { { margin: '24px 0' } }>
+        { patient.emergencyContact === null ? <em>No emergency contact</em> : (
+          <Row>
+            <Col span={span}>
+              <h4>Name:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.emergencyContact.fullName }
+            </Col>
+            <Col span={span}>
+              <h4>Phone:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.emergencyContact.phone }
+            </Col>
+          </Row>
+        )}
+      </div>
       <Title level={4}>Representative</Title>
+      <div style= { { margin: '24px 0' } }>
+        { patient.representative === null ? <em>No representative</em> : (
+          <Row>
+            <Col span={span}>
+              <h4>Name:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.representative.fullName }
+            </Col>
+            <Col span={span}>
+              <h4>Phone:</h4>
+            </Col>
+            <Col span={span}>
+              { patient.representative.phone }
+            </Col>
+          </Row>
+        )}
+      </div>
     </>
   )
 }
