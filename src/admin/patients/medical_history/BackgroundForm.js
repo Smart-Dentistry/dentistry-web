@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import {
   Row,
   Col,
-  Button
+  Button,
+  Typography,
+  Input
 } from 'antd'
 import useAxios from 'axios-hooks'
 import PropTypes from 'prop-types'
@@ -12,6 +14,9 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import FamilyHistory from './FamilyHistory'
 import PersonalHistory from './PersonalHistory'
 import GeneralPractioners from './GeneralPractioners'
+
+const { Title } = Typography
+const { TextArea } = Input
 
 const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
   const [diseasesForFamily, setDiseasesForFamily] = useState([])
@@ -29,6 +34,16 @@ const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
 
   return (
     <>
+      <Row>
+        <Col offset={6} span={12}>
+          <Title level={4}>Appointment reason</Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col offset={6} span={12}>
+          <TextArea rows={3} style={ { marginBottom: '24px' } } />
+        </Col>
+      </Row>
       <FamilyHistory
         diseases={diseasesForFamily}
         setDiseases={setDiseasesForFamily}
