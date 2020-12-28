@@ -1,6 +1,8 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
-import { Typography } from 'antd'
+import { useLocation, Link } from 'react-router-dom'
+import { Typography, Space } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
 const { Title } = Typography
 
@@ -12,7 +14,13 @@ const PatientDetails = () => {
   return (
     <>
       <Title level={2}>
-        { getFullName(patient) }
+        <Space size='middle'>
+          { getFullName(patient) }
+          <Link to={{ pathname: `/admin/patients/${patient.key}/edit`, state: { patient } }}>
+            <FontAwesomeIcon icon={faEdit} />
+          </Link>
+          <FontAwesomeIcon icon={faTrashAlt} style={{ color: '#d11a2a' }} />
+        </Space>
       </Title>
     </>
   )
