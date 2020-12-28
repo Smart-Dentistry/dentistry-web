@@ -151,7 +151,7 @@ const PatientDetails = ({ removePatient }) => {
       </div>
       <Title level={4}>Emergency Contact</Title>
       <div style= { { margin: '24px 0' } }>
-        { patient.emergencyContact === null ? <em>No emergency contact</em> : (
+        { patient.emergencyContact !== null && patient.emergencyContact.fullName && patient.emergencyContact.phone ? (
           <Row>
             <Col span={span}>
               <h4>Name:</h4>
@@ -166,11 +166,11 @@ const PatientDetails = ({ removePatient }) => {
               { patient.emergencyContact.phone }
             </Col>
           </Row>
-        )}
+        ) : <em>No emergency contact</em>}
       </div>
       <Title level={4}>Representative</Title>
       <div style= { { margin: '24px 0' } }>
-        { patient.representative === null ? <em>No representative</em> : (
+        { patient.representative !== null && patient.representative.fullName && patient.representative.phone ? (
           <Row>
             <Col span={span}>
               <h4>Name:</h4>
@@ -185,7 +185,7 @@ const PatientDetails = ({ removePatient }) => {
               { patient.representative.phone }
             </Col>
           </Row>
-        )}
+        ) : <em>No representative</em>}
       </div>
     </>
   )
