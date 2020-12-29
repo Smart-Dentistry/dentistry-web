@@ -102,7 +102,7 @@ const MedicalHistoryDetails = () => {
       ) : 'No diseases'}
       <Row>
         <Col span={20}>
-          <p>{data.familyHistory.observations ? data.familyHistory.observations : null}</p>
+          <p>{data.familyHistory.observations ? `Observations: ${data.familyHistory.observations}` : null}</p>
         </Col>
       </Row>
       <Title level={4}>Personal History</Title>
@@ -117,7 +117,7 @@ const MedicalHistoryDetails = () => {
       ) : 'No diseases'}
       <Row>
         <Col span={20}>
-          <p>{data.personalHistory.observations ? data.personalHistory.observations : null}</p>
+          <p>{data.personalHistory.observations ? `Observations: ${data.personalHistory.observations}` : null}</p>
         </Col>
       </Row>
       <Title level={4}>General Practitioners</Title>
@@ -144,22 +144,22 @@ const MedicalHistoryDetails = () => {
           ) : 'No general practitioners'}
         </Col>
       </Row>
-      <Title level={4}>Clinical Exam</Title>
+      <Title level={4} style={{ marginTop: '24px' }}>Clinical Exam</Title>
       <Row>
         <Col span={24}>
-          Extraoral:
+          <h4>Extraoral:</h4>
         </Col>
         <Col span={6}>
           {data.clinicalExam.extraoral ? data.clinicalExam.extraoral : 'No information'}
         </Col>
         <Col span={24} style={{ marginTop: '12px' }}>
-          Intraoral:
+          <h4>Intraoral:</h4>
         </Col>
         <Col span={6}>
           {data.clinicalExam.intraoral ? data.clinicalExam.intraoral : 'No information'}
         </Col>
       </Row>
-      <Title level={4}>Periodontal Exam</Title>
+      <Title level={4} style={{ marginTop: '24px' }}>Periodontal Exam</Title>
       <Row>
         <Col span={span}>
           <h4>Dental plaque:</h4>
@@ -188,7 +188,7 @@ const MedicalHistoryDetails = () => {
           { data.periodontalExam.toothMobility ? 'Yes' : 'No' }
         </Col>
       </Row>
-      <Title level={4}>Non-pathological Background</Title>
+      <Title level={4} style={{ marginTop: '24px' }}>Non-pathological Background</Title>
       <Row>
         <Col span={span}>
           <h4>Floss:</h4>
