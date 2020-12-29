@@ -12,11 +12,30 @@ const CreateMedHistory = () => {
   const patient = location.state.patient
   console.log(patient.key)
   const medHistory = {
+    appointmentReason: '',
     familyHistory: {
-      diseases: []
+      diseases: [],
+      observations: ''
     },
-    personalHistory: {},
-    generalPractitioners: []
+    personalHistory: {
+      diseases: [],
+      observations: ''
+    },
+    generalPractitioners: [],
+    clinicalExam: {
+      extraoralExam: '',
+      intraoralExam: ''
+    },
+    periodontalExam: {
+      dentalPlaque: false,
+      calculus: false,
+      bleeding: false,
+      toothMobility: false
+    },
+    nonPathologicalBackground: {
+      mouthwash: false,
+      floos: false
+    }
   }
   return <MedHistorySteps initialMedHistory={medHistory} />
 }

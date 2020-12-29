@@ -23,6 +23,7 @@ const PersonalHistory = ({ diseases, medHistory, dispatchMedHistory }) => {
 
   const onValuesChange = changedValues => {
     dispatchMedHistory({ type: 'UPDATE', updatedValues: { personalHistory: { ...medHistory.personalHistory, ...changedValues } } })
+    console.log(changedValues)
   }
   return (
     <>
