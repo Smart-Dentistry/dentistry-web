@@ -114,7 +114,7 @@ const MedicalHistoryDetails = () => {
             </Col>
           </Row>
         </>
-      ) : null}
+      ) : 'No diseases'}
       <Row>
         <Col span={20}>
           <p>{data.personalHistory.observations ? data.personalHistory.observations : null}</p>
