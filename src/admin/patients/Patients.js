@@ -8,6 +8,7 @@ import patientReducer from './patientReducer'
 import EditPatient from './general_info/EditPatient'
 import CreateMedHistory from './medical_history/CreateMedHistory'
 import PatientDetails from '../PatientDetails'
+import MedicalHistoryDetails from './MedicalHistoryDetails'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({
@@ -34,12 +35,17 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients/med-history/create'
-        render={props => <CreateMedHistory {...props} addMedHistory={patient => console.log(patient.key)} />}
+        render={props => <CreateMedHistory {...props} updatePatient={(patient, index) => dispatch({ type: 'UPDATE', patient, index })} />}
       />
       <Route
         exact
         path='/admin/patients/:key/details'
         render={props => <PatientDetails {...props} removePatient={key => dispatch({ type: 'REMOVE', key })} /> }
+      />
+      <Route
+        exact
+        path='/admin/patients/:key/med-history/view'
+        render={props => <MedicalHistoryDetails {...props} /> }
       />
       <Route
         exact
