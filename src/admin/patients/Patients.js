@@ -34,7 +34,7 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients/med-history/create'
-        render={props => <CreateMedHistory {...props} addMedHistory={patient => console.log(patient.key)} />}
+        render={props => <CreateMedHistory {...props} updatePatient={(patient, index) => dispatch({ type: 'UPDATE', patient, index })} />}
       />
       <Route
         exact
