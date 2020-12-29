@@ -30,6 +30,14 @@ const DISEASES = {
   12: 'Drinker',
   13: 'Smoker'
 }
+const BRUSHING_FREQUENCY = {
+  0: 'None',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: 'More'
+}
+
 const span = 4
 
 const MedicalHistoryDetails = () => {
@@ -181,6 +189,28 @@ const MedicalHistoryDetails = () => {
         </Col>
       </Row>
       <Title level={4}>Non-pathological Background</Title>
+      <Row>
+        <Col span={span}>
+          <h4>Floss:</h4>
+        </Col>
+        <Col span={span}>
+          { data.nonPathologicalBackground.floss ? 'Yes' : 'No' }
+        </Col>
+        <Col span={span}>
+          <h4>Mouthwash:</h4>
+        </Col>
+        <Col span={span}>
+          { data.nonPathologicalBackground.mouthwash ? 'Yes' : 'No' }
+        </Col>
+      </Row>
+      <Row>
+        <Col span={span}>
+          <h4>Brushing freq. (per day):</h4>
+        </Col>
+        <Col span={span}>
+          { BRUSHING_FREQUENCY[data.nonPathologicalBackground.brushingFrequency] }
+        </Col>
+      </Row>
     </>
   )
 }
