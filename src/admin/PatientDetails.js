@@ -188,6 +188,15 @@ const PatientDetails = ({ removePatient }) => {
           </Row>
         ) : <em>No representative</em>}
       </div>
+      { patient.hasMedicalHistory ? (
+        <Link to={{ pathname: `/admin/patients/${patient.key}/med-history/view` }}>
+          Medical History
+        </Link>
+      ) : (
+        <Link to={{ pathname: '/admin/patients/med-history/create', state: { patient } }}>
+            Create Medical History
+        </Link>
+      ) }
     </>
   )
 }
