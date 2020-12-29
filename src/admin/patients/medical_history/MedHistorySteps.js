@@ -48,7 +48,7 @@ const MedHistorySteps = ({ initialMedHistory }) => {
               />
             )
           case 1:
-            return <ClinicalExamForm prev={prev} medHistory={medHistory}/>
+            return <ClinicalExamForm prev={prev} medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} />
           default:
             return 'Error!'
         }

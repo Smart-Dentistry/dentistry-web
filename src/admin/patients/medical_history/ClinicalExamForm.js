@@ -18,13 +18,40 @@ const brushingFrequencyOptions = [
   { value: 3, label: i18n.t('3') },
   { value: 4, label: i18n.t('More') }
 ]
+const validateMessages = {
+  // eslint-disable-next-line
+  required: '${label} is required!'
+}
 
-const ClinicalExamForm = ({ prev, medHistory }) => {
+const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory }) => {
   const { t } = useTranslation()
   const [form] = Form.useForm()
+  const clinicalExam = {
+    extraoralExam: medHistory.clinicalExam.extraoralExam,
+    intraoralExam: medHistory.clinicalExam.intraoralExam
+  }
 
   const onFinish = values => {
     console.log(values)
+  }
+
+  const dentalPlaqueOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { periodontalExam: { ...medHistory.periodontalExam, dentalPlaque: e.target.checked } } })
+  }
+  const calculusOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { periodontalExam: { ...medHistory.periodontalExam, calculus: e.target.checked } } })
+  }
+  const bleedingOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { periodontalExam: { ...medHistory.periodontalExam, bleeding: e.target.checked } } })
+  }
+  const toothMobilityOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { periodontalExam: { ...medHistory.periodontalExam, toothMobility: e.target.checked } } })
+  }
+  const flossOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { nonPathologicalBackground: { ...medHistory.nonPathologicalBackground, floss: e.target.checked } } })
+  }
+  const mouthwashOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { nonPathologicalBackground: { ...medHistory.nonPathologicalBackground, mouthwash: e.target.checked } } })
   }
 
   return (
@@ -32,10 +59,11 @@ const ClinicalExamForm = ({ prev, medHistory }) => {
       <Form
         form={form}
         layout='vertical'
-        name='contactInformation'
+        name='clinicalExamForm'
         onFinish={onFinish}
         scrollToFirstError
-        initialValues={medHistory}
+        validateMessages={validateMessages}
+        initialValues={clinicalExam}
       >
         <Row>
           <Col offset={6} span={12}>
@@ -64,24 +92,24 @@ const ClinicalExamForm = ({ prev, medHistory }) => {
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='dentalPlaque'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Dental plaque')}</span></Checkbox>
+              <Checkbox checked={medHistory.periodontalExam.dentalPlaque} onChange={dentalPlaqueOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Dental plaque')}</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='calculus'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Calculus')}</span></Checkbox>
+              <Checkbox checked={medHistory.periodontalExam.calculus} onChange={calculusOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Calculus')}</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='bleeding'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Bleeding')}</span></Checkbox>
+              <Checkbox checked={medHistory.periodontalExam.bleeding} onChange={bleedingOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Bleeding')}</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
             <Form.Item {...inputLayout} name='toothMobility'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Tooth mobility')}</span></Checkbox>
+              <Checkbox checked={medHistory.periodontalExam.toothMobility} onChange={toothMobilityOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Tooth mobility')}</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -93,21 +121,19 @@ const ClinicalExamForm = ({ prev, medHistory }) => {
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='floss'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Floss')}</span></Checkbox>
+              <Checkbox checked={medHistory.nonPathologicalBackground.floss} onChange={flossOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Floss')}</span></Checkbox>
             </Form.Item>
           </Col>
           <Col offset={2} span={5}>
-            <Form.Item {...inputLayout} name='mouthWash'>
-              <Checkbox ><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Mouth wash')}</span></Checkbox>
+            <Form.Item {...inputLayout} name='mouthwash'>
+              <Checkbox checked={medHistory.nonPathologicalBackground.mouthwash} onChange={mouthwashOnChange}><span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>{t('Mouth wash')}</span></Checkbox>
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col offset={6} span={5}>
             <Form.Item {...inputLayout} name='brushingFrequency' label={t('Brushing frequency (per day)')} rules={[{ required: true }]}>
-              <Col span={6}>
-                <Select options={brushingFrequencyOptions} />
-              </Col>
+              <Select options={brushingFrequencyOptions} style={{ width: '30%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -130,7 +156,8 @@ const ClinicalExamForm = ({ prev, medHistory }) => {
 
 ClinicalExamForm.propTypes = {
   prev: PropTypes.func,
-  medHistory: PropTypes.object
+  medHistory: PropTypes.object,
+  dispatchMedHistory: PropTypes.func
 }
 
 export default ClinicalExamForm
