@@ -23,7 +23,7 @@ const validateMessages = {
   required: '${label} is required!'
 }
 
-const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory }) => {
+const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory, processMedHistory }) => {
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const clinicalExam = {
@@ -32,7 +32,17 @@ const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory }) => {
   }
 
   const onFinish = values => {
-    console.log(values)
+    const importantValues = {
+      clinicalExam: {
+        extraoralExam: values.extraoralExam,
+        intraoralExam: values.intraoralExam
+      },
+      nonPathologicalBackground: {
+        ...medHistory.nonPathologicalBackground,
+        brushingFrequency: values.brushingFrequency
+      }
+    }
+    processMedHistory({ ...medHistory, ...importantValues })
   }
 
   const dentalPlaqueOnChange = e => {
@@ -157,7 +167,8 @@ const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory }) => {
 ClinicalExamForm.propTypes = {
   prev: PropTypes.func,
   medHistory: PropTypes.object,
-  dispatchMedHistory: PropTypes.func
+  dispatchMedHistory: PropTypes.func,
+  processMedHistory: PropTypes.func
 }
 
 export default ClinicalExamForm

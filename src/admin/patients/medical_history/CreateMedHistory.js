@@ -34,10 +34,14 @@ const CreateMedHistory = () => {
     },
     nonPathologicalBackground: {
       mouthwash: false,
-      floos: false
+      floss: false
     }
   }
-  return <MedHistorySteps initialMedHistory={medHistory} />
+  const processMedHistory = medHistory => {
+    console.log(medHistory)
+  }
+
+  return <MedHistorySteps initialMedHistory={medHistory} processMedHistory={processMedHistory} />
 }
 
 export default CreateMedHistory
