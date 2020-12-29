@@ -23,7 +23,6 @@ const PersonalHistory = ({ diseases, medHistory, dispatchMedHistory }) => {
 
   const onValuesChange = changedValues => {
     dispatchMedHistory({ type: 'UPDATE', updatedValues: { personalHistory: { ...medHistory.personalHistory, ...changedValues } } })
-    console.log(changedValues)
   }
   return (
     <>
@@ -51,6 +50,15 @@ const PersonalHistory = ({ diseases, medHistory, dispatchMedHistory }) => {
                 optionFilterProp='label'
               />
             </Form.Item>
+          </Col>
+        </Row>
+        { medHistory.personalHistory.diseases.length === 0 ? (
+          <Col offset={6} span={5} style={{ marginBottom: '24px' }}>
+            <em>No diseases</em>
+          </Col>
+        ) : null }
+        <Row>
+          <Col offset={6} span={5}>
           </Col>
         </Row>
         <Row>
