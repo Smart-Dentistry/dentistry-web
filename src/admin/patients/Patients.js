@@ -8,6 +8,7 @@ import patientReducer from './patientReducer'
 import EditPatient from './general_info/EditPatient'
 import CreateMedHistory from './medical_history/CreateMedHistory'
 import PatientDetails from '../PatientDetails'
+import MedicalHistoryDetails from './MedicalHistoryDetails'
 
 const Patients = () => {
   const [{ data, loading, error }] = useAxios({
@@ -44,7 +45,7 @@ const Patients = () => {
       <Route
         exact
         path='/admin/patients/:key/med-history/view'
-        render={props => <h1>Medical History</h1> }
+        render={props => <MedicalHistoryDetails {...props} /> }
       />
       <Route
         exact
