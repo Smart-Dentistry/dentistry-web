@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Row, Col } from 'antd'
+import { Typography, Row, Col, Space, Tag } from 'antd'
 import { useParams, useHistory, useLocation, Link } from 'react-router-dom'
 import useAxios from 'axios-hooks'
 
 const { Title } = Typography
 
 const getFullName = patient => `${patient.firstName} ${patient.middleName} ${patient.lastName} ${patient.secondLastName}`
+const RELATIVES = {
+  M: '👩🏼',
+  MGM: '👵🏻',
+  MGF: '👴🏻',
+  F: '👨🏿',
+  FGM: '👵🏿',
+  FGF: '👴🏿',
+  S: '🧒🏽'
+}
 
 const MedicalHistoryDetails = () => {
   const history = useHistory()
@@ -45,6 +54,28 @@ const MedicalHistoryDetails = () => {
         </Col>
       </Row>
       <Title level={4}>Family History</Title>
+      { data.familyHistory.diseases.length > 0 ? (
+        <>
+          <Row style={{ marginBottom: '12px' }}>
+            <Col span={20}>
+              <Space size="middle">
+                <span>Mother 👩🏼</span>
+                <span>Grandma 👵🏻</span>
+                <span>Grandpa 👴🏻</span>
+                <span>Father 👨🏿</span>
+                <span>Grandma 👵🏿</span>
+                <span>Grandpa 👴🏿</span>
+                <span>Siblings 🧒🏽</span>
+              </Space>
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: '24px' }}>
+            <Col span={20}>
+              {data.familyHistory.diseases.map(item => <Tag key={item}>{item.label} {item.relatives.map(relative => RELATIVES[relative])}</Tag>)}
+            </Col>
+          </Row>
+        </>
+      ) : 'No diseases'}
       <Title level={4}>Personal History</Title>
       <Title level={4}>General Practitioners</Title>
       <Title level={4}>Clinical Exam</Title>
