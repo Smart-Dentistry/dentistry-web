@@ -150,13 +150,13 @@ const MedicalHistoryDetails = () => {
           <h4>Extraoral:</h4>
         </Col>
         <Col span={6}>
-          {data.clinicalExam.extraoral ? data.clinicalExam.extraoral : 'No information'}
+          {data.clinicalExam.extraoralExam ? data.clinicalExam.extraoralExam : 'No information'}
         </Col>
         <Col span={24} style={{ marginTop: '12px' }}>
           <h4>Intraoral:</h4>
         </Col>
         <Col span={6}>
-          {data.clinicalExam.intraoral ? data.clinicalExam.intraoral : 'No information'}
+          {data.clinicalExam.intraoralExam ? data.clinicalExam.intraoralExam : 'No information'}
         </Col>
       </Row>
       <Title level={4} style={{ marginTop: '24px' }}>Periodontal Exam</Title>
