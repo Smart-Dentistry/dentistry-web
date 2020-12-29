@@ -30,6 +30,9 @@ const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory, processMedHist
     extraoralExam: medHistory.clinicalExam.extraoralExam,
     intraoralExam: medHistory.clinicalExam.intraoralExam
   }
+  if (medHistory.nonPathologicalBackground.brushingFrequency !== null) {
+    clinicalExam.brushingFrequency = medHistory.nonPathologicalBackground.brushingFrequency
+  }
 
   const onFinish = values => {
     const importantValues = {
@@ -62,6 +65,22 @@ const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory, processMedHist
   }
   const mouthwashOnChange = e => {
     dispatchMedHistory({ type: 'UPDATE', updatedValues: { nonPathologicalBackground: { ...medHistory.nonPathologicalBackground, mouthwash: e.target.checked } } })
+  }
+
+  const previous = () => {
+    const values = form.getFieldsValue()
+    const importantValues = {
+      clinicalExam: {
+        extraoralExam: values.extraoralExam,
+        intraoralExam: values.intraoralExam
+      },
+      nonPathologicalBackground: {
+        ...medHistory.nonPathologicalBackground,
+        brushingFrequency: values.brushingFrequency
+      }
+    }
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { ...medHistory, ...importantValues } })
+    prev()
   }
 
   return (
@@ -149,7 +168,7 @@ const ClinicalExamForm = ({ prev, medHistory, dispatchMedHistory, processMedHist
         </Row>
         <Row>
           <Col offset={6} span={6}>
-            <Button type='primary' onClick={prev}><FontAwesomeIcon icon={faChevronLeft} /></Button>
+            <Button type='primary' onClick={previous}><FontAwesomeIcon icon={faChevronLeft} /></Button>
           </Col>
           <Col span={6}>
             <Row justify='end'>
