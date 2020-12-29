@@ -118,7 +118,7 @@ const GeneralPractitioners = ({ medHistory, dispatchMedHistory }) => {
               >
                 <p>Phone: {item.phone}</p>
                 <p>Specialization: {item.specialization}</p>
-                <p>Observations: {item.observations}</p>
+                { item.observations ? <p>Observations: {item.observations}</p> : null }
               </Card>
             </Col>
           )}
