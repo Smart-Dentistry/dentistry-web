@@ -137,6 +137,20 @@ const MedicalHistoryDetails = () => {
         </Col>
       </Row>
       <Title level={4}>Clinical Exam</Title>
+      <Row>
+        <Col span={24}>
+          Extraoral:
+        </Col>
+        <Col span={6}>
+          {data.clinicalExam.extraoral ? data.clinicalExam.extraoral : 'No information'}
+        </Col>
+        <Col span={24} style={{ marginTop: '12px' }}>
+          Intraoral:
+        </Col>
+        <Col span={6}>
+          {data.clinicalExam.intraoral ? data.clinicalExam.intraoral : 'No information'}
+        </Col>
+      </Row>
       <Title level={4}>Periodontal Exam</Title>
       <Title level={4}>Non-pathological Background</Title>
     </>
