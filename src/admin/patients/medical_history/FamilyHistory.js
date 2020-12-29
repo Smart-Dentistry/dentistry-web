@@ -142,7 +142,11 @@ const FamilyHistory = ({ diseases, setDiseases, medHistory, dispatchMedHistory }
           <Col offset={6} span={12}>
             {familyBackground.map((item, key) => <Tag closable onClose={() => removeFamilyDisease(item, key)} key={item}>{item}</Tag>)}
           </Col>
-        ) : null}
+        ) : (
+          <Col offset={6} span={12}>
+            <em>No diseases</em>
+          </Col>
+        ) }
       </Row>
       <Row>
         <Col offset={6} span={12}>

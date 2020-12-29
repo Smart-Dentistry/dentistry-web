@@ -32,6 +32,10 @@ const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
     }
   }, [diseasesData])
 
+  const appointmentReasonOnChange = e => {
+    dispatchMedHistory({ type: 'UPDATE', updatedValues: { appointmentReason: e.target.value } })
+  }
+
   return (
     <>
       <Row>
@@ -41,7 +45,12 @@ const BackgroundForm = ({ next, medHistory, dispatchMedHistory }) => {
       </Row>
       <Row>
         <Col offset={6} span={12}>
-          <TextArea rows={3} style={ { marginBottom: '24px' } } />
+          <TextArea
+            rows={3}
+            style={ { marginBottom: '24px' } }
+            value={medHistory.appointmentReason}
+            onChange={appointmentReasonOnChange}
+          />
         </Col>
       </Row>
       <FamilyHistory

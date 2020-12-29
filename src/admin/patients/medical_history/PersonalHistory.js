@@ -52,6 +52,15 @@ const PersonalHistory = ({ diseases, medHistory, dispatchMedHistory }) => {
             </Form.Item>
           </Col>
         </Row>
+        { medHistory.personalHistory.diseases.length === 0 ? (
+          <Col offset={6} span={5} style={{ marginBottom: '24px' }}>
+            <em>No diseases</em>
+          </Col>
+        ) : null }
+        <Row>
+          <Col offset={6} span={5}>
+          </Col>
+        </Row>
         <Row>
           <Col offset={6} span={12}>
             <Form.Item {...inputLayout} name='observations' label='Observations'>

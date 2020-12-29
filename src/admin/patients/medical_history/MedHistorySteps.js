@@ -20,7 +20,7 @@ const reducer = (state, action) => {
   }
 }
 
-const MedHistorySteps = ({ initialMedHistory }) => {
+const MedHistorySteps = ({ initialMedHistory, processMedHistory }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [medHistory, dispatchMedHistory] = useReducer(reducer, initialMedHistory)
   const next = () => {
@@ -48,7 +48,7 @@ const MedHistorySteps = ({ initialMedHistory }) => {
               />
             )
           case 1:
-            return <ClinicalExamForm prev={prev} medHistory={medHistory}/>
+            return <ClinicalExamForm prev={prev} medHistory={medHistory} dispatchMedHistory={dispatchMedHistory} processMedHistory={processMedHistory} />
           default:
             return 'Error!'
         }
@@ -58,7 +58,8 @@ const MedHistorySteps = ({ initialMedHistory }) => {
 }
 
 MedHistorySteps.propTypes = {
-  initialMedHistory: PropTypes.object
+  initialMedHistory: PropTypes.object,
+  processMedHistory: PropTypes.func
 }
 
 export default MedHistorySteps
