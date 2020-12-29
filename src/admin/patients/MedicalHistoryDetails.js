@@ -15,7 +15,6 @@ const RELATIVES = {
   FGF: '👴🏿',
   S: '🧒🏽'
 }
-
 const DISEASES = {
   1: 'Diabetes',
   2: 'Hypertension',
@@ -31,6 +30,7 @@ const DISEASES = {
   12: 'Drinker',
   13: 'Smoker'
 }
+const span = 4
 
 const MedicalHistoryDetails = () => {
   const history = useHistory()
@@ -152,6 +152,34 @@ const MedicalHistoryDetails = () => {
         </Col>
       </Row>
       <Title level={4}>Periodontal Exam</Title>
+      <Row>
+        <Col span={span}>
+          <h4>Dental plaque:</h4>
+        </Col>
+        <Col span={span}>
+          { data.periodontalExam.dentalPlaque ? 'Yes' : 'No' }
+        </Col>
+        <Col span={span}>
+          <h4>Calculus:</h4>
+        </Col>
+        <Col span={span}>
+          { data.periodontalExam.calculus ? 'Yes' : 'No' }
+        </Col>
+      </Row>
+      <Row>
+        <Col span={span}>
+          <h4>Bleeding:</h4>
+        </Col>
+        <Col span={span}>
+          { data.periodontalExam.bleeding ? 'Yes' : 'No' }
+        </Col>
+        <Col span={span}>
+          <h4>Tooth mobility:</h4>
+        </Col>
+        <Col span={span}>
+          { data.periodontalExam.toothMobility ? 'Yes' : 'No' }
+        </Col>
+      </Row>
       <Title level={4}>Non-pathological Background</Title>
     </>
   )
