@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typography } from 'antd'
+import { Typography, Row, Col } from 'antd'
 import { useParams, useHistory, useLocation, Link } from 'react-router-dom'
 import useAxios from 'axios-hooks'
 
@@ -38,6 +38,18 @@ const MedicalHistoryDetails = () => {
           {getFullName(patient)}
         </Link>
       </Title>
+      <Title level={4}>First Appointment Reason</Title>
+      <Row>
+        <Col span={6}>
+          <p>{data.appointmentReason ? data.appointmentReason : 'Not specified'}</p>
+        </Col>
+      </Row>
+      <Title level={4}>Family History</Title>
+      <Title level={4}>Personal History</Title>
+      <Title level={4}>General Practitioners</Title>
+      <Title level={4}>Clinical Exam</Title>
+      <Title level={4}>Periodontal Exam</Title>
+      <Title level={4}>Non-pathological Background</Title>
     </>
   )
 }
