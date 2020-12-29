@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Row, Col, Space, Tag } from 'antd'
+import { Typography, Row, Col, Space, Tag, Card } from 'antd'
 import { useParams, useHistory, useLocation, Link } from 'react-router-dom'
 import useAxios from 'axios-hooks'
 
@@ -94,7 +94,7 @@ const MedicalHistoryDetails = () => {
       ) : 'No diseases'}
       <Row>
         <Col span={20}>
-          <p>{data.familyHistory.observations ? data.familyHistory.observations : null }</p>
+          <p>{data.familyHistory.observations ? data.familyHistory.observations : null}</p>
         </Col>
       </Row>
       <Title level={4}>Personal History</Title>
@@ -106,13 +106,36 @@ const MedicalHistoryDetails = () => {
             </Col>
           </Row>
         </>
-      ) : null }
+      ) : null}
       <Row>
         <Col span={20}>
-          <p>{data.personalHistory.observations ? data.personalHistory.observations : null }</p>
+          <p>{data.personalHistory.observations ? data.personalHistory.observations : null}</p>
         </Col>
       </Row>
       <Title level={4}>General Practitioners</Title>
+      <Row>
+        <Col span={12}>
+          {data.generalPractitioners.length > 0 ? (
+            <>
+              <Space direction='vertical' style={{ width: '100%' }}>
+                {data.generalPractitioners.map((item, index) =>
+                  <Col span={12} key={item}>
+                    <Card
+                      size='small'
+                      title={item.name}
+                      key={item}
+                    >
+                      <p>Phone: {item.phone}</p>
+                      <p>Specialization: {item.specialization}</p>
+                      {item.observations ? <p>Observations: {item.observations}</p> : null}
+                    </Card>
+                  </Col>
+                )}
+              </Space>
+            </>
+          ) : 'No general practitioners'}
+        </Col>
+      </Row>
       <Title level={4}>Clinical Exam</Title>
       <Title level={4}>Periodontal Exam</Title>
       <Title level={4}>Non-pathological Background</Title>
