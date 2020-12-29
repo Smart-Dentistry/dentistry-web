@@ -16,6 +16,22 @@ const RELATIVES = {
   S: '🧒🏽'
 }
 
+const DISEASES = {
+  1: 'Diabetes',
+  2: 'Hypertension',
+  3: 'Cardiovascular disease',
+  4: 'Neoplasm',
+  5: 'Epilepsy',
+  6: 'Malformation',
+  7: 'AIDS',
+  8: 'Kidney diseases',
+  9: 'Hepatitis',
+  10: 'Arthritis',
+  11: 'Others',
+  12: 'Drinker',
+  13: 'Smoker'
+}
+
 const MedicalHistoryDetails = () => {
   const history = useHistory()
   const location = useLocation()
@@ -58,7 +74,7 @@ const MedicalHistoryDetails = () => {
         <>
           <Row style={{ marginBottom: '12px' }}>
             <Col span={20}>
-              <Space size="middle">
+              <Space size='middle'>
                 <span>Mother 👩🏼</span>
                 <span>Grandma 👵🏻</span>
                 <span>Grandpa 👴🏻</span>
@@ -76,7 +92,26 @@ const MedicalHistoryDetails = () => {
           </Row>
         </>
       ) : 'No diseases'}
+      <Row>
+        <Col span={20}>
+          <p>{data.familyHistory.observations ? data.familyHistory.observations : null }</p>
+        </Col>
+      </Row>
       <Title level={4}>Personal History</Title>
+      { data.personalHistory.diseases.length > 0 ? (
+        <>
+          <Row style={{ marginBottom: '12px' }}>
+            <Col span={20}>
+              {data.personalHistory.diseases.map(item => <Tag key={item}>{DISEASES[item]}</Tag>)}
+            </Col>
+          </Row>
+        </>
+      ) : null }
+      <Row>
+        <Col span={20}>
+          <p>{data.personalHistory.observations ? data.personalHistory.observations : null }</p>
+        </Col>
+      </Row>
       <Title level={4}>General Practitioners</Title>
       <Title level={4}>Clinical Exam</Title>
       <Title level={4}>Periodontal Exam</Title>
