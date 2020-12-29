@@ -1,5 +1,7 @@
 import React from 'react'
+import { message } from 'antd'
 import { useLocation, useHistory } from 'react-router-dom'
+import useAxios from 'axios-hooks'
 import MedHistorySteps from './MedHistorySteps'
 
 const CreateMedHistory = () => {
@@ -9,8 +11,6 @@ const CreateMedHistory = () => {
     history.push('/admin/patients')
     return <></>
   }
-  const patient = location.state.patient
-  console.log(patient.key)
   const medHistory = {
     appointmentReason: '',
     familyHistory: {
@@ -37,11 +37,25 @@ const CreateMedHistory = () => {
       floss: false
     }
   }
-  const processMedHistory = medHistory => {
-    console.log(medHistory)
+  const patient = location.state.patient
+
+  const [, createNewMedHistory] = useAxios({ url: `/patients/${patient.key}/create_med_history/`, method: 'post' }, { manual: true })
+
+  const createMedHistory = async newMedHistory => {
+    try {
+      await createNewMedHistory({ data: newMedHistory })
+    } catch (error) {
+      message.error('There was an error, please try again.')
+      return
+    }
+    message.success({ content: 'Medical history was created sucessfully', duration: 3 })
+    history.push({
+      pathname: `/admin/patients/${patient.key}/details`,
+      state: { patient }
+    })
   }
 
-  return <MedHistorySteps initialMedHistory={medHistory} processMedHistory={processMedHistory} />
+  return <MedHistorySteps initialMedHistory={medHistory} processMedHistory={createMedHistory} />
 }
 
 export default CreateMedHistory
