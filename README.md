@@ -1,6 +1,6 @@
 # Dentistry Web UI
 
-This is a web UI implemented using [React][] and [Ant Design][] which goal is to help dentists manage their clinics.
+This is a web UI implemented using [React][] and [Ant Design][] which goal is to help dentists manage their clinics. This project could be used as a starting point and a guide for projects related to managing a clinic for dentists or medical practitioners.
 
 ## Getting Started
 
