@@ -75,10 +75,16 @@ The following variables should be defined inside `.env`:
 | ---------------------- | --------------------------- |
 |`REACT_APP_API_URL`     | http://localhost:8000/api   |
 
+## License
+
+Copyright © 2020, [Mathsistor][], All Rights Reserved.
+Unauthorized copying of this file, via any medium is strictly prohibited. ([see license][license])
 
 [Ant Design]: https://ant.design/
 [Git]: https://git-scm.com/downloads
 [i18next-parser]: https://github.com/i18next/i18next-parser
+[license]: ./LICENSE
+[Mathsistor]: http://mathsistor.com/
 [Node.js]: https://nodejs.org/en/
 [React]: https://reactjs.org/
 [Standard JS]: https://standardjs.com/
